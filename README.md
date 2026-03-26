@@ -6,8 +6,10 @@ Escribe aquí una descripción corta del proyecto.
 
 👥 Integrantes
 
-Nombre completo – Código
-Nombre completo – Código
+Paula Yurany Romero Rojas - 1202544
+Laura Segura Castañeda - 1202752
+Nicole Camila Enciso Velandia - 1202795
+
 
 🎯 1. Objetivo General
 
