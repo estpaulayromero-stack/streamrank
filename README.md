@@ -6,10 +6,16 @@ Top10 de peliculas y series actualizado semanalamente utilizando WebScraping.
 
 👥 Integrantes
 
+<<<<<<< HEAD
 
 Paula Yurany Romero Rojas - 1202544
 Laura Segura Castañeda-1202752
 Nicole Camila Enciso Velandia-1202795
+=======
+Paula Yurany Romero Rojas - 1202544
+Laura Segura Castañeda - 1202752
+Nicole Camila Enciso Velandia - 1202795
+>>>>>>> 465647ea9853ed366d3fc8dd6dd5a7d77b528695
 
 
 🎯 1. Objetivo General
