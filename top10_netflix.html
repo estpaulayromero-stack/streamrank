@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamRank - Inicio</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="StreamRank">
+        <span class="brand-icon">
+          <img src="assets/icons/Clapperboard.svg" alt="StreamRank icon" />
+        </span>
+        <span class="brand-title"><span>Stream</span><span>Rank</span></span>
+      </div>
+
+      <div class="header-nav-row">
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html" class="nav-link active">Inicio</a>
+          <a href="top10.html" class="nav-link">Top 10</a>
+          <a href="mis-listas.html" id="linkMisListas" class="nav-link">
+            <span class="nav-icon">
+              <img src="assets/icons/Menu.svg" alt="Mis Listas icon" />
+            </span>
+            Mis Listas
+          </a>
+        </nav>
+
+        <form class="search-form" id="searchForm">
+          <label class="search-field">
+            <span class="search-icon">
+              <img src="assets/icons/Busqueda.svg" alt="Buscar icon" />
+            </span>
+            <input id="searchInput" type="search" placeholder="Buscar" aria-label="Buscar" autocomplete="off" />
+          </label>
+        </form>
+      </div>
+
+      <button class="profile-button" id="btnIngresar" type="button">
+        <span class="profile-icon">
+          <img src="assets/icons/Perfil.svg" alt="Perfil icon" />
+        </span>
+        Username
+      </button>
+    </div>
+  </header>
+
+  <main class="page-content">
+    
+    <section class="hero-plataforma">
+      <div class="hero-plataforma-info">
+        <a href="top10.html" class="btn-back">← Volver a categorías</a>
+        <h1 class="hero-title-gradient">Top 10: Netflix</h1>
+      </div>
+    </section>
+
+    <section class="filters-section">
+        
+        <div class="filters-top-wrapper">
+            
+            <div class="content-type-toggle">
+                
+                <button class="toggle-btn active">
+                    <span class="icon">
+                        <img src="assets/icons/general.svg" alt="Todos">
+                    </span>
+                    <span class="btn-text">Todos</span>
+                </button>
+                
+                <button class="toggle-btn">
+                    <span class="icon">
+                        <img src="assets/icons/Pelicula.svg" alt="Películas">
+                    </span>
+                    <span class="btn-text">Películas</span>
+                </button>
+                
+                <button class="toggle-btn">
+                    <span class="icon">
+                        <img src="assets/icons/Series.svg" alt="Series">
+                    </span>
+                    <span class="btn-text">Series</span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="filters-bottom-wrapper">
+            
+            <div class="filters-dropdown-group">
+                
+                <button class="dropdown-btn">
+                    <div class="dropdown-content-left">
+                        <img src="assets/icons/Filtrar.svg" alt="Filtro">
+                        <span class="btn-text">Escoge un Género</span>
+                    </div>
+                    <img src="assets/icons/Desplegar.svg" alt="Desplegar">
+                </button>
+
+                <button class="dropdown-btn">
+                    <div class="dropdown-content-left">
+                        <img src="assets/icons/Duracion.svg" alt="Reloj">
+                        <span class="btn-text">Escoge una Duración</span>
+                    </div>
+                    <img src="assets/icons/Desplegar.svg" alt="Desplegar">
+                </button>
+
+            </div>
+
+            <div class="filters-sort-group">
+                
+                <div class="sort-toggle-wrapper">
+                    
+                    <button class="sort-btn active">
+                        <img src="assets/icons/Rating.svg" alt="Rating">
+                        <span class="btn-text">Rating</span>
+                    </button>
+                    
+                    <button class="sort-btn">
+                        <img src="assets/icons/Popularidad.svg" alt="Popularidad">
+                        <span class="btn-text">Popularidad</span>
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+      <div id="topList"></div>
+     </section>
+    </main>
+
+  <footer class="footer">
+    <p class="footer-text">StreamRank ofrece las mejores listas y rankings de contenido audiovisual.</p>
+    <p class="footer-text">Diseñado para una experiencia clara, rápida y moderna.</p>
+  </footer>
+
+<!-- MODAL FLOTANTE - UN SOLO MODAL PARA TODAS LAS CARTAS -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="floating-card">
+    <div class="modal-header">
+      <button class="modal-close-btn" id="closeModalBtn">✕</button>
+    </div>
+    <div class="modal-content">
+      <!-- Tags -->
+      <div class="modal-tags">
+        <span class="tag-type" id="modalType">SERIE</span>
+        <span class="tag-genre" id="modalGenre">• Drama</span>
+      </div>
+
+      <!-- Título -->
+      <h3 class="info-title" id="modalTitle">Breaking Bad</h3>
+
+      <!-- Rating + Duración -->
+      <div class="modal-rating-duration">
+        <div class="info-rating">
+          <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
+          <span class="rating-text" id="modalRating">9.5</span>
+        </div>
+        <div class="modal-duration-badge">
+          <img src="assets/icons/Duracion.svg" alt="Duración" class="duration-icon">
+          <span id="modalDuration">160min</span>
+        </div>
+      </div>
+
+      <!-- Descripción larga (se actualiza dinámicamente) -->
+      <p class="info-desc" id="modalDesc"></p>
+
+      <!-- Tráiler (se actualiza dinámicamente) -->
+      <div class="trailer-wrapper">
+        <iframe id="trailerIframe" src="https://www.youtube.com/embed/HhesaQXLuRY" title="Trailer" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+ <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  document.addEventListener('click', function (e) {
+
+    const button = e.target.closest('.btn-secondary');
+
+    if (!button) return;
+
+    button.classList.toggle('added');
+
+    const icon = button.querySelector('.icon');
+    const text = button.querySelector('.btn-text');
+
+    if (!icon || !text) return;
+
+    if (button.classList.contains('added')) {
+
+      icon.innerHTML = `
+        <img src="assets/icons/agregada.svg" alt="Agregado"
+        style="width: 20px; height: 20px; object-fit: contain;" />
+      `;
+
+      text.textContent = 'Agregado';
+
+    } else {
+
+      icon.innerHTML = `
+        <img src="assets/icons/agregar.svg" alt="Agregar"
+        style="width: 20px; height: 20px; object-fit: contain;" />
+      `;
+
+      text.textContent = 'Agregar a la lista';
+    }
+  });
+
+});
+</script>
+
+ <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  document.addEventListener('click', function (e) {
+
+    const button = e.target.closest('.btn-bookmark');
+
+    if (!button) return;
+
+    e.stopPropagation();
+
+    button.classList.toggle('active');
+
+    const icon = button.querySelector('img');
+
+    if (!icon) return;
+
+    if (button.classList.contains('active')) {
+      icon.src = 'assets/icons/agregada.svg';
+    } else {
+      icon.src = 'assets/icons/agregar.svg';
+    }
+  });
+
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const modalOverlay = document.getElementById('modalOverlay');
+  const closeBtn = document.getElementById('closeModalBtn');
+
+  const modalType = document.getElementById('modalType');
+  const modalGenre = document.getElementById('modalGenre');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalRating = document.getElementById('modalRating');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalDuration = document.getElementById('modalDuration');
+  const trailerIframe = document.getElementById('trailerIframe');
+
+  const contenedor = document.getElementById("topList");
+
+  // =========================
+  // 🔥 SCRAPING (JSON)
+  // =========================
+  async function cargarDatos() {
+    try {
+
+      const res = await fetch("netflix_top.json");
+      const data = await res.json();
+
+      contenedor.innerHTML = "";
+
+      data.forEach(item => {
+
+        const card = document.createElement("article");
+        card.className = "movie-card";
+
+        // dataset (IMPORTANTE PARA MODAL)
+        card.dataset.title = item.titulo;
+        card.dataset.type = "Netflix";
+        card.dataset.genre = "Top Netflix";
+        card.dataset.rating = "-";
+        card.dataset.duration = "120min";
+        card.dataset.description = `Contenido obtenido por web scraping: ${item.titulo}`;
+        card.dataset.trailer = "https://www.youtube.com/embed/HhesaQXLuRY";
+
+        card.innerHTML = `
+          <div class="card-number">${item.posicion}</div>
+
+          <div class="card-info">
+            <h3 class="info-title">${item.titulo}</h3>
+
+            <p class="info-desc">Dato obtenido por scraping</p>
+
+            <div class="info-rating">
+              <div class="rating-icon">
+                <img src="assets/icons/Estrella.svg" alt="Star">
+              </div>
+              <span class="rating-text">-</span>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span class="tag-platform">NETFLIX</span>
+          </div>
+        `;
+
+        // MODAL CLICK
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-bookmark')) return;
+          openModal(card);
+        });
+
+        contenedor.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error("Error scraping JSON:", err);
+      contenedor.innerHTML = "<p>Error cargando datos</p>";
+    }
+  }
+
+  cargarDatos();
+
+  // =========================
+  // 🔥 MODAL
+  // =========================
+  function openModal(card) {
+
+    modalType.textContent = card.dataset.type || "Netflix";
+    modalGenre.textContent = card.dataset.genre || "";
+    modalTitle.textContent = card.dataset.title || "";
+    modalRating.textContent = card.dataset.rating || "-";
+    modalDuration.textContent = card.dataset.duration || "";
+    modalDesc.textContent = card.dataset.description || "";
+    trailerIframe.src = card.dataset.trailer || "";
+
+    modalOverlay.classList.add('active');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    document.body.classList.remove('modal-open');
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // =========================
+  // 🔥 FAVORITOS (FIXED)
+  // =========================
+  document.addEventListener('click', function (e) {
+
+    const btn = e.target.closest('.btn-bookmark');
+    if (!btn) return;
+
+    btn.classList.toggle('active');
+
+    const icon = btn.querySelector('img');
+    if (!icon) return;
+
+    icon.src = btn.classList.contains('active')
+      ? 'assets/icons/agregada.svg'
+      : 'assets/icons/agregar.svg';
+  });
+
+  // =========================
+  // 🔥 FILTRO BÁSICO (FIXED)
+  // =========================
+  window.filtrarCartas = function () {
+
+    const tipoActivo = document.querySelector('.toggle-btn.active')?.dataset.tipo || 'todos';
+
+    document.querySelectorAll('.movie-card').forEach(card => {
+
+      const tipo = card.dataset.type?.toLowerCase();
+
+      let visible = true;
+
+      if (tipoActivo === 'peliculas' && tipo !== 'película') visible = false;
+      if (tipoActivo === 'series' && tipo !== 'serie') visible = false;
+
+      card.style.display = visible ? "" : "none";
+    });
+  };
+
+  // =========================
+  // 🔥 TOGGLES
+  // =========================
+  const tipoMap = {
+    'Todos': 'todos',
+    'Películas': 'peliculas',
+    'Series': 'series'
+  };
+
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+
+    btn.dataset.tipo =
+      tipoMap[btn.querySelector('.btn-text')?.textContent.trim()] || 'todos';
+
+    btn.addEventListener('click', () => {
+
+      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      filtrarCartas();
+    });
+  });
+
+});
+
+</script>
+
+  <!-- AUTH MODALS -->
+  <div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" style="display:none;"></div>
+
+  <div id="modalLogin" class="modal-login" style="display:none;">
+    <button class="modal-cerrar" type="button" onclick="cerrarModal()">✕</button>
+    <div class="modal-contenido">
+      <div class="modal-encabezado">
+        <h2 class="modal-titulo">Bienvenido de nuevo</h2>
+        <p class="modal-subtitulo">Ingresa tus credenciales para acceder a tu cuenta.</p>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="loginEmail">Correo electrónico</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">✉</span>
+          <input class="modal-input" id="loginEmail" type="email" placeholder="tu@correo.com" />
+          <small id="loginEmailError" style="color:red; display:none; font-size:12px;">El correo debe contener "@gmail"</small>
+        </div>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="loginPassword">Contraseña</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">🔒</span>
+          <input class="modal-input" id="loginPassword" type="password" placeholder="••••••••" />
+          <small id="loginPassError" style="color:red; display:none; font-size:12px;">La contraseña debe tener mínimo 8 caracteres</small>
+        </div>
+      </div>
+      <button class="modal-btn-ingresar" type="button" onclick="simularLogin()">Ingresar</button>
+      <p class="modal-pie">¿No tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="abrirRegistro()">Regístrate aquí</a></p>
+    </div>
+  </div>
+
+  <div id="modalRegistro" class="modal-login" style="display:none;">
+    <button class="modal-cerrar" type="button" onclick="cerrarRegistro()">✕</button>
+    <div class="modal-contenido">
+      <div class="modal-encabezado">
+        <h2 class="modal-titulo">Crear una cuenta</h2>
+        <p class="modal-subtitulo">Regístrate por primera vez con tu correo electrónico.</p>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="regEmail">Correo electrónico</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">✉</span>
+          <input class="modal-input" id="regEmail" type="email" placeholder="tu@correo.com" />
+        </div>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="regPassword">Contraseña</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">🔒</span>
+          <input class="modal-input" id="regPassword" type="password" placeholder="••••••••" />
+        </div>
+      </div>
+      <button class="modal-btn-ingresar" type="button" onclick="simularRegistro()">Registrarse</button>
+      <p class="modal-pie">¿Ya tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="irALogin()">Ingresa aquí</a></p>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

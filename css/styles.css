@@ -1,0 +1,2000 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+  /* Colores */
+  --color-bg: #020618;
+  --color-surface: #0F172B;
+  --color-brand: #E7000B;
+  --color-brand-dark: #D00000;
+  --color-text-primary: #ffffff;
+  --color-text-muted: #8D95A5;
+  --color-text-placeholder: #455172;
+  --color-text-footer: #62748E;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.2);
+  --color-surface-hover: rgba(255, 255, 255, 0.05);
+  --color-topbar-bg: rgba(2, 6, 24, 0.8);
+  --color-search-bg: rgba(15, 23, 43, 0.8);
+
+  /* Tipografía */
+  --font-main: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Bordes redondeados */
+  --radius-sm: 8px;
+  --radius-md: 9.1px;
+  --radius-pill: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: var(--font-main);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+.page-content {
+  flex: 1;
+}
+
+/* --- ESTILOS DE TU HEADER --- */
+.topbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  padding: 20px;
+  width: 100%;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-topbar-bg);
+}
+
+.topbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  row-gap: 74px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  row-gap: 74px;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.brand-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4.9px;
+  gap: 7px;
+  border-radius: var(--radius-md);
+  background: var(--color-brand);
+}
+
+.brand-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.brand-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 21.682px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.brand-title span:first-child {
+  color: var(--color-text-primary);
+}
+
+.brand-title span:last-child {
+  color: var(--color-brand-dark);
+}
+
+.header-nav-row {
+  display: flex;
+  width: 612px;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  row-gap: 19px;
+  flex-wrap: wrap;
+}
+
+.main-nav {
+  display: flex;
+  width: 256px;
+  height: 25px;
+  padding: 0 4px;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-between;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  min-height: 25px;
+  color: var(--color-text-muted); 
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s;  
+}
+
+.nav-link.active, 
+.nav-link:hover {
+  color: var(--color-text-primary); 
+}
+
+.nav-link.active .nav-icon img,
+.nav-link:hover .nav-icon img {
+  filter: brightness(1.5); 
+}
+
+.nav-icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-icon img,
+.search-icon img,
+.profile-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.search-form {
+  display: flex;
+  width: 324px;
+  height: 39px;
+  flex-shrink: 0;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-search-bg);
+  cursor: text;
+}
+
+.search-field input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+}
+
+.search-field input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.search-field:focus-within {
+  border-color: var(--color-border-hover);
+}
+
+.search-icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+}
+
+.profile-button {
+  display: flex;
+  height: 25px;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+  column-gap: 6px;
+  flex-wrap: wrap;
+  color: var(--color-text-muted);
+  font-size: 16px;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-icon {
+  display: inline-flex;
+  width: 16.7px;
+  height: 16.7px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- ESTILOS DE TU FOOTER --- */
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  padding: 20px;
+  height: 120px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-text {
+  flex: 1 0 0;
+  color: var(--color-text-footer);
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+}
+
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    align-self: stretch;
+    width: 100%;
+    padding-bottom: 60px; 
+}
+
+/* ============================================================== */
+/* NUEVA SECCIÓN HERO                         */
+/* ============================================================== */
+
+.hero {
+    display: flex;
+    padding: 60px 40px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch; 
+    box-sizing: border-box;
+}
+
+/* --- CONTENEDOR INFO --- */
+.hero-info {
+    display: flex;
+    padding: 0 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 7px;
+    flex: 1 0 0;
+}
+
+/* TAG / BOTÓN SUPERIOR */
+.hero-tag {
+    display: flex;
+    height: 34px;
+    padding: 6px 16px;
+    justify-content: center;
+    align-items: center;
+    column-gap: 6px;
+    flex-wrap: wrap;
+    border-radius: 33px;
+    border: 1px solid rgba(251, 44, 54, 0.30);
+    background: rgba(231, 0, 11, 0.20);
+
+    color: #FF6467;
+    text-align: center;
+    font-family: var(--font-main); /* Usa la variable que ya incluye Inter */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 2px;
+}
+
+/* TÍTULO Y DESCRIPCIÓN */
+.hero-title-container, .hero-desc-container {
+    display: flex;
+    padding: 10px 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.hero-title {
+    align-self: stretch;
+    color: var(--color-text-primary);
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 90px;
+    letter-spacing: -1.8px;
+    margin: 0;
+}
+
+.hero-description {
+    align-self: stretch;
+    color: #CAD5E2;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 32.5px;
+    margin: 0;
+}
+
+/* --- BOTONES --- */
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    align-self: stretch;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.btn {
+    display: flex;
+    height: 58px;
+    padding: 8px 32px;
+    justify-content: center;
+    align-items: center;
+    column-gap: 6px;
+    flex-wrap: wrap;
+    border-radius: 33px;
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-primary); 
+    transition: transform 0.2s, background 0.2s; /* Un toque de interactividad */
+}
+
+.btn:hover {
+    transform: scale(1.02);
+}
+
+.btn-primary { background: var(--color-brand); }
+.btn-secondary { background: #959191; }
+.btn.btn-secondary.added {
+    border: 1px solid rgba(251, 44, 54, 0.30);
+    background: rgba(231, 0, 11, 0.20);
+    color: #FF6467;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); 
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- CONTENEDOR IMAGEN --- */
+.hero-image-container {
+    display: flex;
+    padding: 1px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1 0 0;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.00);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%; /* Asegura que tome todo el ancho de su contenedor */
+    height: 382.967px;
+    align-self: stretch;
+    aspect-ratio: 87 / 49;
+    
+    /* Estas dos líneas hacen la magia de no deformar la imagen */
+    object-fit: cover;
+    object-position: center; 
+    
+    border-radius: 23px; 
+    background-color: lightgray; /* Color de fondo por si la imagen tarda en cargar */
+}
+
+/* ============================================================== */
+/* SECCIÓN FILTROS                                                */
+/* ============================================================== */
+
+/* Contenedor principal de toda la sección */
+.filters-section {
+    display: flex;
+    padding: 20px 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    align-self: stretch;
+    box-sizing: border-box;
+}
+
+/* Primer contenedor (El borde sutil que envuelve el toggle) */
+.filters-top-wrapper {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    align-content: center;
+    gap: 19px;
+    flex-wrap: wrap;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Contenedor de los 3 botones */
+.content-type-toggle {
+    display: flex;
+    width: 413px;
+    align-items: center;
+    align-content: center;
+    gap: 19px;
+    flex-wrap: wrap;
+    border-radius: 12px;
+    background: #454953;
+}
+
+/* Estilo base para los botones (Películas y Series) */
+.toggle-btn {
+    display: flex;
+    width: 125px; 
+    height: 40px;
+    padding: 0 16px; /* Ajustado para no romper el centrado vertical */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    gap: 6px; /* Espacio entre el icono y el texto */
+    
+    border-radius: 12px;
+    background: transparent; /* Lo hacemos transparente porque el contenedor ya es gris */
+    border: none;
+    cursor: pointer;
+    
+    /* Tipografía */
+    color: #9CA3AF; /* Gris claro, ajusta si tienes una variable */
+    font-family: var(--font-main);
+    font-size: 16px;
+    font-weight: 500;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Estilo específico para el botón ACTIVO (Todos) */
+.toggle-btn.active {
+    flex: 1 0 0; /* Hace que llene el espacio disponible */
+    background: #E7000B; 
+    color: #FFFFFF; 
+}
+
+/* Evitar que los íconos se deformen */
+.toggle-btn .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Controla el tamaño de las imágenes dentro de los íconos de los filtros */
+.toggle-btn .icon img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/* Pequeño efecto hover para los botones inactivos */
+.toggle-btn:not(.active):hover {
+    background: #565a66;
+    color: var(--color-text-primary);
+}
+
+/* ============================================================== */
+/* SEGUNDO CONTENEDOR: BARRA DE FILTROS INFERIOR                  */
+/* ============================================================== */
+
+/* Contenedor principal (Fondo oscuro) */
+.filters-bottom-wrapper {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between; /* Esta es la clave para separar los grupos a los extremos */
+    align-items: flex-start;
+    align-content: space-between;
+    align-self: stretch;
+    flex-wrap: wrap;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: #060B1E;
+}
+
+/* ================= GRUPO IZQUIERDO ================= */
+.filters-dropdown-group {
+    display: flex;
+    padding: 12px 0;
+    align-items: center;
+    align-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Botones desplegables (Género, Duración) */
+.dropdown-btn {
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 57px; /* Separación larga entre el texto y la flecha */
+    border-radius: 14px;
+    background: #020618;
+    border: none;
+    cursor: pointer;
+    
+    color: var(--color-text-muted, #9CA3AF); /* Usamos gris claro para el texto */
+    font-family: var(--font-main);
+    font-size: 16px;
+    transition: background 0.2s ease;
+}
+
+.dropdown-btn:hover {
+    background: #1B1F2F;
+}
+
+/* Envoltorio para el icono y el texto dentro del botón */
+.dropdown-content-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ================= GRUPO DERECHO ================= */
+.filters-sort-group {
+    display: flex;
+    padding: 12px 0;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Contenedor de los botones de ordenamiento */
+.sort-toggle-wrapper {
+    display: flex;
+    height: 44px;
+    padding: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    border-radius: 14px;
+    background: #020618;
+}
+
+/* Botones de ordenamiento (Rating, Popularidad) */
+.sort-btn {
+    display: flex;
+    padding: 8px 11px; /* Añadí un ligero padding vertical para que tome forma */
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+    column-gap: 6px;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    background: transparent; /* Transparente por defecto */
+    border: none;
+    cursor: pointer;
+    
+    color: var(--color-text-muted, #9CA3AF);
+    font-family: var(--font-main);
+    font-size: 16px;
+}
+
+/* Botón de ordenamiento activo (Rating) */
+.sort-btn.active {
+    background: #1B1F2F;
+    color: var(--color-text-primary, #FFFFFF);
+}
+
+/* Regla general para mantener los íconos de esta sección en su tamaño correcto */
+.filters-bottom-wrapper img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/* ============================================================== */
+/* SECCIÓN TOP 10 - TARJETA MAESTRA                               */
+/* ============================================================== */
+
+/* Esta es la sección que envuelve a la lista */
+.top-10-section {
+    display: flex;
+    padding: 20px 40px; /* Mismo padding horizontal que los demás */
+    flex-direction: column;
+    align-self: stretch;
+    box-sizing: border-box;
+}
+/* Contenedor que agrupa las 10 tarjetas */
+.top-10-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px; /* Esto se encarga de separar cada carta automáticamente */
+    align-self: stretch;
+    padding: 0px;
+}
+
+/* Contenedor principal de la tarjeta */
+.movie-card {
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: #060B1E;
+    /* margin-bottom eliminado */
+}
+
+/* 1. Círculo con número */
+.card-number {
+    display: flex;
+    width: 57px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px; /* Redondeado tipo píldora/círculo */
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: #1D293D;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10);
+    
+    /* Tipografía */
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+/* 2. Contenedor de la imagen */
+.card-image-wrapper {
+    display: flex;
+    width: 140px;
+    height: 205px;
+    padding: 1px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.00);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden; /* Para que la imagen no se salga de los bordes redondeados */
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 23px; /* Un px menos que el contenedor para encajar perfecto */
+}
+
+/* 3. Información de la tarjeta (Centro) */
+.card-info {
+    display: flex;
+    padding: 7px 17px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 7px;
+    flex: 1 0 0; /* Empuja el contenedor derecho hacia el borde */
+}
+
+/* 3.1 Contenedor de los tags superiores */
+.info-top-tags {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 7px;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+
+
+.tag-type {
+    display: flex;
+    height: 34px;
+    padding: 4px 10px; /* Ajustado para dar el mismo respiro del Hero */
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px; /* Radio típico del tag del Hero */
+    background: rgba(231, 0, 11, 0.20); /* Fondo rojizo translúcido */
+    
+    color: #FF6467; 
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; /* Ajustado a lo que pediste */
+    font-weight: 700;
+    letter-spacing: 1px; /* Un poco de espaciado para que resalte más */
+}
+
+.tag-genre {
+    display: flex;
+    height: 34px;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32.5px;
+}
+
+/* 3.2 Título */
+.info-title {
+    align-self: stretch;
+    margin: 0;
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32.5px;
+}
+
+/* 3.3 Descripción */
+.info-desc {
+    align-self: stretch;
+    margin: 0;
+    color: #CAD5E2;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 32.5px;
+}
+
+/* 3.4 Tag de Rating - CORREGIDO (centrado perfecto) */
+.info-rating {
+  display: inline-flex;        /* Cambia de 'flex' a 'inline-flex' */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 12px;             /* Ajusta el padding horizontal */
+  border-radius: 8px;
+  border: 1px solid rgba(240, 177, 0, 0.20);
+  background: rgba(240, 177, 0, 0.10);
+  flex-wrap: nowrap;           /* Evita que se envuelva */
+}
+
+.rating-icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rating-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.rating-text {
+  line-height: 1;
+  color: #F0B100;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* 4. Contenedor de la Derecha */
+.card-actions {
+    display: flex;
+    height: 85px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tag-platform {
+    display: flex;
+    height: 34px;
+    padding: 5px 10px;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+    column-gap: 6px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    
+    border-radius: 6px;
+    background: #E7000B; /* Rojo Netflix */
+    color: #FFF;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 2px;
+}
+
+.btn-bookmark {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    border: 1px solid #D9C7C7;
+    background: #959191;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-bookmark.active {
+    background: rgba(231, 0, 11, 0.20); /* Fondo rojizo oscuro translúcido */
+    border: 1px solid rgba(251, 44, 54, 0.30); /* Borde rojo vivo */
+}
+
+.btn-bookmark.active:hover {
+    background: rgba(231, 0, 11, 0.15); /* Mismo fondo rojizo */
+    border: 1px solid #E7000B;          /* Mismo borde rojo */
+    
+}
+
+
+.btn-bookmark {
+    /* ... (tus estilos actuales) ... */
+    transition: all 0.3s ease; 
+}
+
+.btn-bookmark:hover {
+    background: #7a7676;
+}
+
+.bookmark-icon {
+    width: 10.438px;
+    height: 18.425px;
+    flex-shrink: 0;
+}
+
+/* ========== MODAL CON SCROLL FUNCIONAL ========== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s, opacity 0.25s ease;
+  padding: 1.5rem;
+}
+
+.modal-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.floating-card {
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  background: #0F172B;
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transform: scale(0.95);
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.active .floating-card {
+  transform: scale(1);
+}
+
+/* Cabecera fija con la X */
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 1rem 0 1rem;
+  background: #0F172B;
+  flex-shrink: 0;
+}
+
+.modal-close-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: #E7000B;
+  transform: scale(1.05);
+}
+
+/* Contenido scrollable */
+.modal-content {
+  padding: 0 2rem 2rem 2rem;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Scrollbar personalizada */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-content::-webkit-scrollbar-track {
+  background: #1e2a3a;
+  border-radius: 10px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: #E7000B;
+  border-radius: 10px;
+}
+
+/* Tags dentro del modal */
+.modal-tags {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Título dentro del modal */
+.modal-content .info-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Contenedor de rating + duración en el modal */
+.modal-rating-duration {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Reutilizamos la misma clase .info-rating (ya corregida arriba) */
+/* Solo para la duración, creamos una clase específica del modal */
+.modal-duration-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid #CAD5E2;
+  background: none;
+  color: #CAD5E2;;
+}
+
+.modal-duration-badge .duration-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-duration-badge .duration-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.modal-duration-badge span {
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  color: inherit;
+}
+
+/* Descripción larga dentro del modal */
+.modal-content .info-desc {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #CAD5E2;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Contenedor del trailer */
+.trailer-wrapper {
+  margin-top: 0.5rem;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.trailer-wrapper iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: none;
+}
+
+/* Responsive */
+@media (max-width: 550px) {
+  .modal-content {
+    padding: 0 1.2rem 1.2rem 1.2rem;
+  }
+  .modal-content .info-title {
+    font-size: 1.8rem;
+  }
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ========== ESTILOS PARA LA SECCIÓN TOP 10 (PLATAFORMAS, ESTUDIOS, SAGAS) ========== */
+.top10-categories {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  align-self: stretch;
+}
+
+.category-container {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #060B1E;
+}
+
+.category-title {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  align-content: space-between;
+  column-gap: 6px;
+  align-self: stretch;
+  flex-wrap: wrap;
+  color: #8D95A5;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.cards-wrapper {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 24px;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+.platform-card {
+  display: flex;
+  width: 292px;
+  height: 158px;
+  padding: 24px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 4px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-size: cover;
+  background-position: center;
+  /* Gradiente oscuro para mejorar legibilidad del texto */
+  background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
+}
+
+.platform-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+/* Fondos específicos para cada carta (puedes cambiarlos por imágenes reales) */
+.card-netflix { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/commons/1/15/Logonfx.png'); }
+.card-disney { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://www.digital-news.it/img/primo_piano/foto_grandi/2020/03/1583404857-disney.jpg'); }
+.card-hbo { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://wallpapercat.com/w/full/3/d/7/1263360-3840x2160-desktop-4k-hbo-wallpaper.jpg'); }
+.card-amazon { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/prime-video.png'); }
+.card-marvel { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/commons/b/b1/Marvel_Studios_Inc.webp'); }
+.card-Warner { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://entertainment.time.com/wp-content/uploads/sites/3/2012/09/warner_bros-_pictures_intro.jpg?w=720&h=480&crop=1'); }
+.card-starwars { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://static.wikia.nocookie.net/esstarwars/images/4/42/StarWarsOpeningLogo.svg/revision/latest?cb=20161007015630'); }
+.card-universal { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/img_4543png.png'); }
+
+/* ── DROPDOWNS ── */
+.dropdown-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #0F172B;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 100;
+  min-width: 200px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-option {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.dropdown-option:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+
+.card-subtitle {
+  display: flex;
+  width: 244px;
+  height: 16px;
+  align-items: flex-start;
+  flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Colores específicos para cada categoría */
+.subtitle-plataforma { color: #FF6467; }
+.subtitle-estudio { color: #5686E1; }
+.subtitle-saga { color: #8B2CF4; }
+
+.card-title {
+  flex: 1 0 0;
+  color: #FFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .platform-card {
+    width: 100%;
+    height: auto;
+    min-height: 120px;
+  }
+  .card-subtitle, .card-title {
+    width: auto;
+  }
+}
+
+/* ========== NUEVO HERO PARA PLATAFORMAS ========== */
+.hero-plataforma {
+  display: flex;
+  padding: 60px 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.hero-plataforma-info {
+  display: flex;
+  padding: 0 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  align-self: stretch;
+}
+
+.btn-back {
+  display: flex;
+  height: 25px;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+  column-gap: 6px;
+  flex-wrap: wrap;
+  color: #90A1B9;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-decoration: none;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-back:hover {
+  color: #ffffff;
+}
+
+.hero-title-gradient {
+  align-self: stretch;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 90px;
+  letter-spacing: -1.8px;
+  background: linear-gradient(90deg, #FB2C36 0%, #F54900 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .hero-title-gradient {
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
+/* ══════════════════════════════
+    SECCIÓN: MIS LISTAS (Agregados, Historial, Tops)
+   ══════════════════════════════ */
+/* ══════════════════════════════
+   MIS LISTAS
+══════════════════════════════ */
+
+.listas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 40px 0;
+}
+
+.listas-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.listas-tabs {
+  display: flex;
+  gap: 16px;
+  padding: 24px 40px;
+}
+
+.listas-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.listas-tab:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+}
+
+.listas-tab.active {
+  background: var(--color-brand);
+  color: #ffffff;
+}
+
+.listas-seccion {
+  padding: 32px 40px;
+}
+
+/* Estado vacío — una sola definición */
+.listas-vacia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.listas-vacia-icono {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.listas-vacia-texto {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.listas-vacia-subtexto {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  max-width: 300px;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+/* Tarjetas de agregados */
+.lista-card-agregados {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+  gap: 24px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #060B1E;
+  margin-bottom: 16px;
+}
+
+.agregados-img {
+  width: 80px;
+  height: 110px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.agregados-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.agregados-tag {
+  color: var(--color-brand);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.agregados-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+}
+
+.agregados-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.pildora-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1.2px solid #f5c518;
+  padding: 2px 10px;
+  border-radius: 50px;
+  width: fit-content;
+}
+
+.pildora-rating .estrella,
+.pildora-rating .valor {
+  color: #f5c518;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.agregados-acciones {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.btn-status-visto {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(231, 0, 11, 0.15);
+  color: #E7000B;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-status-visto:hover {
+  background: rgba(231, 0, 11, 0.25);
+}
+
+.btn-status-eliminar {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-status-eliminar:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.plataforma-badge {
+  background: var(--color-brand);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 900;
+  align-self: center;
+  flex-shrink: 0;
+}
+/* ══ HISTORIAL CARDS ══ */
+.historial-card {
+  background: #0F172B;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.historial-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.historial-img {
+  width: 64px;
+  height: 90px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.historial-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+.historial-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.historial-fecha {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.historial-controles {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.historial-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rating-label {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.rating-numeros {
+  display: flex;
+  gap: 4px;
+}
+
+.rating-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-num:hover {
+  border-color: #f5c518;
+  color: #f5c518;
+}
+
+.rating-num.activo {
+  background: #f5c518;
+  border-color: #f5c518;
+  color: #000000;
+}
+
+/* Botón reacción */
+.btn-reaccion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-reaccion:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-reaccion.encanto {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #ffffff;
+}
+
+/* Notas diario */
+.historial-notas {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notas-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.notas-textarea {
+  width: 100%;
+  min-height: 80px;
+  background: #020618;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px;
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.notas-textarea:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.notas-textarea::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+
+/* Tops personalizados */
+.crear-top-wrapper {
+  padding: 0 0 24px;
+}
+
+.btn-crear-vacio {
+  width: 100%;
+  padding: 40px;
+  background: transparent;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-crear-vacio:hover {
+  border-color: var(--color-brand);
+  color: var(--color-text-primary);
+}
+
+.icon-plus {
+  font-size: 32px;
+  font-weight: 200;
+}
+
+.listas-top-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+.top-card-diseno {
+  display: flex;
+  width: 100%; /* Ajustado para el grid, o 596px si es fijo */
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 20px;
+  
+  /* Estilo visual solicitado */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: #0F172B;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.10), 
+              0 8px 10px -6px rgba(0, 0, 0, 0.10);
+}
+.lista-card-nombre {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.lista-card-meta {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+/* Formulario */
+.listas-form-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--color-border);
+}
+
+.listas-form-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.btn-guardar-top {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(231, 0, 11, 0.15); /* Rojo sutil como el de 'Vista' */
+  color: #E7000B;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-guardar-top:hover {
+  background: rgba(231, 0, 11, 0.25);
+}
+
+/* Botón Cancelar (Basado en tu botón 'Eliminar' gris) */
+.btn-cancelar-top {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05); /* Gris sutil como el de 'Eliminar' */
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.listas-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.listas-form-input {
+  padding: 10px 14px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-main);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.listas-form-input:focus {
+  border-color: var(--color-border-hover);
+}
+
+.listas-form-input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.listas-form-acciones {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+/* ══ TOP CARD: lista de items ══ */
+.top-card-header {
+  width: 100%;
+}
+
+.top-lista-items {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+  width: 100%;
+  min-height: 0;
+}
+
+.top-item {
+  display: flex;
+  padding: 8px;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #020618;
+  cursor: grab;
+  gap: 12px;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.top-item:active { cursor: grabbing; }
+.top-item.dragging { opacity: 0.4; }
+.top-item:hover { background: rgba(255,255,255,0.04); }
+
+.top-item-pos {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 18px;
+  text-align: center;
+}
+
+.top-item-img {
+  width: 32px;
+  height: 48px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.top-item-titulo {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.top-item-delete {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  opacity: 0.4;
+  padding: 4px;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+.top-item-delete:hover { opacity: 1; }
+
+/* ══ Buscador dentro de la tarjeta ══ */
+.top-agregar-campo {
+  width: 100%;
+  position: relative;
+}
+
+.top-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: text;
+  transition: border-color 0.2s;
+}
+.top-search-wrap:focus-within {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.top-search-icon { font-size: 14px; opacity: 0.5; }
+
+.top-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: var(--font-main);
+  width: 100%;
+}
+.top-search-input::placeholder { color: var(--color-text-placeholder); }
+
+.top-search-resultados {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #0F172B;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.top-resultado-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #ffffff;
+  transition: background 0.15s;
+}
+.top-resultado-item:hover { background: rgba(255,255,255,0.06); }
+
+.top-resultado-img {
+  width: 28px;
+  height: 42px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+.btn-visto-badge {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(231, 0, 11, 0.08);
+  color: #E7000B;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.6;
+}

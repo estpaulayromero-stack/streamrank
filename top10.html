@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamRank - Top 10</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="StreamRank">
+        <span class="brand-icon">
+          <img src="assets/icons/Clapperboard.svg" alt="StreamRank icon" />
+        </span>
+        <span class="brand-title"><span>Stream</span><span>Rank</span></span>
+      </div>
+
+      <div class="header-nav-row">
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html" class="nav-link">Inicio</a>
+          <a href="top10.html" class="nav-link active">Top 10</a>
+          <a href="mis-listas.html" id="linkMisListas" class="nav-link">
+            <span class="nav-icon">
+              <img src="assets/icons/Menu.svg" alt="Mis Listas icon" />
+            </span>
+            Mis Listas
+          </a>
+        </nav>
+
+        <form class="search-form" id="searchForm">
+          <label class="search-field">
+            <span class="search-icon">
+              <img src="assets/icons/Busqueda.svg" alt="Buscar icon" />
+            </span>
+            <input id="searchInput" type="search" placeholder="Buscar" aria-label="Buscar" autocomplete="off" />
+          </label>
+        </form>
+      </div>
+
+      <button class="profile-button" id="btnIngresar" type="button">
+        <span class="profile-icon">
+          <img src="assets/icons/Perfil.svg" alt="Perfil icon" />
+        </span>
+        Username
+      </button>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="hero">
+      <div class="hero-info">
+        <div class="hero-title-container">
+          <h1 class="hero-title">Descubre los Tops 10</h1>
+        </div>
+        <div class="hero-desc-container">
+          <p class="hero-description">
+            Explora las mejores películas y series organizadas por plataforma de streaming, 
+            estudio de producción o tus sagas favoritas.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="top10-categories">
+      <!-- Plataformas (subtítulo rojo) -->
+      <div class="category-container">
+        <div class="category-title">Top por Plataformas</div>
+        <div class="cards-wrapper">
+          <!-- Netflix: enlace a top10_netflix.html -->
+          <a href="top10_netflix.html" class="platform-card card-netflix" style="text-decoration: none;">
+            <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
+            <div class="card-title">Netflix</div>
+          </a>
+          <div class="platform-card card-disney">
+            <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
+            <div class="card-title">Disney+</div>
+          </div>
+          <div class="platform-card card-hbo">
+            <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
+            <div class="card-title">HBO Max</div>
+          </div>
+          <div class="platform-card card-amazon">
+            <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
+            <div class="card-title">Amazon Prime</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estudios (subtítulo azul) -->
+      <div class="category-container">
+        <div class="category-title">Top por Estudios</div>
+        <div class="cards-wrapper">
+          <!-- Warner Bros.: enlace a top10_warner.html -->
+          <a href="top10_warner.html" class="platform-card card-Warner" style="text-decoration: none;">
+            <div class="card-subtitle subtitle-estudio">ESTUDIO CINEMATOGRÁFICO</div>
+            <div class="card-title">Warner Bros.</div>
+          </a>
+          <div class="platform-card card-universal">
+            <div class="card-subtitle subtitle-estudio">FRANQUICIA</div>
+            <div class="card-title">Universal Studios</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sagas (subtítulo morado) -->
+      <div class="category-container">
+        <div class="category-title">Top por Sagas</div>
+        <div class="cards-wrapper">
+          <div class="platform-card card-starwars">
+            <div class="card-subtitle subtitle-saga">SAGA DE PELÍCULAS</div>
+            <div class="card-title">Star Wars</div>
+          </div>
+          <!-- Marvel: enlace a top10_marvel.html -->
+          <a href="top10_marvel.html" class="platform-card card-marvel" style="text-decoration: none;">
+            <div class="card-subtitle subtitle-saga">SAGA DE PELÍCULAS</div>
+            <div class="card-title">El Universo Marvel</div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">StreamRank ofrece las mejores listas y rankings de contenido audiovisual.</p>
+    <p class="footer-text">Diseñado para una experiencia clara, rápida y moderna.</p>
+  </footer>
+
+  <!-- AUTH MODALS -->
+  <div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" style="display:none;"></div>
+
+  <div id="modalLogin" class="modal-login" style="display:none;">
+    <button class="modal-cerrar" type="button" onclick="cerrarModal()">✕</button>
+    <div class="modal-contenido">
+      <div class="modal-encabezado">
+        <h2 class="modal-titulo">Bienvenido de nuevo</h2>
+        <p class="modal-subtitulo">Ingresa tus credenciales para acceder a tu cuenta.</p>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="loginEmail">Correo electrónico</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">✉</span>
+          <input class="modal-input" id="loginEmail" type="email" placeholder="tu@correo.com" />
+          <small id="loginEmailError" style="color:red; display:none; font-size:12px;">El correo debe contener "@gmail"</small>
+        </div>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="loginPassword">Contraseña</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">🔒</span>
+          <input class="modal-input" id="loginPassword" type="password" placeholder="••••••••" />
+          <small id="loginPassError" style="color:red; display:none; font-size:12px;">La contraseña debe tener mínimo 8 caracteres</small>
+        </div>
+      </div>
+      <button class="modal-btn-ingresar" type="button" onclick="simularLogin()">Ingresar</button>
+      <p class="modal-pie">¿No tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="abrirRegistro()">Regístrate aquí</a></p>
+    </div>
+  </div>
+
+  <div id="modalRegistro" class="modal-login" style="display:none;">
+    <button class="modal-cerrar" type="button" onclick="cerrarRegistro()">✕</button>
+    <div class="modal-contenido">
+      <div class="modal-encabezado">
+        <h2 class="modal-titulo">Crear una cuenta</h2>
+        <p class="modal-subtitulo">Regístrate por primera vez con tu correo electrónico.</p>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="regEmail">Correo electrónico</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">✉</span>
+          <input class="modal-input" id="regEmail" type="email" placeholder="tu@correo.com" />
+        </div>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label" for="regPassword">Contraseña</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">🔒</span>
+          <input class="modal-input" id="regPassword" type="password" placeholder="••••••••" />
+        </div>
+      </div>
+      <button class="modal-btn-ingresar" type="button" onclick="simularRegistro()">Registrarse</button>
+      <p class="modal-pie">¿Ya tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="irALogin()">Ingresa aquí</a></p>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>
