@@ -7,7 +7,117 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <!-- MODALES (igual en todas las páginas) -->
+
+  <!-- ══ HEADER ══ -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="StreamRank">
+        <span class="brand-icon">
+          <img src="assets/icons/Clapperboard.svg" alt="StreamRank icon" />
+        </span>
+        <span class="brand-title"><span>Stream</span><span>Rank</span></span>
+      </div>
+      <div class="header-nav-row">
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html" class="nav-link">Inicio</a>
+          <a href="top10.html" class="nav-link">Top 10</a>
+          <a href="mis-listas.html" class="nav-link active">
+            <span class="nav-icon">
+              <img src="assets/icons/Menu.svg" alt="Mis Listas icon" />
+            </span>
+            Mis Listas
+          </a>
+        </nav>
+        <form class="search-form" id="searchForm">
+          <label class="search-field">
+            <span class="search-icon">
+              <img src="assets/icons/Busqueda.svg" alt="Buscar icon" />
+            </span>
+            <input id="searchInput" type="search" placeholder="Buscar" aria-label="Buscar" autocomplete="off" />
+          </label>
+        </form>
+      </div>
+      <button class="profile-button" id="btnIngresar" type="button" onclick="abrirModal()">
+        Ingresar
+      </button>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main class="page-content">
+
+    <section class="listas-header">
+      <h1 class="listas-title">Mis Listas</h1>
+    </section>
+
+    <div class="listas-tabs">
+      <button class="listas-tab active" data-tab="agregados" type="button">
+        <img src="assets/check.svg" alt="icono-agregados" />
+        Agregados
+      </button>
+      <button class="listas-tab" data-tab="historial" type="button">
+        <img src="assets/star.svg" alt="icono-historial" />
+        Historial
+      </button>
+      <button class="listas-tab" data-tab="top-personales" type="button">
+        <img src="assets/heart.svg" alt="icono-top-personales" />
+        Tops Personalizados
+      </button>
+    </div>
+
+    <!-- ══ TAB 1: AGREGADOS ══ -->
+    <div id="tab-agregados" class="tab-content">
+      <div id="agregadosVacio" class="listas-vacia">
+        <div class="listas-vacia-icono">🔖</div>
+        <p class="listas-vacia-texto">Tu lista de agregados está vacía</p>
+        <p class="listas-vacia-subtexto">Explora películas y series para guardarlas aquí y verlas más tarde.</p>
+      </div>
+      <section id="agregadosContenedor" class="listas-seccion" style="display:none;">
+        <!-- Las tarjetas se cargan dinámicamente desde PHP -->
+      </section>
+    </div>
+
+    <!-- ══ TAB 2: HISTORIAL ══ -->
+    <div id="tab-historial" class="tab-content" style="display:none;">
+      <div class="listas-vacia">
+        <div class="listas-vacia-icono">⭐</div>
+        <p class="listas-vacia-texto">Tu historial está vacío</p>
+        <p class="listas-vacia-subtexto">Aquí aparecerán las películas y series que hayas marcado como vistas.</p>
+      </div>
+    </div>
+
+    <!-- ══ TAB 3: TOP PERSONALIZADOS ══ -->
+    <div id="tab-top-personales" class="tab-content" style="display:none;">
+      <section class="listas-seccion">
+        <div id="seccionCrearNuevo" class="crear-top-wrapper">
+          <button class="btn-crear-vacio" id="btnCrearTop" type="button">
+            <span class="icon-plus">+</span>
+            <p>Crear nuevo Top</p>
+          </button>
+        </div>
+        <div id="formCrearTop" class="listas-form-card" style="display:none;">
+          <div class="listas-form-grupo">
+            <label class="listas-form-label" for="nombreTop">Nombre del top</label>
+            <input class="listas-form-input" id="nombreTop" type="text" placeholder="Ej: Maratón de fin de semana" />
+          </div>
+          <div class="listas-form-acciones">
+            <button class="btn-cancelar-top" id="btnCancelarTop" type="button">Cancelar</button>
+            <button class="btn-guardar-top" id="btnGuardarTop" type="button">Guardar</button>
+          </div>
+        </div>
+        <div id="contenedorTopsResultados" class="listas-top-grid"></div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <p class="footer-text">StreamRank ofrece las mejores listas y rankings de contenido audiovisual.</p>
+    <p class="footer-text">Diseñado para una experiencia clara, rápida y moderna.</p>
+  </footer>
+
+  <!-- ══ MODALES AUTH ══ -->
   <div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" style="display:none;"></div>
 
   <div id="modalLogin" class="modal-login" style="display:none;">
@@ -64,419 +174,151 @@
     </div>
   </div>
 
-  <!-- SCRIPT COMPARTIDO -->
+  <!-- ══ SCRIPTS ══
+       Orden obligatorio:
+       1. auth.js    → sesión, modales, login, registro
+       2. listas.js  → agregar/obtener/eliminar ítems
+       3. Script inline → tabs y tops personalizados
+  -->
   <script src="js/auth.js"></script>
+  <script src="js/listas.js"></script>
 
-</body>
-
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand" aria-label="StreamRank">
-        <span class="brand-icon">
-          <img src="https://www.figma.com/api/mcp/asset/85b5d722-1636-44d9-aa5f-4d37b4220fb5" alt="StreamRank icon" />
-        </span>
-        <span class="brand-title"><span>Stream</span><span>Rank</span></span>
-      </div>
-      <div class="header-nav-row">
-        <nav class="main-nav" aria-label="Navegación principal">
-          <a href="index.html" class="nav-link">Inicio</a>
-          <a href="top10.html" class="nav-link">Top 10</a>
-          <a href="mis-listas.html" class="nav-link">
-            <span class="nav-icon">
-              <img src="https://www.figma.com/api/mcp/asset/76e25ff4-db16-4dd6-8a40-b7115513676e" alt="Mis Listas icon" />
-            </span>
-            Mis Listas
-          </a>
-        </nav>
-        <form class="search-form" id="searchForm">
-          <label class="search-field">
-            <span class="search-icon">
-              <img src="https://www.figma.com/api/mcp/asset/14162553-0f0e-436e-b980-db1ef67e9c08" alt="Buscar icon" />
-            </span>
-            <input id="searchInput" type="search" placeholder="Buscar" aria-label="Buscar" autocomplete="off" />
-          </label>
-        </form>
-      </div>
-      <button class="profile-button" type="button">
-        <span class="profile-icon">
-          <img src="https://www.figma.com/api/mcp/asset/a9d14a79-fa82-43e3-aca2-8d0a4125831c" alt="Perfil icon" />
-        </span>
-        Username
-      </button>
-    </div>
-  </header>
-
-  <main class="page-content">
-
-    <section class="listas-header">
-      <h1 class="listas-title">Mis Listas</h1>
-    </section>
-
-    <div class="listas-tabs">
-      <button class="listas-tab active" data-tab="agregados" type="button">
-        <img src="assets/check.svg" alt="icono-agregados" />
-        Agregados
-      </button>
-      <button class="listas-tab" data-tab="historial" type="button">
-        <img src="assets/star.svg" alt="icono-historial" />
-        Historial
-      </button>
-      <button class="listas-tab" data-tab="top-personales" type="button">
-        <img src="assets/heart.svg" alt="icono-top-personales" />
-        Tops Personalizados
-      </button>
-    </div>
-
-    <!-- ══ TAB 1: AGREGADOS ══ -->
-    <div id="tab-agregados" class="tab-content">
-
-      <!-- Estado vacío — se ve cuando no hay nada guardado -->
-      <div id="agregadosVacio" class="listas-vacia" style="display: none;">
-        <div class="listas-vacia-icono">🔖</div>
-        <p class="listas-vacia-texto">Tu lista de agregados está vacía</p>
-        <p class="listas-vacia-subtexto">Explora películas y series para guardarlas aquí y verlas más tarde.</p>
-      </div>
-
-      <!-- Estado con contenido — se ve cuando hay tarjetas -->
-      <section id="agregadosContenedor" class="listas-seccion">
-        <div class="lista-card-agregados">
-          <img src="https://www.hdwallpapers.net/previews/breaking-bad-walter-white-271.jpg" alt="Breaking Bad" class="agregados-img" />
-          <div class="agregados-info">
-            <div class="agregados-tag">Serie · Drama</div>
-            <h3 class="agregados-title">Breaking Bad</h3>
-            <div class="pildora-rating">
-              <span class="estrella">★</span>
-              <span class="valor">9.5</span>
-            </div>
-            <p class="agregados-desc">A chemistry teacher diagnosed with cancer turns to manufacturing meth to secure his family's future.</p>
-            <div class="agregados-acciones">
-              <button class="btn-status-visto" type="button">✓ Vista</button>
-              <button class="btn-status-eliminar" type="button">Eliminar</button>
-            </div>
-          </div>
-          <div class="plataforma-badge">NETFLIX</div>
-        </div>
-
-        <div class="lista-card-agregados">
-          <img src="https://m.media-amazon.com/images/M/MV5BZDk1ZTdjOWItNTJmYS00MGIzLThmY2ItZWNiOGY5MzJlNTA5XkEyXkFqcGc@._V1_.jpg" alt="Ozark" class="agregados-img" />
-          <div class="agregados-info">
-            <div class="agregados-tag">Serie · Thriller</div>
-            <h3 class="agregados-title">Ozark</h3>
-            <div class="pildora-rating">
-              <span class="estrella">★</span>
-              <span class="valor">8.5</span>
-            </div>
-            <p class="agregados-desc">A financial advisor drags his family from Chicago to the Missouri Ozarks, where he must launder money.</p>
-            <div class="agregados-acciones">
-              <button class="btn-status-visto" type="button">✓ Vista</button>
-              <button class="btn-status-eliminar" type="button">Eliminar</button>
-            </div>
-          </div>
-          <div class="plataforma-badge">NETFLIX</div>
-        </div>
-      </section>
-
-    </div>
-
-    <!-- ══ TAB 2: HISTORIAL ══ -->
-    <div id="tab-historial" class="tab-content" style="display: none;">
-      <div class="listas-vacia">
-        <div class="listas-vacia-icono">⭐</div>
-        <p class="listas-vacia-texto">Tu historial está vacío</p>
-        <p class="listas-vacia-subtexto">Aquí aparecerán las películas y series que hayas empezado a ver.</p>
-      </div>
-    </div>
-
-    <!-- ══ TAB 3: TOP PERSONALIZADOS ══ -->
-    <div id="tab-top-personales" class="tab-content" style="display: none;">
-      <section class="listas-seccion">
-
-        <!-- Estado vacío con botón crear -->
-        <div id="seccionCrearNuevo" class="crear-top-wrapper">
-          <button class="btn-crear-vacio" id="btnCrearTop" type="button">
-            <span class="icon-plus">+</span>
-            <p>Crear nuevo Top</p>
-          </button>
-        </div>
-
-        <!-- Formulario (oculto por defecto) -->
-        <div id="formCrearTop" class="listas-form-card" style="display: none;">
-          <div class="listas-form-grupo">
-            <label class="listas-form-label" for="nombreTop">Nombre del top</label>
-            <input class="listas-form-input" id="nombreTop" type="text" placeholder="Ej: Maratón de fin de semana" />
-          </div>
-          <div class="listas-form-acciones">
-            <button class="btn-cancelar-top" id="btnCancelarTop" type="button">Cancelar</button>
-            <button class="btn-guardar-top" id="btnGuardarTop" type="button">Guardar</button>
-          </div>
-        </div>
-
-        <!-- Tops creados (se llenan dinámicamente) -->
-        <div id="contenedorTopsResultados" class="listas-top-grid"></div>
-
-      </section>
-    </div>
-
-  </main>
-
-  <footer class="footer">
-    <p class="footer-text">StreamRank ofrece las mejores listas y rankings de contenido audiovisual.</p>
-    <p class="footer-text">Diseñado para una experiencia clara, rápida y moderna.</p>
-  </footer>
   <script>
-  // ── TABS ──
-  document.querySelectorAll('.listas-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.listas-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-      tab.classList.add('active');
-      document.getElementById('tab-' + tab.dataset.tab).style.display = 'block';
-    });
-  });
-
-  // ── HISTORIAL: estructura base ──
-  document.getElementById('tab-historial').innerHTML = `
-    <div id="historialVacio" class="listas-vacia">
-      <div class="listas-vacia-icono">⭐</div>
-      <p class="listas-vacia-texto">Tu historial está vacío</p>
-      <p class="listas-vacia-subtexto">Aquí aparecerán las películas y series que hayas marcado como vistas.</p>
-    </div>
-    <div id="historialContenedor" class="listas-seccion" style="display:none;"></div>
-  `;
-
-  // ── ELIMINAR EN AGREGADOS ──
-  document.querySelectorAll('.btn-status-eliminar').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tarjeta = btn.closest('.lista-card-agregados');
-      tarjeta.remove();
-      const contenedor = document.getElementById('agregadosContenedor');
-      if (contenedor.querySelectorAll('.lista-card-agregados').length === 0) {
-        document.getElementById('agregadosVacio').style.display = 'flex';
-      }
-    });
-  });
-
-  // ── VISTA → HISTORIAL ──
-  function getFecha() {
-    const hoy = new Date();
-    return `Visto el ${hoy.getDate()}/${hoy.getMonth() + 1}/${hoy.getFullYear()}`;
-  }
-
-  function crearTarjetaHistorial(img, alt, titulo) {
-    const card = document.createElement('div');
-    card.className = 'historial-card';
-    card.innerHTML = `
-      <div class="historial-card-top">
-        <img src="${img}" alt="${alt}" class="historial-img" />
-        <div class="historial-info">
-          <h3 class="historial-titulo">${titulo}</h3>
-          <p class="historial-fecha">${getFecha()}</p>
-        </div>
-        <div class="historial-controles">
-          <div class="historial-rating">
-            <span class="rating-label">Mi calificación:</span>
-            <div class="rating-numeros">
-              ${[1,2,3,4,5,6,7,8,9,10].map(n =>
-                `<button class="rating-num" data-n="${n}" type="button">${n}</button>`
-              ).join('')}
-            </div>
-          </div>
-          <button class="btn-reaccion" data-estado="neutro" type="button">
-            <span class="reaccion-icon">🤍</span>
-            <span class="reaccion-texto">No me convenció</span>
-          </button>
-        </div>
-      </div>
-      <div class="historial-notas">
-        <p class="notas-label">MIS NOTAS (DIARIO)</p>
-        <textarea class="notas-textarea" placeholder="Escribe tus pensamientos sobre esto..."></textarea>
-      </div>
-    `;
-
-    // Rating números
-    card.querySelectorAll('.rating-num').forEach(btn => {
-      btn.addEventListener('click', () => {
-        card.querySelectorAll('.rating-num').forEach(b => b.classList.remove('activo'));
-        btn.classList.add('activo');
+    // ── TABS ──
+    document.querySelectorAll('.listas-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.listas-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).style.display = 'block';
       });
     });
 
-    // Botón reacción toggle
-    const btnReaccion = card.querySelector('.btn-reaccion');
-    btnReaccion.addEventListener('click', () => {
-      const estado = btnReaccion.dataset.estado;
-      if (estado === 'neutro') {
-        btnReaccion.dataset.estado = 'encanto';
-        btnReaccion.querySelector('.reaccion-icon').textContent = '❤️';
-        btnReaccion.querySelector('.reaccion-texto').textContent = 'Me encantó';
-        btnReaccion.classList.add('encanto');
-      } else {
-        btnReaccion.dataset.estado = 'neutro';
-        btnReaccion.querySelector('.reaccion-icon').textContent = '🤍';
-        btnReaccion.querySelector('.reaccion-texto').textContent = 'No me convenció';
-        btnReaccion.classList.remove('encanto');
-      }
+    // ── CREAR TOP ──
+    document.getElementById('btnCrearTop').addEventListener('click', () => {
+      document.getElementById('seccionCrearNuevo').style.display = 'none';
+      document.getElementById('formCrearTop').style.display = 'flex';
     });
 
-    return card;
-  }
-
-  document.querySelectorAll('.btn-status-visto').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tarjeta = btn.closest('.lista-card-agregados');
-      const img    = tarjeta.querySelector('.agregados-img').src;
-      const alt    = tarjeta.querySelector('.agregados-img').alt;
-      const titulo = tarjeta.querySelector('.agregados-title').textContent;
-
-      const contenedor = document.getElementById('historialContenedor');
-      contenedor.appendChild(crearTarjetaHistorial(img, alt, titulo));
-      contenedor.style.display = 'block';
-      document.getElementById('historialVacio').style.display = 'none';
-
-      btn.textContent = '✓ Vista';
-      btn.disabled = true;
-      btn.style.opacity = '0.5';
-      btn.style.cursor = 'default';
+    document.getElementById('btnCancelarTop').addEventListener('click', () => {
+      document.getElementById('formCrearTop').style.display = 'none';
+      document.getElementById('seccionCrearNuevo').style.display = 'block';
+      document.getElementById('nombreTop').value = '';
     });
-  });
 
-  // ── CREAR TOP ──
-  document.getElementById('btnCrearTop').addEventListener('click', () => {
-    document.getElementById('seccionCrearNuevo').style.display = 'none';
-    document.getElementById('formCrearTop').style.display = 'flex';
-  });
+    document.getElementById('btnGuardarTop').addEventListener('click', () => {
+      const nombre     = document.getElementById('nombreTop').value.trim() || 'Mi Nuevo Top';
+      const contenedor = document.getElementById('contenedorTopsResultados');
 
-  document.getElementById('btnCancelarTop').addEventListener('click', () => {
-    document.getElementById('formCrearTop').style.display = 'none';
-    document.getElementById('seccionCrearNuevo').style.display = 'block';
-    document.getElementById('nombreTop').value = '';
-  });
-
-  document.getElementById('btnGuardarTop').addEventListener('click', () => {
-    const nombre = document.getElementById('nombreTop').value.trim() || 'Mi Nuevo Top';
-    const contenedor = document.getElementById('contenedorTopsResultados');
-
-    const tarjeta = document.createElement('div');
-    tarjeta.className = 'top-card-diseno';
-    tarjeta.innerHTML = `
-      <div class="top-card-header">
-        <h3 class="lista-card-nombre">${nombre}</h3>
-        <p class="lista-card-meta"><span class="top-count">0</span> elementos en esta lista</p>
-      </div>
-      <div class="top-lista-items" data-lista></div>
-      <div class="top-agregar-campo">
-        <div class="top-search-wrap">
-          <span class="top-search-icon">🔍</span>
-          <input type="text" class="top-search-input" placeholder="Agregar más..." />
+      const tarjeta = document.createElement('div');
+      tarjeta.className = 'top-card-diseno';
+      tarjeta.innerHTML = `
+        <div class="top-card-header">
+          <h3 class="lista-card-nombre">${nombre}</h3>
+          <p class="lista-card-meta"><span class="top-count">0</span> elementos en esta lista</p>
         </div>
-        <div class="top-search-resultados" style="display:none;"></div>
-      </div>
-    `;
-
-    contenedor.appendChild(tarjeta);
-    initTop(tarjeta);
-
-    document.getElementById('formCrearTop').style.display = 'none';
-    document.getElementById('seccionCrearNuevo').style.display = 'block';
-    document.getElementById('nombreTop').value = '';
-  });
-
-  // ── TOPS ──
-  const PELICULAS = [
-    { titulo: 'The Dark Knight', img: 'https://www.themoviedb.org/t/p/w92/qJ2tW6WMUDux911r6m7haRef0WH.jpg' },
-    { titulo: 'Inception', img: 'https://www.themoviedb.org/t/p/w92/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg' },
-    { titulo: 'Interstellar', img: 'https://www.themoviedb.org/t/p/w92/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg' },
-    { titulo: 'Parasite', img: 'https://www.themoviedb.org/t/p/w92/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg' },
-    { titulo: 'The Godfather', img: 'https://www.themoviedb.org/t/p/w92/3bhkrj58Vtu7enYsLegiokantuP.jpg' },
-    { titulo: 'Pulp Fiction', img: 'https://www.themoviedb.org/t/p/w92/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg' },
-    { titulo: 'The Matrix', img: 'https://www.themoviedb.org/t/p/w92/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg' },
-    { titulo: 'Fight Club', img: 'https://www.themoviedb.org/t/p/w92/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg' },
-  ];
-
-  function initTop(tarjeta) {
-    const input = tarjeta.querySelector('.top-search-input');
-    const resultados = tarjeta.querySelector('.top-search-resultados');
-    const lista = tarjeta.querySelector('[data-lista]');
-    const contador = tarjeta.querySelector('.top-count');
-
-    input.addEventListener('input', () => {
-      const q = input.value.trim().toLowerCase();
-      if (!q) { resultados.style.display = 'none'; return; }
-      const filtradas = PELICULAS.filter(p => p.titulo.toLowerCase().includes(q));
-      if (!filtradas.length) { resultados.style.display = 'none'; return; }
-      resultados.innerHTML = filtradas.map(p => `
-        <div class="top-resultado-item" data-titulo="${p.titulo}" data-img="${p.img}">
-          <img src="${p.img}" alt="${p.titulo}" class="top-resultado-img" />
-          <span>${p.titulo}</span>
+        <div class="top-lista-items" data-lista></div>
+        <div class="top-agregar-campo">
+          <div class="top-search-wrap">
+            <span class="top-search-icon">🔍</span>
+            <input type="text" class="top-search-input" placeholder="Agregar más..." />
+          </div>
+          <div class="top-search-resultados" style="display:none;"></div>
         </div>
-      `).join('');
-      resultados.style.display = 'block';
-      resultados.querySelectorAll('.top-resultado-item').forEach(item => {
-        item.addEventListener('click', () => {
-          agregarItem(lista, contador, item.dataset.titulo, item.dataset.img);
-          input.value = '';
-          resultados.style.display = 'none';
+      `;
+      contenedor.appendChild(tarjeta);
+      initTop(tarjeta);
+
+      document.getElementById('formCrearTop').style.display = 'none';
+      document.getElementById('seccionCrearNuevo').style.display = 'block';
+      document.getElementById('nombreTop').value = '';
+    });
+
+    // ── TOPS — búsqueda y drag & drop ──
+    const PELICULAS = [
+      { titulo: 'The Dark Knight', img: 'https://www.themoviedb.org/t/p/w92/qJ2tW6WMUDux911r6m7haRef0WH.jpg' },
+      { titulo: 'Inception',       img: 'https://www.themoviedb.org/t/p/w92/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg' },
+      { titulo: 'Interstellar',    img: 'https://www.themoviedb.org/t/p/w92/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg' },
+      { titulo: 'Parasite',        img: 'https://www.themoviedb.org/t/p/w92/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg' },
+      { titulo: 'The Godfather',   img: 'https://www.themoviedb.org/t/p/w92/3bhkrj58Vtu7enYsLegiokantuP.jpg' },
+      { titulo: 'Pulp Fiction',    img: 'https://www.themoviedb.org/t/p/w92/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg' },
+      { titulo: 'The Matrix',      img: 'https://www.themoviedb.org/t/p/w92/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg' },
+      { titulo: 'Fight Club',      img: 'https://www.themoviedb.org/t/p/w92/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg' },
+    ];
+
+    function initTop(tarjeta) {
+      const input      = tarjeta.querySelector('.top-search-input');
+      const resultados = tarjeta.querySelector('.top-search-resultados');
+      const lista      = tarjeta.querySelector('[data-lista]');
+      const contador   = tarjeta.querySelector('.top-count');
+
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        if (!q) { resultados.style.display = 'none'; return; }
+        const filtradas = PELICULAS.filter(p => p.titulo.toLowerCase().includes(q));
+        if (!filtradas.length) { resultados.style.display = 'none'; return; }
+        resultados.innerHTML = filtradas.map(p => `
+          <div class="top-resultado-item" data-titulo="${p.titulo}" data-img="${p.img}">
+            <img src="${p.img}" alt="${p.titulo}" class="top-resultado-img" />
+            <span>${p.titulo}</span>
+          </div>
+        `).join('');
+        resultados.style.display = 'block';
+        resultados.querySelectorAll('.top-resultado-item').forEach(item => {
+          item.addEventListener('click', () => {
+            agregarItem(lista, contador, item.dataset.titulo, item.dataset.img);
+            input.value = '';
+            resultados.style.display = 'none';
+          });
         });
       });
-    });
 
-    document.addEventListener('click', (e) => {
-      if (!tarjeta.contains(e.target)) resultados.style.display = 'none';
-    });
-  }
-
-  function agregarItem(lista, contador, titulo, img) {
-    const pos = lista.children.length + 1;
-    const item = document.createElement('div');
-    item.className = 'top-item';
-    item.draggable = true;
-    item.innerHTML = `
-      <span class="top-item-pos">${pos}</span>
-      <img src="${img}" alt="${titulo}" class="top-item-img" />
-      <span class="top-item-titulo">${titulo}</span>
-      <button class="top-item-delete" type="button" title="Eliminar">🗑</button>
-    `;
-    item.querySelector('.top-item-delete').addEventListener('click', () => {
-      item.remove();
-      actualizarPosiciones(lista, contador);
-    });
-    item.addEventListener('dragstart', () => item.classList.add('dragging'));
-    item.addEventListener('dragend', () => {
-      item.classList.remove('dragging');
-      actualizarPosiciones(lista, contador);
-    });
-    lista.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      const dragging = lista.querySelector('.dragging');
-      const siblings = [...lista.querySelectorAll('.top-item:not(.dragging)')];
-      const siguiente = siblings.find(s => {
-        const rect = s.getBoundingClientRect();
-        return e.clientY < rect.top + rect.height / 2;
+      document.addEventListener('click', e => {
+        if (!tarjeta.contains(e.target)) resultados.style.display = 'none';
       });
-      lista.insertBefore(dragging, siguiente || null);
-    });
-    lista.appendChild(item);
-    actualizarPosiciones(lista, contador);
-  }
+    }
 
-  function actualizarPosiciones(lista, contador) {
-    lista.querySelectorAll('.top-item').forEach((item, i) => {
-      item.querySelector('.top-item-pos').textContent = i + 1;
-    });
-    contador.textContent = lista.children.length;
-  }
-</script>
+    function agregarItem(lista, contador, titulo, img) {
+      const pos  = lista.children.length + 1;
+      const item = document.createElement('div');
+      item.className = 'top-item';
+      item.draggable = true;
+      item.innerHTML = `
+        <span class="top-item-pos">${pos}</span>
+        <img src="${img}" alt="${titulo}" class="top-item-img" />
+        <span class="top-item-titulo">${titulo}</span>
+        <button class="top-item-delete" type="button" title="Eliminar">🗑</button>
+      `;
+      item.querySelector('.top-item-delete').addEventListener('click', () => {
+        item.remove();
+        actualizarPosiciones(lista, contador);
+      });
+      item.addEventListener('dragstart', () => item.classList.add('dragging'));
+      item.addEventListener('dragend',   () => {
+        item.classList.remove('dragging');
+        actualizarPosiciones(lista, contador);
+      });
+      lista.addEventListener('dragover', e => {
+        e.preventDefault();
+        const dragging  = lista.querySelector('.dragging');
+        const siblings  = [...lista.querySelectorAll('.top-item:not(.dragging)')];
+        const siguiente = siblings.find(s => {
+          const rect = s.getBoundingClientRect();
+          return e.clientY < rect.top + rect.height / 2;
+        });
+        lista.insertBefore(dragging, siguiente || null);
+      });
+      lista.appendChild(item);
+      actualizarPosiciones(lista, contador);
+    }
 
-
-
-
-
-
-
+    function actualizarPosiciones(lista, contador) {
+      lista.querySelectorAll('.top-item').forEach((item, i) => {
+        item.querySelector('.top-item-pos').textContent = i + 1;
+      });
+      contador.textContent = lista.children.length;
+    }
+  </script>
 </body>
 </html>
-
-
-
-
 
