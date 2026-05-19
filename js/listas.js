@@ -54,12 +54,19 @@ async function agregarALista(titulo, tipo, genero, plataforma, imagen_url, ratin
 
 async function obtenerLista() {
   const email = getCurrentUserEmail();
-  if (!email) return [];
+  if (!email) {
+    console.warn('obtenerLista: no hay email de usuario actual en localStorage');
+    return [];
+  }
 
   try {
     const response = await fetch(`${LISTAS_API}?email=${encodeURIComponent(email)}`);
     const data     = await response.json();
-    return (response.ok && Array.isArray(data)) ? data : [];
+    if (!response.ok) {
+      console.error('obtenerLista: error API', data);
+      return [];
+    }
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('ERROR OBTENER LISTA:', error);
     return [];
@@ -290,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sessionActive = localStorage.getItem('streamrank_session') === 'activa';
 
   if (enMisListas) {
-    if (sessionActive) renderizarMisListas();
+    renderizarMisListas();
   } else {
     initBotonesBookmark();
     initBotonHero();

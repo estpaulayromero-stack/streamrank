@@ -753,5 +753,47 @@
   </div>
 
   <script src="js/auth.js"></script>
+  <script src="js/listas.js"></script>
+
+  <script>
+    // ══════════════════════════════════════════════════════════
+    // EVENT LISTENER PARA BOTONES DE GUARDAR EN TARJETAS DINÁMICAS
+    // ══════════════════════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+      // Usar event delegation para los botones de las tarjetas generadas dinámicamente
+      document.addEventListener('click', async (e) => {
+        const button = e.target.closest('.btn-bookmark');
+        if (!button) return;
+        
+        e.stopPropagation();
+        
+        // Obtener la tarjeta padre
+        const card = button.closest('.movie-card');
+        if (!card) return;
+
+        // Extraer datos de la tarjeta
+        const titulo = card.querySelector('.info-title')?.textContent.trim() || '';
+        const plataforma = card.querySelector('.tag-platform')?.textContent.trim() || 'Marvel';
+        const imagen_url = card.querySelector('.card-image')?.src || '';
+        const rating = parseFloat(card.querySelector('.rating-text')?.textContent || 0) || null;
+        
+        // Para las tarjetas dinámicas del JSON, usar tipo genérico
+        const tipo = 'pelicula'; // Marvel es principalmente películas
+        const genero = 'Top Marvel';
+
+        // Llamar a la función para agregar a la lista
+        await agregarALista(titulo, tipo, genero, plataforma, imagen_url, rating);
+
+        // Cambiar el estado visual del botón
+        button.classList.toggle('active');
+        const icon = button.querySelector('img');
+        if (icon) {
+          icon.src = button.classList.contains('active')
+            ? 'assets/icons/agregada.svg'
+            : 'assets/icons/agregar.svg';
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -37,6 +37,10 @@ function clearCurrentSession() {
   localStorage.removeItem(STORAGE_FOTO_KEY);
 }
 
+function isSessionActive() {
+  return localStorage.getItem(STORAGE_SESSION_KEY) === 'activa' || !!getCurrentUserEmail();
+}
+
 function logout() {
   clearCurrentSession();
   location.reload();
@@ -241,7 +245,7 @@ async function simularLogin() {
 // ==========================
 
 function actualizarEstadoUsuario() {
-  const sessionActive = localStorage.getItem(STORAGE_SESSION_KEY) === 'activa';
+  const sessionActive = isSessionActive();
   const email         = getCurrentUserEmail();
   const username      = localStorage.getItem(STORAGE_USERNAME_KEY);
   const foto          = localStorage.getItem(STORAGE_FOTO_KEY);
@@ -292,6 +296,11 @@ function actualizarEstadoUsuario() {
     if (ajustesTitulo) ajustesTitulo.style.display  = 'block';
     if (noSesionView)  noSesionView.style.display   = 'none';
 
+    // Refrescar mis listas si estamos en la página correspondiente
+    if (window.location.pathname.endsWith('mis-listas.html') && typeof renderizarMisListas === 'function') {
+      renderizarMisListas();
+    }
+
   } else {
     if (btnIngresar) {
       btnIngresar.textContent = 'Ingresar';
@@ -314,7 +323,7 @@ function actualizarEstadoUsuario() {
 
 function verificarProteccionPagina() {
   const necesitaProteccion = window.location.pathname.endsWith('mis-listas.html');
-  const sessionActive      = localStorage.getItem(STORAGE_SESSION_KEY) === 'activa';
+  const sessionActive      = isSessionActive();
 
   if (necesitaProteccion && !sessionActive) {
     window.location.href = 'index.html?from=mislistas';
