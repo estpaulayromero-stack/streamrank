@@ -37,9 +37,15 @@ $stmt->close();
 $conn->close();
 
 // ── Verificar contraseña ───────────────────────────────────
-if (!$user || !password_verify($password, $user['password'])) {
+if (!$user) {
+    http_response_code(404);
+    echo json_encode(["error" => "Cuenta no existe. Regístrate por favor."]);
+    exit;
+}
+
+if (!password_verify($password, $user['password'])) {
     http_response_code(401);
-    echo json_encode(["error" => "Correo o contraseña incorrectos"]);
+    echo json_encode(["error" => "Contraseña incorrecta"]);
     exit;
 }
 

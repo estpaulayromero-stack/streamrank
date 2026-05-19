@@ -64,7 +64,7 @@ function closeModal(modalId) {
   document.body.style.overflow = '';
 }
 
-function abrirModal()     { openModal('modalLogin'); }
+function abrirModal()     { resetLoginErrors(); openModal('modalLogin'); }
 function cerrarModal()    { closeModal('modalLogin'); }
 
 function abrirRegistro()  { cerrarModal(); openModal('modalRegistro'); }
@@ -77,11 +77,34 @@ function irALogin()       { cerrarRegistro(); abrirModal(); }
 // ==========================
 
 function isValidEmail(email) {
-  return email && email.includes('@gmail');
+  return email && email.toLowerCase().includes('@gmail.com');
 }
 
 function isValidPassword(password) {
   return password && password.length >= 8;
+}
+
+function resetLoginErrors() {
+  const emailError = document.getElementById('loginEmailError');
+  const passError  = document.getElementById('loginPassError');
+  if (emailError) {
+    emailError.style.display = 'none';
+    emailError.textContent = 'El correo debe contener "@gmail.com"';
+  }
+  if (passError) {
+    passError.style.display = 'none';
+    passError.textContent = 'La contraseña debe tener mínimo 8 caracteres';
+  }
+}
+
+function showLoginError(type, message) {
+  const target = type === 'email'
+    ? document.getElementById('loginEmailError')
+    : document.getElementById('loginPassError');
+  if (target) {
+    target.textContent = message;
+    target.style.display = 'block';
+  }
 }
 
 // ==========================
@@ -102,7 +125,7 @@ async function simularRegistro() {
   }
 
   if (!isValidEmail(email)) {
-    alert('Debe ser un correo @gmail');
+    alert('Debe ser un correo @gmail.com');
     return;
   }
 
@@ -148,8 +171,21 @@ async function simularLogin() {
   const email    = emailInput.value.trim();
   const password = passwordInput.value.trim();
 
+  resetLoginErrors();
+
   if (!email || !password) {
-    alert('Completa todos los campos');
+    if (!email) showLoginError('email', 'Ingresa tu correo @gmail.com');
+    if (!password) showLoginError('password', 'Ingresa tu contraseña de al menos 8 caracteres');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showLoginError('email', 'El correo debe contener "@gmail.com"');
+    return;
+  }
+
+  if (!isValidPassword(password)) {
+    showLoginError('password', 'La contraseña debe tener mínimo 8 caracteres');
     return;
   }
 
@@ -186,7 +222,12 @@ async function simularLogin() {
       }
 
     } else {
-      alert(data.error || 'Correo o contraseña incorrectos');
+      const errorMessage = data.error || 'Correo o contraseña incorrectos';
+      if (errorMessage.toLowerCase().includes('registr')) {
+        showLoginError('email', errorMessage);
+      } else {
+        showLoginError('password', errorMessage);
+      }
     }
 
   } catch (error) {
@@ -219,7 +260,11 @@ function actualizarEstadoUsuario() {
       } else {
         btnIngresar.textContent = nombre;
       }
-      btnIngresar.onclick = logout;
+      if (window.location.pathname.endsWith('registro.html')) {
+        btnIngresar.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btnIngresar.onclick = () => window.location.href = 'registro.html';
+      }
     }
 
     // Mostrar link Mis Listas si estaba oculto
