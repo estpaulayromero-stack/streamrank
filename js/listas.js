@@ -700,5 +700,65 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     initBotonesBookmark();
     initBotonHero();
+    initBotonesWatch();
   }
 });
+
+// ==========================
+// INICIALIZAR BOTONES CHECK (VISTO)
+// ==========================
+
+function initBotonesWatch() {
+  const movieCards = document.querySelectorAll('.movie-card');
+  
+  movieCards.forEach(card => {
+    // Verificar si ya tiene botón watch
+    if (card.querySelector('.btn-watch')) return;
+    
+    // Obtener el contenedor de acciones
+    const cardActions = card.querySelector('.card-actions');
+    if (!cardActions) return;
+
+    // Extraer datos de la tarjeta
+    const titulo = card.querySelector('.info-title')?.textContent.trim() || '';
+    const tipoRaw = card.querySelector('.tag-type')?.textContent.trim().toLowerCase() || '';
+    const tipo = tipoRaw === 'película' ? 'pelicula' : tipoRaw === 'serie' ? 'serie' : tipoRaw;
+    const genero = card.querySelector('.tag-genre')?.textContent.replace('•', '').trim() || '';
+    const plataforma = card.querySelector('.tag-platform')?.textContent.trim() || '';
+    const imagen_url = card.querySelector('.card-image')?.src || '';
+    const rating = parseFloat(card.querySelector('.rating-text')?.textContent || 0) || null;
+
+    // Crear el botón watch
+    const btnWatch = document.createElement('button');
+    btnWatch.className = 'btn-watch';
+    btnWatch.type = 'button';
+    btnWatch.title = 'Marcar como visto';
+    btnWatch.textContent = '✓';
+    btnWatch.dataset.titulo = titulo;
+    btnWatch.dataset.tipo = tipo;
+    btnWatch.dataset.genero = genero;
+    btnWatch.dataset.plataforma = plataforma;
+    btnWatch.dataset.imagen = imagen_url;
+    btnWatch.dataset.rating = rating;
+
+    // Agregar evento click
+    btnWatch.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const email = getCurrentUserEmail();
+      if (!email) {
+        abrirModal();
+        return;
+      }
+
+      const saved = await agregarAHistorial(titulo, tipo, genero, plataforma, imagen_url, rating);
+      if (saved) {
+        btnWatch.classList.add('btn-watch--saved');
+        btnWatch.textContent = '✔';
+        btnWatch.title = 'Visto';
+      }
+    });
+
+    // Agregar el botón al contenedor de acciones
+    cardActions.appendChild(btnWatch);
+  });
+}

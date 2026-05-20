@@ -839,10 +839,11 @@ main {
 /* 4. Contenedor de la Derecha */
 .card-actions {
     display: flex;
-    height: 85px;
+    min-height: 120px;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 8px;
 }
 
 .tag-platform {
@@ -907,7 +908,6 @@ main {
     font-weight: 700;
     cursor: pointer;
     transition: background 0.3s, transform 0.2s, color 0.3s;
-    margin-top: 8px;
 }
 
 .btn-watch:hover {
