@@ -206,28 +206,17 @@
       document.getElementById('nombreTop').value = '';
     });
 
-    document.getElementById('btnGuardarTop').addEventListener('click', () => {
-      const nombre     = document.getElementById('nombreTop').value.trim() || 'Mi Nuevo Top';
-      const contenedor = document.getElementById('contenedorTopsResultados');
+    document.getElementById('btnGuardarTop').addEventListener('click', async () => {
+      const nombre = document.getElementById('nombreTop').value.trim() || 'Mi Nuevo Top';
+      const topId  = await crearTopPersonalizado(nombre);
 
-      const tarjeta = document.createElement('div');
-      tarjeta.className = 'top-card-diseno';
-      tarjeta.innerHTML = `
-        <div class="top-card-header">
-          <h3 class="lista-card-nombre">${nombre}</h3>
-          <p class="lista-card-meta"><span class="top-count">0</span> elementos en esta lista</p>
-        </div>
-        <div class="top-lista-items" data-lista></div>
-        <div class="top-agregar-campo">
-          <div class="top-search-wrap">
-            <span class="top-search-icon">🔍</span>
-            <input type="text" class="top-search-input" placeholder="Agregar más..." />
-          </div>
-          <div class="top-search-resultados" style="display:none;"></div>
-        </div>
-      `;
-      contenedor.appendChild(tarjeta);
-      initTop(tarjeta);
+      if (!topId) {
+        mostrarToast('No se pudo guardar el top en el servidor', 'error');
+        return;
+      }
+
+      crearTarjetaTop({ id: topId, nombre, items_count: 0, items: [] });
+      mostrarToast('Top creado correctamente', 'success');
 
       document.getElementById('formCrearTop').style.display = 'none';
       document.getElementById('seccionCrearNuevo').style.display = 'block';
@@ -251,6 +240,7 @@
       const resultados = tarjeta.querySelector('.top-search-resultados');
       const lista      = tarjeta.querySelector('[data-lista]');
       const contador   = tarjeta.querySelector('.top-count');
+      const topId      = Number(tarjeta.dataset.topId || 0);
 
       input.addEventListener('input', () => {
         const q = input.value.trim().toLowerCase();
@@ -266,7 +256,7 @@
         resultados.style.display = 'block';
         resultados.querySelectorAll('.top-resultado-item').forEach(item => {
           item.addEventListener('click', () => {
-            agregarItem(lista, contador, item.dataset.titulo, item.dataset.img);
+            agregarItemALaLista(lista, contador, item.dataset.titulo, item.dataset.img, topId, Boolean(topId));
             input.value = '';
             resultados.style.display = 'none';
           });
@@ -276,40 +266,6 @@
       document.addEventListener('click', e => {
         if (!tarjeta.contains(e.target)) resultados.style.display = 'none';
       });
-    }
-
-    function agregarItem(lista, contador, titulo, img) {
-      const pos  = lista.children.length + 1;
-      const item = document.createElement('div');
-      item.className = 'top-item';
-      item.draggable = true;
-      item.innerHTML = `
-        <span class="top-item-pos">${pos}</span>
-        <img src="${img}" alt="${titulo}" class="top-item-img" />
-        <span class="top-item-titulo">${titulo}</span>
-        <button class="top-item-delete" type="button" title="Eliminar">🗑</button>
-      `;
-      item.querySelector('.top-item-delete').addEventListener('click', () => {
-        item.remove();
-        actualizarPosiciones(lista, contador);
-      });
-      item.addEventListener('dragstart', () => item.classList.add('dragging'));
-      item.addEventListener('dragend',   () => {
-        item.classList.remove('dragging');
-        actualizarPosiciones(lista, contador);
-      });
-      lista.addEventListener('dragover', e => {
-        e.preventDefault();
-        const dragging  = lista.querySelector('.dragging');
-        const siblings  = [...lista.querySelectorAll('.top-item:not(.dragging)')];
-        const siguiente = siblings.find(s => {
-          const rect = s.getBoundingClientRect();
-          return e.clientY < rect.top + rect.height / 2;
-        });
-        lista.insertBefore(dragging, siguiente || null);
-      });
-      lista.appendChild(item);
-      actualizarPosiciones(lista, contador);
     }
 
     function actualizarPosiciones(lista, contador) {
