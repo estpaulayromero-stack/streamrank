@@ -1,10 +1,6 @@
-import os
 import requests
 import json
 from datetime import datetime
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-JSON_PATH = os.path.join(BASE_DIR, 'json', 'marvel_top10.json')
 
 # ============================================================
 #  SCRAPER MARVEL — TMDb API
@@ -71,7 +67,7 @@ def obtener_top_marvel():
         return []
 
 
-def guardar_json(peliculas, nombre_archivo=JSON_PATH):
+def guardar_json(peliculas, nombre_archivo="marvel_top10.json"):
     """
     Guarda las películas en un archivo JSON con timestamp
     """
@@ -81,8 +77,6 @@ def guardar_json(peliculas, nombre_archivo=JSON_PATH):
         return False
     
     try:
-        os.makedirs(os.path.dirname(nombre_archivo), exist_ok=True)
-
         resultado = {
             "plataforma": "MARVEL",
             "fecha_actualizacion": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
