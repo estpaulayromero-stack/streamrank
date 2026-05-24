@@ -1,9 +1,3 @@
-// ============================================================
-//  MARVEL TOP 10 — Carga dinámica desde JSON
-//  Archivo: js/marvel.js
-//  Reemplaza las tarjetas hardcodeadas con datos del scraper
-// ============================================================
-
 const MARVEL_JSON_URL = 'marvel_top10.json';
 
 async function cargarTopMarvel() {
@@ -54,7 +48,6 @@ async function cargarTopMarvel() {
       return;
     }
 
-    // Generar HTML de las tarjetas
     contenedor.innerHTML = peliculas.map(peli => crearTarjeta(peli)).join('');
 
     console.log(`✅ Cargadas ${peliculas.length} películas de Marvel`);
@@ -85,7 +78,7 @@ function crearTarjeta(peli) {
   const imgSrc = imagen_url || 'assets/icons/placeholder.png';
 
   // Genero por defecto (TMDb retorna IDs, no nombres)
-  const generoTexto = 'Acción'; // Puedes hacer un map de IDs a nombres si quieres
+  const generoTexto = 'Acción'; 
 
   return `
     <article class="movie-card"
