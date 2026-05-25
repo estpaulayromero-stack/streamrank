@@ -3,7 +3,7 @@
 //  Backend: PHP/XAMPP + MariaDB
 // ============================================================
 
-const API_URL = "http://localhost/streamrank/api";
+const API_URL = "http://localhost/back-streamRank/api";
 
 // ==========================
 // STORAGE KEYS
