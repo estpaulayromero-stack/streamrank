@@ -40,36 +40,58 @@ function getCategoryPlatform(categoryKey) {
 }
 
 async function fetchCategoryData(categoryKey) {
-  const url = new URL(`json/${categoryKey}_top50.json`, window.location.href).href;
-  try {
-    console.debug('[tops] fetch', url);
-    const response = await fetch(url, { cache: 'no-store' });
-    if (!response.ok) throw new Error(`HTTP ${response.status} ${response.statusText}`);
+  const jsonFilename = `${categoryKey}_top50.json`;
+  const urlCandidates = [
+    `json/${jsonFilename}`,
+    `./json/${jsonFilename}`,
+    `/json/${jsonFilename}`,
+    `../json/${jsonFilename}`,
+  ];
 
-    const data = await response.json();
-    const rawItems = Array.isArray(data.peliculas) ? data.peliculas : [];
+  let response = null;
+  let attemptedUrls = [];
+  let foundUrl = null;
 
-    const items = rawItems.map(item => ({
-      titulo: item.titulo || item.title || 'Sin título',
-      tipo: item.tipo || 'película',
-      genero: item.genero || item.genre || 'Desconocido',
-      duration: item.duracion || item.duration || item.fecha_estreno || 'Desconocido',
-      rating: item.rating != null ? item.rating : item.vote_average || 0,
-      image: item.imagen_url || item.image || 'assets/icons/placeholder.png',
-      description: item.descripcion || item.description || 'Descripción no disponible.',
-      trailer: item.trailer || '',
-      position: item.posicion || item.position || 0,
-    }));
-
-    return {
-      nombre: data.nombre || getCategoryLabel(categoryKey),
-      plataforma: data.plataforma || getCategoryPlatform(categoryKey),
-      items,
-    };
-  } catch (error) {
-    console.error('Error cargando datos de categoría:', categoryKey, error);
-    return { error: error.message };
+  for (const candidate of urlCandidates) {
+    attemptedUrls.push(candidate);
+    try {
+      console.debug('[tops] fetch attempt', candidate);
+      response = await fetch(candidate, { cache: 'no-store' });
+      if (response.ok) {
+        foundUrl = candidate;
+        break;
+      }
+    } catch (err) {
+      console.debug('[tops] fetch failed', candidate, err);
+    }
   }
+
+  if (!response || !response.ok) {
+    const statusText = response ? `${response.status} ${response.statusText}` : 'no response';
+    throw new Error(`HTTP ${statusText} - intentos: ${attemptedUrls.join(', ')}`);
+  }
+
+  const data = await response.json();
+  const rawItems = Array.isArray(data.peliculas) ? data.peliculas : [];
+
+  const items = rawItems.map(item => ({
+    titulo: item.titulo || item.title || 'Sin título',
+    tipo: item.tipo || 'película',
+    genero: item.genero || item.genre || 'Desconocido',
+    duration: item.duracion || item.duration || item.fecha_estreno || 'Desconocido',
+    rating: item.rating != null ? item.rating : item.vote_average || 0,
+    image: item.imagen_url || item.image || 'assets/icons/placeholder.png',
+    description: item.descripcion || item.description || 'Descripción no disponible.',
+    trailer: item.trailer || '',
+    position: item.posicion || item.position || 0,
+  }));
+
+  return {
+    nombre: data.nombre || getCategoryLabel(categoryKey),
+    plataforma: data.plataforma || getCategoryPlatform(categoryKey),
+    items,
+    jsonUrl: foundUrl || urlCandidates[0],
+  };
 }
 
 function createMovieCard(item, index, platformLabel) {
@@ -135,6 +157,8 @@ async function renderCategoryPage(categoryKey) {
   listaElement.innerHTML = window.topCategoryDisplayedItems
     .map((item, index) => createMovieCard(item, index, platformLabel))
     .join('');
+
+  console.debug('[tops] items cargados:', window.topCategoryDisplayedItems.length, 'Top 10 mostrados de', window.topCategoryFullItems.length, 'items totales');
 }
 
 function injectRefreshButton(categoryKey) {
