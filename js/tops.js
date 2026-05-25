@@ -4,25 +4,43 @@
 // ============================================================
 
 const TOP_CATEGORY_LABELS = {
-  marvel:    'El Universo Marvel',
-  netflix:   'Netflix',
-  warner:    'Warner Bros',
-  disney:    'Disney+',
-  hbo:       'HBO Max',
-  amazon:    'Amazon Prime',
-  universal: 'Universal Studios',
-  starwars:  'Star Wars',
+  marvel:       'El Universo Marvel',
+  netflix:      'Netflix',
+  warner:       'Warner Bros',
+  disney:       'Disney+',
+  hbo:          'HBO Max',
+  amazon:       'Amazon Prime',
+  universal:    'Universal Studios',
+  starwars:     'Star Wars',
+  lucasfilm:    'Lucasfilm',
+  pixar:        'Pixar',
+  dreamworks:   'DreamWorks',
+  ghibli:       'Studio Ghibli',
+  dc_studios:   'DC Studios',
+  dc_universe:  'DC Universe',
+  harry_potter: 'Harry Potter',
+  fast_furious: 'Fast & Furious',
+  jurassic:     'Jurassic',
 };
 
 const TOP_CATEGORY_PLATFORM = {
-  marvel:    'MARVEL',
-  netflix:   'NETFLIX',
-  warner:    'WARNER BROS',
-  disney:    'DISNEY+',
-  hbo:       'HBO MAX',
-  amazon:    'PRIME VIDEO',
-  universal: 'UNIVERSAL',
-  starwars:  'STAR WARS',
+  marvel:       'MARVEL',
+  netflix:      'NETFLIX',
+  warner:       'WARNER BROS',
+  disney:       'DISNEY+',
+  hbo:          'HBO MAX',
+  amazon:       'PRIME VIDEO',
+  universal:    'UNIVERSAL',
+  starwars:     'STAR WARS',
+  lucasfilm:    'DISNEY+',
+  pixar:        'DISNEY+',
+  dreamworks:   'PRIME VIDEO',
+  ghibli:       'NETFLIX',
+  dc_studios:   'MAX',
+  dc_universe:  'MAX',
+  harry_potter: 'MAX',
+  fast_furious: 'PRIME VIDEO',
+  jurassic:     'PRIME VIDEO',
 };
 
 function parseCategoryFromUrl() {
@@ -157,6 +175,9 @@ async function renderCategoryPage(categoryKey) {
   listaElement.innerHTML = window.topCategoryDisplayedItems
     .map((item, index) => createMovieCard(item, index, platformLabel))
     .join('');
+
+  if (typeof initBotonesBookmark === 'function') initBotonesBookmark();
+  if (typeof initBotonesWatch === 'function') initBotonesWatch();
 
   console.debug('[tops] items cargados:', window.topCategoryDisplayedItems.length, 'Top 10 mostrados de', window.topCategoryFullItems.length, 'items totales');
 }

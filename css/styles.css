@@ -907,7 +907,7 @@ main {
     font-size: 18px;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s, color 0.3s;
+    transition: background 0.3s, transform 0.2s, color 0.3s, border-color 0.3s;
 }
 
 .btn-watch:hover {
@@ -916,9 +916,10 @@ main {
 }
 
 .btn-watch--saved {
-    background: rgba(71, 168, 109, 0.45);
-    color: #fff;
-    border-color: rgba(71, 168, 109, 0.55);
+    background: #22c55e;
+    color: #ffffff;
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
 }
 
 .btn-bookmark {
@@ -928,6 +929,16 @@ main {
 
 .btn-bookmark:hover {
     background: #7a7676;
+}
+
+.btn-bookmark.active {
+    background: #e7000b;
+    border-color: #fb2c36;
+    box-shadow: 0 0 0 2px rgba(231, 0, 11, 0.20);
+}
+
+.btn-bookmark.active img {
+    filter: brightness(0) invert(1);
 }
 
 .bookmark-icon {
@@ -1178,11 +1189,34 @@ body.modal-open {
   align-content: center;
   gap: 24px;
   align-self: stretch;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+.cards-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.cards-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cards-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+}
+
+.cards-wrapper {
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
+  scrollbar-width: thin;
 }
 
 .platform-card {
   display: flex;
+  scroll-snap-align: start;
   width: 292px;
   height: 158px;
   padding: 24px;
@@ -1214,6 +1248,15 @@ body.modal-open {
 .card-Warner { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://entertainment.time.com/wp-content/uploads/sites/3/2012/09/warner_bros-_pictures_intro.jpg?w=720&h=480&crop=1'); }
 .card-starwars { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://static.wikia.nocookie.net/esstarwars/images/4/42/StarWarsOpeningLogo.svg/revision/latest?cb=20161007015630'); }
 .card-universal { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://mediaproxy.tvtropes.org/width/1200/https://static.tvtropes.org/pmwiki/pub/images/img_4543png.png'); }
+.card-lucasfilm { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Lucasfilm_logo.svg/1200px-Lucasfilm_logo.svg.png'); }
+.card-pixar { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/en/0/05/Pixar_Logo.svg'); }
+.card-dreamworks { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/DreamWorks_Logo_2016.svg/1200px-DreamWorks_Logo_2016.svg.png'); }
+.card-ghibli { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/en/9/9a/Studio_Ghibli_logo.svg'); }
+.card-dc-studios { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/DC_Studios_Logo.svg/1200px-DC_Studios_Logo.svg.png'); }
+.card-dc-universe { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/DC_Comics_logo.svg/1200px-DC_Comics_logo.svg.png'); }
+.card-harrypotter { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/en/a/a9/Harry_Potter_wordmark.svg'); }
+.card-fastfurious { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Fast_and_Furious_logo.png/1200px-Fast_and_Furious_logo.png'); }
+.card-jurassic { background-image: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://upload.wikimedia.org/wikipedia/en/e/e7/Logo_of_Jurassic_Park.svg'); }
 
 /* ── DROPDOWNS ── */
 .dropdown-wrapper {

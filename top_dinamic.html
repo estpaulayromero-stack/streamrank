@@ -210,14 +210,23 @@
   <script>
     // ── LEER CATEGORÍA DESDE LA URL ──────────────────────────
     const CATEGORIAS_NOMBRES = {
-      marvel:    "Marvel",
-      netflix:   "Netflix",
-      warner:    "Warner Bros",
-      disney:    "Disney",
-      hbo:       "HBO Max",
-      amazon:    "Amazon Prime",
-      universal: "Universal Studios",
-      starwars:  "Star Wars",
+      marvel:       "Marvel",
+      netflix:      "Netflix",
+      warner:       "Warner Bros",
+      disney:       "Disney",
+      hbo:          "HBO Max",
+      amazon:       "Amazon Prime",
+      universal:    "Universal Studios",
+      starwars:     "Star Wars",
+      lucasfilm:    "Lucasfilm",
+      pixar:        "Pixar",
+      dreamworks:   "DreamWorks",
+      ghibli:       "Studio Ghibli",
+      dc_studios:   "DC Studios",
+      dc_universe:  "DC Universe",
+      harry_potter: "Harry Potter",
+      fast_furious: "Fast & Furious",
+      jurassic:     "Jurassic",
     };
 
     const params   = new URLSearchParams(window.location.search);
@@ -263,7 +272,7 @@
 
       document.addEventListener("click", e => {
         const card = e.target.closest(".movie-card");
-        if (card && !e.target.closest(".btn-bookmark")) openModal(card);
+        if (card && !e.target.closest(".btn-bookmark") && !e.target.closest(".btn-watch")) openModal(card);
       });
 
       closeBtn?.addEventListener("click", closeModal);
