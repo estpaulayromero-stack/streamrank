@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamRank - Top 10</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/registro.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="StreamRank">
+        <span class="brand-icon">
+          <img src="assets/icons/Clapperboard.svg" alt="StreamRank icon" />
+        </span>
+        <span class="brand-title"><span>Stream</span><span>Rank</span></span>
+      </div>
+      <div class="header-nav-row">
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="index.html" class="nav-link">Inicio</a>
+          <a href="top10.html" class="nav-link">Top 10</a>
+          <a href="mis-listas.html" id="linkMisListas" class="nav-link">
+            <span class="nav-icon">
+              <img src="assets/icons/Menu.svg" alt="Mis Listas icon" />
+            </span>
+            Mis Listas
+          </a>
+        </nav>
+        <form class="search-form" id="searchForm">
+          <label class="search-field">
+            <span class="search-icon">
+              <img src="assets/icons/Busqueda.svg" alt="Buscar icon" />
+            </span>
+            <input id="searchInput" type="search" placeholder="Buscar" aria-label="Buscar" autocomplete="off" />
+          </label>
+        </form>
+      </div>
+      <button class="profile-button" id="btnIngresar" type="button" onclick="abrirModal()">
+        <span class="profile-icon">
+          <img src="assets/icons/Perfil.svg" alt="Perfil icon" />
+        </span>
+        Ingresar
+      </button>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <section class="hero-plataforma">
+      <div class="hero-plataforma-info">
+        <a href="top10.html" class="btn-back">← Volver a categorías</a>
+        <!-- El título se actualiza dinámicamente -->
+        <h1 class="hero-title-gradient" id="tituloPagina">Top 50</h1>
+        <!-- El botón Actualizar datos se inyecta aquí por tops.js -->
+      </div>
+    </section>
+
+    <section class="filters-section">
+      <div class="filters-top-wrapper">
+        <div class="content-type-toggle">
+          <button class="toggle-btn active">
+            <span class="icon"><img src="assets/icons/general.svg" alt="Todos"></span>
+            <span class="btn-text">Todos</span>
+          </button>
+          <button class="toggle-btn">
+            <span class="icon"><img src="assets/icons/Pelicula.svg" alt="Películas"></span>
+            <span class="btn-text">Películas</span>
+          </button>
+          <button class="toggle-btn">
+            <span class="icon"><img src="assets/icons/Series.svg" alt="Series"></span>
+            <span class="btn-text">Series</span>
+          </button>
+        </div>
+      </div>
+      <div class="filters-bottom-wrapper">
+        <div class="filters-dropdown-group">
+          <button class="dropdown-btn">
+            <div class="dropdown-content-left">
+              <img src="assets/icons/Filtrar.svg" alt="Filtro">
+              <span class="btn-text">Escoge un Género</span>
+            </div>
+            <img src="assets/icons/Desplegar.svg" alt="Desplegar">
+          </button>
+          <button class="dropdown-btn">
+            <div class="dropdown-content-left">
+              <img src="assets/icons/Duracion.svg" alt="Reloj">
+              <span class="btn-text">Escoge una Duración</span>
+            </div>
+            <img src="assets/icons/Desplegar.svg" alt="Desplegar">
+          </button>
+        </div>
+        <div class="filters-sort-group">
+          <div class="sort-toggle-wrapper">
+            <button class="sort-btn active">
+              <img src="assets/icons/Rating.svg" alt="Rating">
+              <span class="btn-text">Rating</span>
+            </button>
+            <button class="sort-btn">
+              <img src="assets/icons/Popularidad.svg" alt="Popularidad">
+              <span class="btn-text">Popularidad</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="top-10-section">
+      <div class="top-10-list">
+        <!-- Tarjetas cargadas dinámicamente por tops.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p class="footer-text">StreamRank ofrece las mejores listas y rankings de contenido audiovisual.</p>
+    <p class="footer-text">Diseñado para una experiencia clara, rápida y moderna.</p>
+  </footer>
+
+  <!-- MODAL DETALLE PELÍCULA -->
+  <div class="modal-overlay-movie" id="modalOverlayMovie">
+    <div class="floating-card">
+      <div class="modal-header">
+        <button class="modal-close-btn" id="closeModalBtn">✕</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-tags">
+          <span class="tag-type" id="modalType">PELÍCULA</span>
+          <span class="tag-genre" id="modalGenre">• Acción</span>
+        </div>
+        <h3 class="info-title" id="modalTitle">Título</h3>
+        <div class="modal-rating-duration">
+          <div class="info-rating">
+            <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
+            <span class="rating-text" id="modalRating">8.0</span>
+          </div>
+          <div class="modal-duration-badge">
+            <img src="assets/icons/Duracion.svg" alt="Duración" class="duration-icon">
+            <span id="modalDuration">120min</span>
+          </div>
+        </div>
+        <p class="info-desc" id="modalDesc"></p>
+        <div class="trailer-wrapper">
+          <iframe id="trailerIframe" src="" title="Trailer" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODALS -->
+  <div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" style="display:none;"></div>
+  <div id="modalLogin" class="modal-login" style="display:none;">
+    <button class="modal-cerrar" type="button" onclick="cerrarModal()">✕</button>
+    <div class="modal-contenido">
+      <div class="modal-encabezado">
+        <h2 class="modal-titulo">Bienvenido de nuevo</h2>
+        <p class="modal-subtitulo">Ingresa tus credenciales para acceder.</p>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label">Correo electrónico</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">✉</span>
+          <input class="modal-input" id="loginEmail" type="email" placeholder="tu@correo.com" />
+        </div>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label">Contraseña</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">🔒</span>
+          <input class="modal-input" id="loginPassword" type="password" placeholder="••••••••" />
+        </div>
+      </div>
+      <button class="modal-btn-ingresar" type="button" onclick="simularLogin()">Ingresar</button>
+      <p class="modal-pie">¿No tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="abrirRegistro()">Regístrate aquí</a></p>
+    </div>
+  </div>
+  <div id="modalRegistro" class="modal-login" style="display:none;">
+    <button class="modal-cerrar" type="button" onclick="cerrarRegistro()">✕</button>
+    <div class="modal-contenido">
+      <div class="modal-encabezado">
+        <h2 class="modal-titulo">Crear una cuenta</h2>
+        <p class="modal-subtitulo">Regístrate con tu correo electrónico.</p>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label">Correo electrónico</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">✉</span>
+          <input class="modal-input" id="regEmail" type="email" placeholder="tu@correo.com" />
+        </div>
+      </div>
+      <div class="modal-campo">
+        <label class="modal-label">Contraseña</label>
+        <div class="modal-input-wrapper">
+          <span class="modal-input-icono">🔒</span>
+          <input class="modal-input" id="regPassword" type="password" placeholder="••••••••" />
+        </div>
+      </div>
+      <button class="modal-btn-ingresar" type="button" onclick="simularRegistro()">Registrarse</button>
+      <p class="modal-pie">¿Ya tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="irALogin()">Ingresa aquí</a></p>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/auth.js"></script>
+  <script src="js/listas.js"></script>
+  <script src="js/tops.js"></script>
+
+  <script>
+    // ── LEER CATEGORÍA DESDE LA URL ──────────────────────────
+    const CATEGORIAS_NOMBRES = {
+      marvel:    "Marvel",
+      netflix:   "Netflix",
+      warner:    "Warner Bros",
+      disney:    "Disney",
+      hbo:       "HBO Max",
+      amazon:    "Amazon Prime",
+      universal: "Universal Studios",
+      starwars:  "Star Wars",
+    };
+
+    const params   = new URLSearchParams(window.location.search);
+    const cat      = params.get("cat") || "marvel";
+    const nombre   = CATEGORIAS_NOMBRES[cat] || cat;
+
+    // Actualizar título de la página
+    document.title = `StreamRank - Top 10 ${nombre}`;
+    document.getElementById("tituloPagina").textContent = `Top 10: ${nombre}`;
+
+    // Decirle a top-loader.js qué categoría cargar
+    window.TOP_CATEGORIA = cat;
+
+    // ── MODAL DETALLE ────────────────────────────────────────
+    document.addEventListener("DOMContentLoaded", () => {
+      const overlay    = document.getElementById("modalOverlayMovie");
+      const closeBtn   = document.getElementById("closeModalBtn");
+      const modalType  = document.getElementById("modalType");
+      const modalGenre = document.getElementById("modalGenre");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalRating= document.getElementById("modalRating");
+      const modalDesc  = document.getElementById("modalDesc");
+      const modalDur   = document.getElementById("modalDuration");
+      const iframe     = document.getElementById("trailerIframe");
+
+      function openModal(card) {
+        modalType.textContent   = card.querySelector(".tag-type")?.textContent   || "";
+        modalGenre.textContent  = card.querySelector(".tag-genre")?.textContent  || "";
+        modalTitle.textContent  = card.querySelector(".info-title")?.textContent || "";
+        modalRating.textContent = card.querySelector(".rating-text")?.textContent|| "";
+        modalDur.textContent    = card.dataset.duration    || "120min";
+        modalDesc.textContent   = card.dataset.description || "";
+        iframe.src              = card.dataset.trailer     || "";
+        overlay.classList.add("active");
+        document.body.classList.add("modal-open");
+      }
+
+      function closeModal() {
+        overlay.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        iframe.src = "";
+      }
+
+      document.addEventListener("click", e => {
+        const card = e.target.closest(".movie-card");
+        if (card && !e.target.closest(".btn-bookmark")) openModal(card);
+      });
+
+      closeBtn?.addEventListener("click", closeModal);
+      overlay?.addEventListener("click", e => { if (e.target === overlay) closeModal(); });
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && overlay?.classList.contains("active")) closeModal();
+      });
+    });
+
+    // ── FILTROS ──────────────────────────────────────────────
+    const tipoMap  = { "Todos":"todos", "Películas":"peliculas", "Series":"series" };
+    const ordenMap = { "Rating":"rating", "Popularidad":"popularidad" };
+
+    function filtrarCartas() {
+      const tipo = document.querySelector(".toggle-btn.active")?.dataset.tipo || "todos";
+      document.querySelectorAll(".movie-card").forEach(card => {
+        const t = card.querySelector(".tag-type")?.textContent.trim().toLowerCase();
+        let v = true;
+        if (tipo === "peliculas" && t !== "película") v = false;
+        if (tipo === "series"    && t !== "serie")    v = false;
+        card.style.display = v ? "" : "none";
+      });
+      ordenarCartas();
+    }
+
+    function ordenarCartas() {
+      const orden = document.querySelector(".sort-btn.active")?.dataset.orden || "rating";
+      const lista = document.querySelector(".top-10-list");
+      const cartas = [...lista.querySelectorAll(".movie-card")].filter(c => c.style.display !== "none");
+      cartas.sort((a, b) => orden === "rating"
+        ? parseFloat(b.querySelector(".rating-text")?.textContent || 0) - parseFloat(a.querySelector(".rating-text")?.textContent || 0)
+        : parseInt(a.querySelector(".card-number")?.textContent  || 0)  - parseInt(b.querySelector(".card-number")?.textContent  || 0)
+      );
+      cartas.forEach(c => lista.appendChild(c));
+    }
+
+    document.querySelectorAll(".toggle-btn").forEach(btn => {
+      btn.dataset.tipo = tipoMap[btn.querySelector(".btn-text")?.textContent.trim()] || "todos";
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        filtrarCartas();
+      });
+    });
+
+    document.querySelectorAll(".sort-btn").forEach(btn => {
+      btn.dataset.orden = ordenMap[btn.querySelector(".btn-text")?.textContent.trim()] || "rating";
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        filtrarCartas();
+      });
+    });
+  </script>
+
+</body>
+</html>

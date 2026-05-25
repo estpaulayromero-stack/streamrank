@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>StreamRank - Top 10</title>
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/registro.css" />
 </head>
 <body>
   <header class="topbar">
@@ -15,7 +16,6 @@
         </span>
         <span class="brand-title"><span>Stream</span><span>Rank</span></span>
       </div>
-
       <div class="header-nav-row">
         <nav class="main-nav" aria-label="Navegación principal">
           <a href="index.html" class="nav-link">Inicio</a>
@@ -27,7 +27,6 @@
             Mis Listas
           </a>
         </nav>
-
         <form class="search-form" id="searchForm">
           <label class="search-field">
             <span class="search-icon">
@@ -37,12 +36,8 @@
           </label>
         </form>
       </div>
-
-      <button class="profile-button" id="btnIngresar" type="button">
-        <span class="profile-icon">
-          <img src="assets/icons/Perfil.svg" alt="Perfil icon" />
-        </span>
-        Username
+          <button class="profile-button" type="button" id="btnIngresar" onclick="abrirModal()">
+        Ingresar
       </button>
     </div>
   </header>
@@ -51,11 +46,11 @@
     <section class="hero">
       <div class="hero-info">
         <div class="hero-title-container">
-          <h1 class="hero-title">Descubre los Tops 10</h1>
+          <h1 class="hero-title">Descubre los Tops</h1>
         </div>
         <div class="hero-desc-container">
           <p class="hero-description">
-            Explora las mejores películas y series organizadas por plataforma de streaming, 
+            Explora las mejores películas y series organizadas por plataforma de streaming,
             estudio de producción o tus sagas favoritas.
           </p>
         </div>
@@ -63,61 +58,60 @@
     </section>
 
     <section class="top10-categories">
-      <!-- Plataformas (subtítulo rojo) -->
+
+      <!-- PLATAFORMAS -->
       <div class="category-container">
         <div class="category-title">Top por Plataformas</div>
         <div class="cards-wrapper">
-          <!-- Netflix: enlace a top10_netflix.html -->
-          <a href="top10_netflix.html" class="platform-card card-netflix" style="text-decoration: none;">
+          <a href="top_dinamic.html?cat=netflix" class="platform-card card-netflix" style="text-decoration:none;">
             <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
             <div class="card-title">Netflix</div>
           </a>
-          <div class="platform-card card-disney">
+          <a href="top_dinamic.html?cat=disney" class="platform-card card-disney" style="text-decoration:none;">
             <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
             <div class="card-title">Disney+</div>
-          </div>
-          <div class="platform-card card-hbo">
+          </a>
+          <a href="top_dinamic.html?cat=hbo" class="platform-card card-hbo" style="text-decoration:none;">
             <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
             <div class="card-title">HBO Max</div>
-          </div>
-          <div class="platform-card card-amazon">
+          </a>
+          <a href="top_dinamic.html?cat=amazon" class="platform-card card-amazon" style="text-decoration:none;">
             <div class="card-subtitle subtitle-plataforma">SERVICIO DE STREAMING</div>
             <div class="card-title">Amazon Prime</div>
-          </div>
+          </a>
         </div>
       </div>
 
-      <!-- Estudios (subtítulo azul) -->
+      <!-- ESTUDIOS -->
       <div class="category-container">
         <div class="category-title">Top por Estudios</div>
         <div class="cards-wrapper">
-          <!-- Warner Bros.: enlace a top10_warner.html -->
-          <a href="top10_warner.html" class="platform-card card-Warner" style="text-decoration: none;">
+          <a href="top_dinamic.html?cat=warner" class="platform-card card-Warner" style="text-decoration:none;">
             <div class="card-subtitle subtitle-estudio">ESTUDIO CINEMATOGRÁFICO</div>
             <div class="card-title">Warner Bros.</div>
           </a>
-          <div class="platform-card card-universal">
-            <div class="card-subtitle subtitle-estudio">FRANQUICIA</div>
+          <a href="top_dinamic.html?cat=universal" class="platform-card card-universal" style="text-decoration:none;">
+            <div class="card-subtitle subtitle-estudio">ESTUDIO CINEMATOGRÁFICO</div>
             <div class="card-title">Universal Studios</div>
-          </div>
+          </a>
         </div>
       </div>
 
-      <!-- Sagas (subtítulo morado) -->
+      <!-- SAGAS -->
       <div class="category-container">
         <div class="category-title">Top por Sagas</div>
         <div class="cards-wrapper">
-          <div class="platform-card card-starwars">
+          <a href="top_dinamic.html?cat=starwars" class="platform-card card-starwars" style="text-decoration:none;">
             <div class="card-subtitle subtitle-saga">SAGA DE PELÍCULAS</div>
             <div class="card-title">Star Wars</div>
-          </div>
-          <!-- Marvel: enlace a top10_marvel.html -->
-          <a href="top10_marvel.html" class="platform-card card-marvel" style="text-decoration: none;">
+          </a>
+          <a href="top_dinamic.html?cat=marvel" class="platform-card card-marvel" style="text-decoration:none;">
             <div class="card-subtitle subtitle-saga">SAGA DE PELÍCULAS</div>
             <div class="card-title">El Universo Marvel</div>
           </a>
         </div>
       </div>
+
     </section>
   </main>
 
@@ -128,7 +122,6 @@
 
   <!-- AUTH MODALS -->
   <div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" style="display:none;"></div>
-
   <div id="modalLogin" class="modal-login" style="display:none;">
     <button class="modal-cerrar" type="button" onclick="cerrarModal()">✕</button>
     <div class="modal-contenido">
@@ -141,7 +134,6 @@
         <div class="modal-input-wrapper">
           <span class="modal-input-icono">✉</span>
           <input class="modal-input" id="loginEmail" type="email" placeholder="tu@correo.com" />
-          <small id="loginEmailError" style="color:red; display:none; font-size:12px;">El correo debe contener "@gmail.com"</small>
         </div>
       </div>
       <div class="modal-campo">
@@ -156,13 +148,12 @@
       <p class="modal-pie">¿No tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="abrirRegistro()">Regístrate aquí</a></p>
     </div>
   </div>
-
   <div id="modalRegistro" class="modal-login" style="display:none;">
     <button class="modal-cerrar" type="button" onclick="cerrarRegistro()">✕</button>
     <div class="modal-contenido">
       <div class="modal-encabezado">
         <h2 class="modal-titulo">Crear una cuenta</h2>
-        <p class="modal-subtitulo">Regístrate por primera vez con tu correo electrónico.</p>
+        <p class="modal-subtitulo">Regístrate con tu correo electrónico.</p>
       </div>
       <div class="modal-campo">
         <label class="modal-label" for="regEmail">Correo electrónico</label>

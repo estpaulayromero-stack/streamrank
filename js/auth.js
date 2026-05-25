@@ -212,10 +212,10 @@ async function simularLogin() {
       actualizarEstadoUsuario();
 
       // Redirección
-      const fromMisListas =
-        new URLSearchParams(window.location.search).get('from') === 'mislistas';
+      const fromMisListas = new URLSearchParams(window.location.search).get('from') === 'mislistas';
+      const isMisListasPage = window.location.pathname.endsWith('mis-listas.html');
 
-      if (fromMisListas) {
+      if (fromMisListas || isMisListasPage) {
         window.location.href = 'mis-listas.html';
       } else {
         location.reload();
@@ -310,19 +310,46 @@ function actualizarEstadoUsuario() {
     if (ajustesCuenta) ajustesCuenta.style.display = 'none';
     if (ajustesTitulo) ajustesTitulo.style.display  = 'none';
     if (noSesionView)  noSesionView.style.display   = 'flex';
+
+    if (window.location.pathname.endsWith('mis-listas.html')) {
+      updateMisListasAuthView(false);
+    }
   }
 }
 
 // ==========================
-// PROTEGER PÁGINAS
+// VISTA DE MIS LISTAS SIN SESIÓN
 // ==========================
+
+function updateMisListasAuthView(sessionActive) {
+  const notice      = document.getElementById('misListasAuthNotice');
+  const tabs        = document.querySelector('.listas-tabs');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  if (!notice || !tabs) return;
+
+  if (sessionActive) {
+    notice.style.display = 'none';
+    tabs.style.display   = 'flex';
+    tabContents.forEach((content, index) => {
+      content.style.display = content.id === 'tab-agregados' ? 'block' : 'none';
+    });
+    document.querySelectorAll('.listas-tab').forEach((tab, index) => {
+      tab.classList.toggle('active', index === 0);
+    });
+  } else {
+    notice.style.display = 'flex';
+    tabs.style.display   = 'none';
+    tabContents.forEach(content => content.style.display = 'none');
+  }
+}
 
 function verificarProteccionPagina() {
   const necesitaProteccion = window.location.pathname.endsWith('mis-listas.html');
   const sessionActive      = isSessionActive();
 
-  if (necesitaProteccion && !sessionActive) {
-    window.location.href = 'index.html?from=mislistas';
+  if (necesitaProteccion) {
+    updateMisListasAuthView(sessionActive);
   }
 }
 
@@ -396,6 +423,25 @@ function setupEventListeners() {
     loginPassword.addEventListener('keypress', e => {
       if (e.key === 'Enter') simularLogin();
     });
+  }
+
+  // Botón de ingresar en todas las páginas
+  const btnIngresar = document.getElementById('btnIngresar');
+  if (btnIngresar) {
+    btnIngresar.addEventListener('click', e => {
+      e.preventDefault();
+      if (isSessionActive()) {
+        logout();
+      } else {
+        abrirModal();
+      }
+    });
+  }
+
+  // Botón iniciar sesión desde Mis Listas
+  const btnLoginDesdeMisListas = document.getElementById('btnLoginDesdeMisListas');
+  if (btnLoginDesdeMisListas) {
+    btnLoginDesdeMisListas.addEventListener('click', abrirModal);
   }
 
   // Botón guardar ajustes de perfil
