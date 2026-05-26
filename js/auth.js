@@ -65,10 +65,11 @@ function closeModal(modalId) {
 }
 
 function abrirModal()     { resetLoginErrors(); openModal('modalLogin'); }
-function cerrarModal()    { closeModal('modalLogin'); }
+function cerrarModal()    { closeModal('modalLogin'); closeModal('modalRegistro'); }
 function abrirRegistro()  { cerrarModal(); openModal('modalRegistro'); }
 function cerrarRegistro() { closeModal('modalRegistro'); }
 function irALogin()       { cerrarRegistro(); abrirModal(); }
+function abrirPerfil()    { window.location.href = 'perfil.html'; }
 
 // ==========================
 // VALIDACIONES
@@ -228,7 +229,7 @@ function actualizarEstadoUsuario() {
     const nombre = username || email.split('@')[0];
 
     if (btnIngresar) {
-      // Mostrar nombre/foto y al hacer clic → logout
+      // Mostrar nombre/foto y al hacer clic → abrir perfil
       if (foto) {
         btnIngresar.innerHTML = `
           <img src="${foto}" alt="Perfil"
@@ -238,8 +239,7 @@ function actualizarEstadoUsuario() {
       } else {
         btnIngresar.textContent = nombre;
       }
-      // CORRECCIÓN: onclick siempre es logout cuando hay sesión
-      btnIngresar.onclick = (e) => { e.preventDefault(); logout(); };
+      btnIngresar.onclick = (e) => { e.preventDefault(); abrirPerfil(); };
     }
 
     // Mostrar link Mis Listas
