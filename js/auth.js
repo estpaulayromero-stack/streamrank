@@ -34,7 +34,7 @@ function clearCurrentSession() {
 }
 
 function isSessionActive() {
-  return localStorage.getItem(STORAGE_SESSION_KEY) === 'activa' || !!getCurrentUserEmail();
+  return localStorage.getItem(STORAGE_SESSION_KEY) === 'activa';
 }
 
 function logout() {
@@ -66,10 +66,8 @@ function closeModal(modalId) {
 
 function abrirModal()     { resetLoginErrors(); openModal('modalLogin'); }
 function cerrarModal()    { closeModal('modalLogin'); }
-
 function abrirRegistro()  { cerrarModal(); openModal('modalRegistro'); }
 function cerrarRegistro() { closeModal('modalRegistro'); }
-
 function irALogin()       { cerrarRegistro(); abrirModal(); }
 
 // ==========================
@@ -87,14 +85,8 @@ function isValidPassword(password) {
 function resetLoginErrors() {
   const emailError = document.getElementById('loginEmailError');
   const passError  = document.getElementById('loginPassError');
-  if (emailError) {
-    emailError.style.display = 'none';
-    emailError.textContent = 'El correo debe contener "@gmail.com"';
-  }
-  if (passError) {
-    passError.style.display = 'none';
-    passError.textContent = 'La contraseña debe tener mínimo 8 caracteres';
-  }
+  if (emailError) emailError.style.display = 'none';
+  if (passError)  passError.style.display  = 'none';
 }
 
 function showLoginError(type, message) {
@@ -102,7 +94,7 @@ function showLoginError(type, message) {
     ? document.getElementById('loginEmailError')
     : document.getElementById('loginPassError');
   if (target) {
-    target.textContent = message;
+    target.textContent   = message;
     target.style.display = 'block';
   }
 }
@@ -123,12 +115,10 @@ async function simularRegistro() {
     alert('Completa todos los campos');
     return;
   }
-
   if (!isValidEmail(email)) {
     alert('Debe ser un correo @gmail.com');
     return;
   }
-
   if (!isValidPassword(password)) {
     alert('La contraseña debe tener mínimo 8 caracteres');
     return;
@@ -173,21 +163,10 @@ async function simularLogin() {
 
   resetLoginErrors();
 
-  if (!email || !password) {
-    if (!email) showLoginError('email', 'Ingresa tu correo @gmail.com');
-    if (!password) showLoginError('password', 'Ingresa tu contraseña de al menos 8 caracteres');
-    return;
-  }
-
-  if (!isValidEmail(email)) {
-    showLoginError('email', 'El correo debe contener "@gmail.com"');
-    return;
-  }
-
-  if (!isValidPassword(password)) {
-    showLoginError('password', 'La contraseña debe tener mínimo 8 caracteres');
-    return;
-  }
+  if (!email) { showLoginError('email', 'Ingresa tu correo @gmail.com'); return; }
+  if (!password) { showLoginError('password', 'Ingresa tu contraseña'); return; }
+  if (!isValidEmail(email)) { showLoginError('email', 'El correo debe contener "@gmail.com"'); return; }
+  if (!isValidPassword(password)) { showLoginError('password', 'Mínimo 8 caracteres'); return; }
 
   try {
     const response = await fetch(`${API_URL}/login.php`, {
@@ -199,7 +178,6 @@ async function simularLogin() {
     const data = await response.json();
 
     if (response.ok) {
-      // Guardar sesión en localStorage
       localStorage.setItem(STORAGE_SESSION_KEY, 'activa');
       saveCurrentUserEmail(email);
       localStorage.setItem(STORAGE_USERNAME_KEY, data.username || '');
@@ -211,8 +189,7 @@ async function simularLogin() {
       cerrarModal();
       actualizarEstadoUsuario();
 
-      // Redirección
-      const fromMisListas = new URLSearchParams(window.location.search).get('from') === 'mislistas';
+      const fromMisListas   = new URLSearchParams(window.location.search).get('from') === 'mislistas';
       const isMisListasPage = window.location.pathname.endsWith('mis-listas.html');
 
       if (fromMisListas || isMisListasPage) {
@@ -222,11 +199,11 @@ async function simularLogin() {
       }
 
     } else {
-      const errorMessage = data.error || 'Correo o contraseña incorrectos';
-      if (errorMessage.toLowerCase().includes('registr')) {
-        showLoginError('email', errorMessage);
+      const msg = data.error || 'Correo o contraseña incorrectos';
+      if (msg.toLowerCase().includes('registr') || msg.toLowerCase().includes('existe')) {
+        showLoginError('email', msg);
       } else {
-        showLoginError('password', errorMessage);
+        showLoginError('password', msg);
       }
     }
 
@@ -251,6 +228,7 @@ function actualizarEstadoUsuario() {
     const nombre = username || email.split('@')[0];
 
     if (btnIngresar) {
+      // Mostrar nombre/foto y al hacer clic → logout
       if (foto) {
         btnIngresar.innerHTML = `
           <img src="${foto}" alt="Perfil"
@@ -260,14 +238,11 @@ function actualizarEstadoUsuario() {
       } else {
         btnIngresar.textContent = nombre;
       }
-      if (window.location.pathname.endsWith('registro.html')) {
-        btnIngresar.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        btnIngresar.onclick = () => window.location.href = 'registro.html';
-      }
+      // CORRECCIÓN: onclick siempre es logout cuando hay sesión
+      btnIngresar.onclick = (e) => { e.preventDefault(); logout(); };
     }
 
-    // Mostrar link Mis Listas si estaba oculto
+    // Mostrar link Mis Listas
     const linkMisListas = document.getElementById('linkMisListas');
     if (linkMisListas) linkMisListas.style.display = '';
 
@@ -279,9 +254,8 @@ function actualizarEstadoUsuario() {
       const ajustesFoto     = document.getElementById('ajustes-foto-url');
       const ajustesInicial  = document.getElementById('ajustes-inicial');
       if (ajustesUsername) ajustesUsername.value = username || '';
-      if (ajustesFoto)     ajustesFoto.value     = foto || '';
-      if (ajustesInicial)  ajustesInicial.textContent =
-        (username || email)[0].toUpperCase();
+      if (ajustesFoto)     ajustesFoto.value     = foto    || '';
+      if (ajustesInicial)  ajustesInicial.textContent = (username || email)[0].toUpperCase();
     }
 
     // Página ajustes: mostrar sección
@@ -292,7 +266,7 @@ function actualizarEstadoUsuario() {
     if (ajustesTitulo) ajustesTitulo.style.display  = 'block';
     if (noSesionView)  noSesionView.style.display   = 'none';
 
-    // Refrescar mis listas si estamos en la página correspondiente
+    // Refrescar mis listas si estamos en esa página
     if (window.location.pathname.endsWith('mis-listas.html') && typeof renderizarMisListas === 'function') {
       renderizarMisListas();
     }
@@ -300,56 +274,42 @@ function actualizarEstadoUsuario() {
   } else {
     if (btnIngresar) {
       btnIngresar.textContent = 'Ingresar';
-      btnIngresar.onclick     = abrirModal;
+      btnIngresar.onclick     = (e) => { e.preventDefault(); abrirModal(); };
     }
 
-    // Página ajustes: mostrar aviso sin sesión
     const ajustesCuenta = document.getElementById('ajustes-cuenta');
     const ajustesTitulo = document.getElementById('ajustes-titulo');
     const noSesionView  = document.getElementById('noSesionView');
     if (ajustesCuenta) ajustesCuenta.style.display = 'none';
     if (ajustesTitulo) ajustesTitulo.style.display  = 'none';
     if (noSesionView)  noSesionView.style.display   = 'flex';
-
-    if (window.location.pathname.endsWith('mis-listas.html')) {
-      updateMisListasAuthView(false);
-    }
   }
 }
 
 // ==========================
-// VISTA DE MIS LISTAS SIN SESIÓN
+// PROTEGER MIS LISTAS
 // ==========================
 
-function updateMisListasAuthView(sessionActive) {
-  const notice      = document.getElementById('misListasAuthNotice');
-  const tabs        = document.querySelector('.listas-tabs');
-  const tabContents = document.querySelectorAll('.tab-content');
+function verificarProteccionPagina() {
+  if (!window.location.pathname.endsWith('mis-listas.html')) return;
+
+  const sessionActive = isSessionActive();
+  const notice        = document.getElementById('misListasAuthNotice');
+  const tabs          = document.querySelector('.listas-tabs');
+  const tabContents   = document.querySelectorAll('.tab-content');
 
   if (!notice || !tabs) return;
 
   if (sessionActive) {
     notice.style.display = 'none';
     tabs.style.display   = 'flex';
-    tabContents.forEach((content, index) => {
-      content.style.display = content.id === 'tab-agregados' ? 'block' : 'none';
-    });
-    document.querySelectorAll('.listas-tab').forEach((tab, index) => {
-      tab.classList.toggle('active', index === 0);
+    tabContents.forEach((c, i) => {
+      c.style.display = i === 0 ? 'block' : 'none';
     });
   } else {
     notice.style.display = 'flex';
     tabs.style.display   = 'none';
-    tabContents.forEach(content => content.style.display = 'none');
-  }
-}
-
-function verificarProteccionPagina() {
-  const necesitaProteccion = window.location.pathname.endsWith('mis-listas.html');
-  const sessionActive      = isSessionActive();
-
-  if (necesitaProteccion) {
-    updateMisListasAuthView(sessionActive);
+    tabContents.forEach(c => c.style.display = 'none');
   }
 }
 
@@ -363,10 +323,7 @@ async function guardarAjustesPerfil() {
   const foto_url = document.getElementById('ajustes-foto-url')?.value.trim() || '';
   const password = document.getElementById('ajustes-password')?.value.trim() || '';
 
-  if (!email) {
-    alert('No hay sesión activa');
-    return;
-  }
+  if (!email) { alert('No hay sesión activa'); return; }
 
   try {
     const response = await fetch(`${API_URL}/perfil.php`, {
@@ -378,15 +335,12 @@ async function guardarAjustesPerfil() {
     const data = await response.json();
 
     if (response.ok) {
-      // Actualizar localStorage con nuevos datos
       localStorage.setItem(STORAGE_USERNAME_KEY, username);
       localStorage.setItem(STORAGE_FOTO_KEY,     foto_url);
 
-      // Limpiar campo contraseña
       const passField = document.getElementById('ajustes-password');
       if (passField) passField.value = '';
 
-      // Mostrar aviso de éxito
       const aviso = document.getElementById('ajustes-aviso');
       if (aviso) {
         aviso.style.display = 'flex';
@@ -405,11 +359,10 @@ async function guardarAjustesPerfil() {
 }
 
 // ==========================
-// EVENTOS TECLADO Y BOTONES
+// EVENTOS
 // ==========================
 
 function setupEventListeners() {
-  // Enter en campos de login
   const loginEmail    = document.getElementById('loginEmail');
   const loginPassword = document.getElementById('loginPassword');
 
@@ -418,43 +371,20 @@ function setupEventListeners() {
       if (e.key === 'Enter') simularLogin();
     });
   }
-
   if (loginPassword) {
     loginPassword.addEventListener('keypress', e => {
       if (e.key === 'Enter') simularLogin();
     });
   }
 
-  // Botón de ingresar en todas las páginas
-  const btnIngresar = document.getElementById('btnIngresar');
-  if (btnIngresar) {
-    btnIngresar.addEventListener('click', e => {
-      e.preventDefault();
-      if (isSessionActive()) {
-        logout();
-      } else {
-        abrirModal();
-      }
-    });
-  }
-
-  // Botón iniciar sesión desde Mis Listas
-  const btnLoginDesdeMisListas = document.getElementById('btnLoginDesdeMisListas');
-  if (btnLoginDesdeMisListas) {
-    btnLoginDesdeMisListas.addEventListener('click', abrirModal);
-  }
-
-  // Botón guardar ajustes de perfil
   const btnGuardar = document.getElementById('btnGuardarAjustes');
-  if (btnGuardar) {
-    btnGuardar.addEventListener('click', guardarAjustesPerfil);
-  }
+  if (btnGuardar) btnGuardar.addEventListener('click', guardarAjustesPerfil);
 
-  // Botón cerrar sesión en página de ajustes
   const btnCerrarSesion = document.getElementById('btnCerrarSesionAjustes');
-  if (btnCerrarSesion) {
-    btnCerrarSesion.addEventListener('click', logout);
-  }
+  if (btnCerrarSesion) btnCerrarSesion.addEventListener('click', logout);
+
+  const btnLoginDesdeMisListas = document.getElementById('btnLoginDesdeMisListas');
+  if (btnLoginDesdeMisListas) btnLoginDesdeMisListas.addEventListener('click', abrirModal);
 }
 
 // ==========================
