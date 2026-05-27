@@ -8,10 +8,9 @@
 // ==========================
 // CONFIG API
 // ==========================
-
-const LISTAS_API = "http://localhost/back-streamRank/api/listas.php";
-const TOPS_API = "http://localhost/back-streamRank/api/Tops.php";
-const HISTORIAL_API = "http://localhost/back-streamRank/api/historial.php";
+const LISTAS_API = "http://192.168.101.9/back-streamRank/api/listas.php";
+const TOPS_API = "http://192.168.101.9/back-streamRank/api/Tops.php";
+const HISTORIAL_API = "http://192.168.101.9/back-streamRank/api/historial.php";
 
 // ==========================
 // AGREGAR ÍTEM A LA LISTA
