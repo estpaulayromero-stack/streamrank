@@ -59,10 +59,10 @@ function getCategoryPlatform(categoryKey) {
 
 async function fetchCategoryData(categoryKey) {
   const jsonFilename = `${categoryKey}_top50.json`;
-  const backendBase = (window.BACKEND_BASE_URL || 'http://localhost/back-streamRank').replace(/\/$/, '');
+  const backendBase = (window.BACKEND_BASE_URL || 'http://192.168.101.9/back-streamRank').replace(/\/$/, '');
   const urlCandidates = [
     `${backendBase}/json/${jsonFilename}`,
-    `http://127.0.0.1/back-streamRank/json/${jsonFilename}`,
+    `http://192.168.101.9/back-streamRank/json/${jsonFilename}`,
     `/back-streamRank/json/${jsonFilename}`,
     `/json/${jsonFilename}`,
     `json/${jsonFilename}`,
