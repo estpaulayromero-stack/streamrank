@@ -299,8 +299,11 @@ function injectRefreshButton(categoryKey) {
         body: JSON.stringify({ category: categoryKey })
       });
 
-     const result = await response.json();
+const rawText = await response.text();
 
+console.log("RESPUESTA CRUDA:", rawText);
+
+const result = JSON.parse(rawText);
 console.log('RESPUESTA PHP:', result);
 
 if (!response.ok || !result.success) {
