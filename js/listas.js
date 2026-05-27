@@ -10,7 +10,7 @@
 // ==========================
 
 const LISTAS_API = "http://localhost/back-streamRank/api/listas.php";
-const TOPS_API   = "http://localhost/back-streamRank/api/Tops.php";
+const TOPS_API = "http://localhost/back-streamRank/api/Tops.php";
 const HISTORIAL_API = "http://localhost/back-streamRank/api/historial.php";
 
 // ==========================
