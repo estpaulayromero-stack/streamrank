@@ -299,22 +299,36 @@ function injectRefreshButton(categoryKey) {
         body: JSON.stringify({ category: categoryKey })
       });
 
-const rawText = await response.text();
+      const rawText = await response.text();
+      console.log("RESPUESTA CRUDA:", rawText);
 
-console.log("RESPUESTA CRUDA:", rawText);
+      // Intentar parsear JSON, pero manejar respuestas vacías o no-JSON
+      let result = null;
+      if (!rawText || !rawText.trim()) {
+        result = { success: false, error: 'Respuesta vacía del servidor', raw: rawText };
+      } else {
+        try {
+          result = JSON.parse(rawText);
+        } catch (err) {
+          console.warn('[tops] No se pudo parsear JSON desde el servidor:', err);
+          result = { success: false, error: 'Respuesta no es JSON', raw: rawText };
+        }
+      }
 
-const result = JSON.parse(rawText);
-console.log('RESPUESTA PHP:', result);
+      console.log('RESPUESTA PHP:', result);
 
-if (!response.ok || !result.success) {
-  console.error('ERROR COMPLETO:', result);
+      // Si hubo error HTTP o el servidor indicó failure, rechazar con información útil
+      if (!response.ok) {
+        console.error('ERROR HTTP:', response.status, response.statusText, rawText);
+        throw new Error(result && result.error ? result.error : `HTTP ${response.status}`);
+      }
 
-  throw new Error(
-    result.output
-      ? JSON.stringify(result.output)
-      : (result.error || `Error ${response.status}`)
-  );
-}
+      if (!result || !result.success) {
+        console.error('ERROR COMPLETO:', result);
+        throw new Error(result && result.error
+          ? (result.output ? JSON.stringify(result.output) : result.error)
+          : `Respuesta inválida del servidor`);
+      }
 
       // Recargar datos del JSON
       await renderCategoryPage(categoryKey);
