@@ -188,21 +188,169 @@ function injectRefreshButton(categoryKey) {
   const heroInfo = document.querySelector('.hero-plataforma-info');
   if (!heroInfo) return;
 
-  let button = heroInfo.querySelector('.btn-secondary');
+  // Contenedor principal para el botón y la información
+  let container = heroInfo.querySelector('.refresh-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'refresh-container';
+    container.style.cssText = `
+      display: flex; 
+      flex-direction: column; 
+      gap: 8px; 
+      align-items: flex-start;
+      margin-top: 16px;
+    `;
+    heroInfo.appendChild(container);
+  }
+
+  // Botón de actualizar
+  let button = container.querySelector('.btn-secondary');
   if (!button) {
     button = document.createElement('button');
     button.type = 'button';
     button.className = 'btn-secondary';
-    heroInfo.appendChild(button);
+    button.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+    container.appendChild(button);
   }
+
+  // Contenedor para el loader (inicialmente oculto)
+  let loaderContainer = container.querySelector('.loader-container');
+  if (!loaderContainer) {
+    loaderContainer = document.createElement('div');
+    loaderContainer.className = 'loader-container';
+    loaderContainer.style.cssText = `
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #666;
+    `;
+    loaderContainer.innerHTML = `
+      <div class="spinner" style="
+        width: 16px;
+        height: 16px;
+        border: 2px solid #e0e0e0;
+        border-top: 2px solid #2196F3;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      "></div>
+      <span class="loader-text">Actualizando datos...</span>
+    `;
+    container.appendChild(loaderContainer);
+  }
+
+  // Agregar estilos para la animación del spinner si no existe
+  if (!document.getElementById('spinner-styles')) {
+    const style = document.createElement('style');
+    style.id = 'spinner-styles';
+    style.textContent = `
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .refresh-info {
+        font-size: 12px;
+        color: #999;
+        margin: 0;
+        line-height: 1.4;
+      }
+      .refresh-info.success {
+        color: #4caf50;
+      }
+      .refresh-info.error {
+        color: #f44336;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Elemento para mostrar información
+  let infoElement = container.querySelector('.refresh-info');
+  if (!infoElement) {
+    infoElement = document.createElement('p');
+    infoElement.className = 'refresh-info';
+    container.appendChild(infoElement);
+  }
+
+  // Cargar fecha de última actualización desde localStorage
+  const lastUpdateKey = `lastUpdate_${categoryKey}`;
+  function displayLastUpdate() {
+    const lastUpdate = localStorage.getItem(lastUpdateKey);
+    const totalMovies = localStorage.getItem(`totalMovies_${categoryKey}`) || '50';
+    
+    if (lastUpdate) {
+      infoElement.textContent = `Última actualización: ${lastUpdate} (${totalMovies} películas)`;
+      infoElement.className = 'refresh-info success';
+    } else {
+      infoElement.textContent = 'Última actualización: No disponible';
+      infoElement.className = 'refresh-info';
+    }
+  }
+  displayLastUpdate();
 
   button.textContent = 'Actualizar datos';
   button.addEventListener('click', async () => {
-    await renderCategoryPage(categoryKey);
-    button.textContent = 'Datos actualizados';
-    setTimeout(() => {
-      button.textContent = 'Actualizar datos';
-    }, 1500);
+    button.disabled = true;
+    button.style.display = 'none';
+    loaderContainer.style.display = 'flex';
+    infoElement.textContent = '';
+
+    try {
+      // Llamar al endpoint PHP para ejecutar el script Python
+      const refreshUrl = 'refresh_data.php';
+
+      const response = await fetch(refreshUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category: categoryKey })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || `Error ${response.status}`);
+      }
+
+      // Recargar datos del JSON
+      await renderCategoryPage(categoryKey);
+      
+      // Actualizar información desde el resultado del servidor
+      const updateTime = result.update_time || new Date().toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
+      const totalMovies = result.total_movies || 50;
+      const categoryName = result.category_name || 'Datos';
+      
+      localStorage.setItem(lastUpdateKey, updateTime);
+      localStorage.setItem(`totalMovies_${categoryKey}`, totalMovies);
+      displayLastUpdate();
+      
+      // Mostrar mensaje de éxito
+      loaderContainer.style.display = 'none';
+      infoElement.textContent = `✓ ${categoryName} actualizado: ${totalMovies} películas`;
+      infoElement.className = 'refresh-info success';
+      
+      // Volver a mostrar el botón después de 2 segundos
+      setTimeout(() => {
+        button.style.display = 'flex';
+        button.disabled = false;
+      }, 2000);
+      
+    } catch (error) {
+      console.error('[tops] Error actualizando datos:', error);
+      loaderContainer.style.display = 'none';
+      infoElement.textContent = `✗ Error: ${error.message}`;
+      infoElement.className = 'refresh-info error';
+      
+      setTimeout(() => {
+        button.style.display = 'flex';
+        button.disabled = false;
+      }, 2000);
+    }
   });
 }
 
