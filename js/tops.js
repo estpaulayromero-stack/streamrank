@@ -299,11 +299,19 @@ function injectRefreshButton(categoryKey) {
         body: JSON.stringify({ category: categoryKey })
       });
 
-      const result = await response.json();
+     const result = await response.json();
 
-      if (!response.ok || !result.success) {
-        throw new Error(result.error || `Error ${response.status}`);
-      }
+console.log('RESPUESTA PHP:', result);
+
+if (!response.ok || !result.success) {
+  console.error('ERROR COMPLETO:', result);
+
+  throw new Error(
+    result.output
+      ? JSON.stringify(result.output)
+      : (result.error || `Error ${response.status}`)
+  );
+}
 
       // Recargar datos del JSON
       await renderCategoryPage(categoryKey);
