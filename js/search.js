@@ -9,26 +9,33 @@ const SEARCH_RESULT_LIMIT = 15;
 function getBackendUrl() { return (window.BACKEND_BASE_URL || "http://192.168.101.9/back-streamRank").replace(/\/$/, ""); }
 
 // Todos los JSONs que existen en el backend
+// ── JSONs activos (solo los que tienen scraper ejecutado) ──────
+// Si agregas un nuevo scraper y corres el .py, añade su entrada aquí.
 const JSON_SOURCES = [
-  { file: 'global_top50.json',       categoria: 'Global'           },
-  { file: 'netflix_top50.json',      categoria: 'Netflix'          },
-  { file: 'amazon_top50.json',       categoria: 'Amazon Prime'     },
-  { file: 'hbo_top50.json',          categoria: 'HBO Max'          },
-  { file: 'disney_top50.json',       categoria: 'Disney+'          },
-  { file: 'warner_top50.json',       categoria: 'Warner Bros.'     },
-  { file: 'universal_top50.json',    categoria: 'Universal'        },
-  { file: 'marvel_top50.json',       categoria: 'Marvel'           },
-  { file: 'starwars_top50.json',     categoria: 'Star Wars'        },
-  { file: 'lucasfilm_top50.json',    categoria: 'Lucasfilm'        },
-  { file: 'pixar_top50.json',        categoria: 'Pixar'            },
-  { file: 'dreamworks_top50.json',   categoria: 'DreamWorks'       },
-  { file: 'ghibli_top50.json',       categoria: 'Studio Ghibli'    },
-  { file: 'dc_studios_top50.json',   categoria: 'DC Studios'       },
-  { file: 'dc_universe_top50.json',  categoria: 'DC Universe'      },
-  { file: 'harry_potter_top50.json', categoria: 'Harry Potter'     },
-  { file: 'fast_furious_top50.json', categoria: 'Fast & Furious'   },
-  { file: 'jurassic_top50.json',     categoria: 'Jurassic Park'    },
-  { file: 'hunger_games_top50.json', categoria: 'Hunger Games'     },
+  { file: 'global_top50.json',     categoria: 'Global'        },
+  { file: 'netflix_top50.json',    categoria: 'Netflix'       },
+  { file: 'amazon_top50.json',     categoria: 'Amazon Prime'  },
+  { file: 'hbo_top50.json',        categoria: 'HBO Max'       },
+  { file: 'disney_top50.json',     categoria: 'Disney+'       },
+  { file: 'warner_top50.json',     categoria: 'Warner Bros.'  },
+  { file: 'universal_top50.json',  categoria: 'Universal'     },
+  { file: 'marvel_top50.json',     categoria: 'Marvel'        },
+  { file: 'starwars_top50.json',   categoria: 'Star Wars'     },
+  { file: 'lucasfilm_top50.json',  categoria: 'Lucasfilm'     },
+  { file: 'pixar_top50.json',      categoria: 'Pixar'         },
+  { file: 'dreamworks_top50.json', categoria: 'DreamWorks'    },
+  { file: 'ghibli_top50.json',     categoria: 'Studio Ghibli' },
+  { file: 'dc_studios_top50.json', categoria: 'DC Studios'    },
+  { file: 'apple_tv_top50.json',   categoria: 'Apple TV+'     },
+  { file: 'james_bond_top50.json', categoria: 'James Bond'    },
+  { file: 'godzilla_top50.json',   categoria: 'Godzilla'      },
+  { file: 'star_trek_top50.json',  categoria: 'Star Trek'     },
+  // ── Agrega aquí cuando ejecutes más scrapers ──────────────
+  // { file: 'fast_furious_top50.json', categoria: 'Fast & Furious' },
+  // { file: 'harry_potter_top50.json', categoria: 'Harry Potter'   },
+  // { file: 'jurassic_top50.json',     categoria: 'Jurassic Park'  },
+  // { file: 'dc_universe_top50.json',  categoria: 'DC Universe'    },
+  // { file: 'hunger_games_top50.json', categoria: 'Hunger Games'   },
 ];
 
 // ── Estado global del índice ─────────────────────────────────
@@ -65,7 +72,12 @@ async function loadAllJsons() {
     try {
       const url = `${getBackendUrl()}/json/${file}`;
       const resp = await fetch(url, { cache: 'default' });
-      if (!resp.ok) return [];
+      // 404 = JSON no generado aún → ignorar sin log en consola
+      if (resp.status === 404) return [];
+      if (!resp.ok) {
+        console.debug('[search] No disponible:', url, resp.status);
+        return [];
+      }
 
       const data = await resp.json();
       const items = Array.isArray(data.peliculas)
@@ -92,7 +104,8 @@ async function loadAllJsons() {
       }));
 
     } catch {
-      return [];   // si un JSON no existe aún, simplemente lo ignora
+      // JSON no generado aún — se ignora silenciosamente
+      return [];
     }
   });
 

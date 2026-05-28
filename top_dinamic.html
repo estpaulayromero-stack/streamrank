@@ -37,7 +37,7 @@
           </label>
         </form>
       </div>
-      <button class="profile-button" id="btnIngresar" type="button" onclick="abrirModal()">
+      <button class="profile-button" id="btnIngresar" type="button">
         <span class="profile-icon">
           <img src="assets/icons/Perfil.svg" alt="Perfil icon" />
         </span>
@@ -52,7 +52,7 @@
       <div class="hero-plataforma-info">
         <a href="top10.html" class="btn-back">← Volver a categorías</a>
         <h1 class="hero-title-gradient" id="tituloPagina">Top 10</h1>
-        <!-- El botón Actualizar datos se inyecta aquí por tops.js -->
+        <!-- La fecha se inyecta aquí por tops.js, justo después del h1 -->
       </div>
     </section>
 
@@ -204,8 +204,6 @@
   <!-- SCRIPTS — orden obligatorio -->
   <script>
     window.BACKEND_BASE_URL = 'http://192.168.101.9/back-streamRank';
-
-    // Leer categoría desde la URL y exponerla para tops.js
     const params = new URLSearchParams(window.location.search);
     window.TOP_CATEGORIA = params.get('cat')?.trim().toLowerCase() || 'marvel';
   </script>
