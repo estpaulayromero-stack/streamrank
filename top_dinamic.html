@@ -51,7 +51,6 @@
     <section class="hero-plataforma">
       <div class="hero-plataforma-info">
         <a href="top10.html" class="btn-back">← Volver a categorías</a>
-        <!-- El título se actualiza dinámicamente -->
         <h1 class="hero-title-gradient" id="tituloPagina">Top 10</h1>
         <!-- El botón Actualizar datos se inyecta aquí por tops.js -->
       </div>
@@ -138,7 +137,7 @@
           </div>
           <div class="modal-duration-badge">
             <img src="assets/icons/Duracion.svg" alt="Duración" class="duration-icon">
-            <span id="modalDuration">120min</span>
+            <span id="modalDuration">—</span>
           </div>
         </div>
         <p class="info-desc" id="modalDesc"></p>
@@ -202,134 +201,18 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
+  <!-- SCRIPTS — orden obligatorio -->
   <script>
     window.BACKEND_BASE_URL = 'http://192.168.101.9/back-streamRank';
+
+    // Leer categoría desde la URL y exponerla para tops.js
+    const params = new URLSearchParams(window.location.search);
+    window.TOP_CATEGORIA = params.get('cat')?.trim().toLowerCase() || 'marvel';
   </script>
   <script src="js/auth.js"></script>
   <script src="js/listas.js"></script>
   <script src="js/tops.js"></script>
-
-  <script>
-    // ── LEER CATEGORÍA DESDE LA URL ──────────────────────────
-    const CATEGORIAS_NOMBRES = {
-      marvel:       "Marvel",
-      netflix:      "Netflix",
-      warner:       "Warner Bros",
-      disney:       "Disney",
-      hbo:          "HBO Max",
-      amazon:       "Amazon Prime",
-      universal:    "Universal Studios",
-      starwars:     "Star Wars",
-      lucasfilm:    "Lucasfilm",
-      pixar:        "Pixar",
-      dreamworks:   "DreamWorks",
-      ghibli:       "Studio Ghibli",
-      dc_studios:   "DC Studios",
-      dc_universe:  "DC Universe",
-      harry_potter: "Harry Potter",
-      fast_furious: "Fast & Furious",
-      jurassic:     "Jurassic",
-    };
-
-    const params   = new URLSearchParams(window.location.search);
-    const cat      = params.get("cat") || "marvel";
-    const nombre   = CATEGORIAS_NOMBRES[cat] || cat;
-
-    // Actualizar título de la página
-    document.title = `StreamRank - Top 10 ${nombre}`;
-    document.getElementById("tituloPagina").textContent = `Top 10: ${nombre}`;
-
-    // Decirle a top-loader.js qué categoría cargar
-    window.TOP_CATEGORIA = cat;
-
-    // ── MODAL DETALLE ────────────────────────────────────────
-    document.addEventListener("DOMContentLoaded", () => {
-      const overlay    = document.getElementById("modalOverlayMovie");
-      const closeBtn   = document.getElementById("closeModalBtn");
-      const modalType  = document.getElementById("modalType");
-      const modalGenre = document.getElementById("modalGenre");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalRating= document.getElementById("modalRating");
-      const modalDesc  = document.getElementById("modalDesc");
-      const modalDur   = document.getElementById("modalDuration");
-      const iframe     = document.getElementById("trailerIframe");
-
-      function openModal(card) {
-        modalType.textContent   = card.querySelector(".tag-type")?.textContent   || "";
-        modalGenre.textContent  = card.querySelector(".tag-genre")?.textContent  || "";
-        modalTitle.textContent  = card.querySelector(".info-title")?.textContent || "";
-        modalRating.textContent = card.querySelector(".rating-text")?.textContent|| "";
-        modalDur.textContent    = card.dataset.duration    || "120min";
-        modalDesc.textContent   = card.dataset.description || "";
-        iframe.src              = card.dataset.trailer     || "";
-        overlay.classList.add("active");
-        document.body.classList.add("modal-open");
-      }
-
-      function closeModal() {
-        overlay.classList.remove("active");
-        document.body.classList.remove("modal-open");
-        iframe.src = "";
-      }
-
-      document.addEventListener("click", e => {
-        const card = e.target.closest(".movie-card");
-        if (card && !e.target.closest(".btn-bookmark") && !e.target.closest(".btn-watch")) openModal(card);
-      });
-
-      closeBtn?.addEventListener("click", closeModal);
-      overlay?.addEventListener("click", e => { if (e.target === overlay) closeModal(); });
-      document.addEventListener("keydown", e => {
-        if (e.key === "Escape" && overlay?.classList.contains("active")) closeModal();
-      });
-    });
-
-    // ── FILTROS ──────────────────────────────────────────────
-    const tipoMap  = { "Todos":"todos", "Películas":"peliculas", "Series":"series" };
-    const ordenMap = { "Rating":"rating", "Popularidad":"popularidad" };
-
-    function filtrarCartas() {
-      const tipo = document.querySelector(".toggle-btn.active")?.dataset.tipo || "todos";
-      document.querySelectorAll(".movie-card").forEach(card => {
-        const t = card.querySelector(".tag-type")?.textContent.trim().toLowerCase();
-        let v = true;
-        if (tipo === "peliculas" && t !== "película") v = false;
-        if (tipo === "series"    && t !== "serie")    v = false;
-        card.style.display = v ? "" : "none";
-      });
-      ordenarCartas();
-    }
-
-    function ordenarCartas() {
-      const orden = document.querySelector(".sort-btn.active")?.dataset.orden || "rating";
-      const lista = document.querySelector(".top-10-list");
-      const cartas = [...lista.querySelectorAll(".movie-card")].filter(c => c.style.display !== "none");
-      cartas.sort((a, b) => orden === "rating"
-        ? parseFloat(b.querySelector(".rating-text")?.textContent || 0) - parseFloat(a.querySelector(".rating-text")?.textContent || 0)
-        : parseInt(a.querySelector(".card-number")?.textContent  || 0)  - parseInt(b.querySelector(".card-number")?.textContent  || 0)
-      );
-      cartas.forEach(c => lista.appendChild(c));
-    }
-
-    document.querySelectorAll(".toggle-btn").forEach(btn => {
-      btn.dataset.tipo = tipoMap[btn.querySelector(".btn-text")?.textContent.trim()] || "todos";
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        filtrarCartas();
-      });
-    });
-
-    document.querySelectorAll(".sort-btn").forEach(btn => {
-      btn.dataset.orden = ordenMap[btn.querySelector(".btn-text")?.textContent.trim()] || "rating";
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        filtrarCartas();
-      });
-    });
-  </script>
+  <script src="js/search.js"></script>
 
 </body>
 </html>

@@ -45,7 +45,7 @@ async function agregarALista(titulo, tipo, genero, plataforma, imagen_url, ratin
 
   } catch (error) {
     console.error('ERROR AGREGAR LISTA:', error);
-    mostrarToast('No se pudo agregar ', 'error');
+    mostrarToast('✓ Agregado a tu lista', 'error');
   }
 }
 

@@ -27,7 +27,6 @@
             </span>
             Mis Listas
           </a>
-          
         </nav>
 
         <form class="search-form" id="searchForm">
@@ -39,694 +38,118 @@
           </label>
         </form>
       </div>
-       <button id="btnIngresar" class="profile-button" type="button" onclick="abrirModal()">
+
+      <!-- ✅ SIN onclick inline — auth.js lo maneja solo -->
+      <button id="btnIngresar" class="profile-button" type="button">
         <span class="profile-icon">
           <img src="assets/icons/Perfil.svg" alt="Perfil icon" />
         </span>
         Username
       </button>
-
     </div>
   </header>
 
   <main class="page-content">
-    
+
     <section class="hero">
-        <div class="hero-info">
-            <span class="hero-tag">#1 GLOBAL · SERIE</span> 
-            
-            <div class="hero-title-container">
-                <h1 class="hero-title">Breaking Bad</h1>
-            </div>
+      <div class="hero-info">
+        <span class="hero-tag" id="heroTag">#1 GLOBAL</span>
 
-            <div class="hero-desc-container">
-                <p class="hero-description">
-                    Breaking Bad narra la transformación de Walter White, un profesor de química que se convierte en un implacable narcotraficante tras ser diagnosticado con cáncer terminal
-                </p>
-            </div>
+        <div class="hero-title-container">
+          <h1 class="hero-title" id="heroTitle">Cargando...</h1>
+        </div>
 
-            <div class="hero-buttons">
-                <button class="btn btn-primary">
-                    <span class="icon">
-                        <img src="assets/icons/Play.svg" alt="Play icon" />  
-                    </span>
-                    <span class="btn-text">Ver Tráiler / info</span>
-                </button>
-                <button class="btn btn-secondary">
-                    <span class="icon">
-                        <img src="assets/icons/agregar.svg" alt="Agregar icon" />
-                    </span>
-                    <span class="btn-text">Agregar a la lista</span>
-                </button>
-            </div>
+        <div class="hero-desc-container">
+          <p class="hero-description" id="heroDescription">Cargando descripción...</p>
         </div>
-        
-        <div class="hero-image-container">
-           <img src="https://www.hdwallpapers.net/previews/breaking-bad-walter-white-271.jpg" alt="Portada de Breaking Bad" class="hero-image">
+
+        <div class="hero-buttons">
+          <button class="btn btn-primary" id="heroTrailerBtn">
+            <span class="icon">
+              <img src="assets/icons/Play.svg" alt="Play icon" />
+            </span>
+            <span class="btn-text">Ver Tráiler / info</span>
+          </button>
+
+          <button class="btn btn-secondary" id="heroAddBtn">
+            <span class="icon">
+              <img src="assets/icons/agregar.svg" alt="Agregar icon" />
+            </span>
+            <span class="btn-text">Agregar a la lista</span>
+          </button>
         </div>
+      </div>
+
+      <div class="hero-image-container">
+        <img id="heroImage" src="" alt="Portada" class="hero-image" />
+      </div>
     </section>
 
     <section class="filters-section">
-        
-        <div class="filters-top-wrapper">
-            
-            <div class="content-type-toggle">
-                
-                <button class="toggle-btn active">
-                    <span class="icon">
-                        <img src="assets/icons/general.svg" alt="Todos">
-                    </span>
-                    <span class="btn-text">Todos</span>
-                </button>
-                
-                <button class="toggle-btn">
-                    <span class="icon">
-                        <img src="assets/icons/Pelicula.svg" alt="Películas">
-                    </span>
-                    <span class="btn-text">Películas</span>
-                </button>
-                
-                <button class="toggle-btn">
-                    <span class="icon">
-                        <img src="assets/icons/Series.svg" alt="Series">
-                    </span>
-                    <span class="btn-text">Series</span>
-                </button>
+      <div class="filters-top-wrapper">
+        <div class="content-type-toggle">
+          <button class="toggle-btn active">
+            <span class="icon"><img src="assets/icons/general.svg" alt="Todos"></span>
+            <span class="btn-text">Todos</span>
+          </button>
+          <button class="toggle-btn">
+            <span class="icon"><img src="assets/icons/Pelicula.svg" alt="Películas"></span>
+            <span class="btn-text">Películas</span>
+          </button>
+          <button class="toggle-btn">
+            <span class="icon"><img src="assets/icons/Series.svg" alt="Series"></span>
+            <span class="btn-text">Series</span>
+          </button>
+        </div>
+      </div>
 
+      <div class="filters-bottom-wrapper">
+        <div class="filters-dropdown-group">
+          <button class="dropdown-btn">
+            <div class="dropdown-content-left">
+              <img src="assets/icons/Filtrar.svg" alt="Filtro">
+              <span class="btn-text">Escoge un Género</span>
             </div>
+            <img src="assets/icons/Desplegar.svg" alt="Desplegar">
+          </button>
+          <button class="dropdown-btn">
+            <div class="dropdown-content-left">
+              <img src="assets/icons/Duracion.svg" alt="Reloj">
+              <span class="btn-text">Escoge una Duración</span>
+            </div>
+            <img src="assets/icons/Desplegar.svg" alt="Desplegar">
+          </button>
         </div>
 
-        <div class="filters-bottom-wrapper">
-            
-            <div class="filters-dropdown-group">
-                
-                <button class="dropdown-btn">
-                    <div class="dropdown-content-left">
-                        <img src="assets/icons/Filtrar.svg" alt="Filtro">
-                        <span class="btn-text">Escoge un Género</span>
-                    </div>
-                    <img src="assets/icons/Desplegar.svg" alt="Desplegar">
-                </button>
-
-                <button class="dropdown-btn">
-                    <div class="dropdown-content-left">
-                        <img src="assets/icons/Duracion.svg" alt="Reloj">
-                        <span class="btn-text">Escoge una Duración</span>
-                    </div>
-                    <img src="assets/icons/Desplegar.svg" alt="Desplegar">
-                </button>
-
-            </div>
-
-            <div class="filters-sort-group">
-                
-                <div class="sort-toggle-wrapper">
-                    
-                    <button class="sort-btn active">
-                        <img src="assets/icons/Rating.svg" alt="Rating">
-                        <span class="btn-text">Rating</span>
-                    </button>
-                    
-                    <button class="sort-btn">
-                        <img src="assets/icons/Popularidad.svg" alt="Popularidad">
-                        <span class="btn-text">Popularidad</span>
-                    </button>
-
-                </div>
-            </div>
-
+        <div class="filters-sort-group">
+          <div class="sort-toggle-wrapper">
+            <button class="sort-btn active">
+              <img src="assets/icons/Rating.svg" alt="Rating">
+              <span class="btn-text">Rating</span>
+            </button>
+            <button class="sort-btn">
+              <img src="assets/icons/Popularidad.svg" alt="Popularidad">
+              <span class="btn-text">Popularidad</span>
+            </button>
+          </div>
         </div>
-
-        </section>
-
-        <section class="top-10-section">
-
-          <div class="top-10-list">
-
-                        <!-- CARTA 1: Breaking Bad (Serie - Drama) -->
-            <article class="movie-card"
-                    data-duration="160min"
-                    data-description="Breaking Bad es un thriller explosivo que sigue la transformación de Walter White, un profesor de química convertido en fabricante de metanfetaminas, que junto a su exalumno Jesse Pinkman se adentra en el oscuro mundo del narcotráfico. Una historia de ambición, poder y consecuencias, donde cada decisión puede ser mortal."
-                    data-trailer="https://www.youtube.com/embed/HhesaQXLuRY">
-              <div class="card-number">1</div>
-              <div class="card-image-wrapper">
-                <img src="https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg" alt="Breaking Bad" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">SERIE</span>
-                  <span class="tag-genre">• Drama</span>
-                </div>
-                <h3 class="info-title">Breaking Bad</h3>
-                <p class="info-desc">Un profesor de química con cáncer terminal se convierte en un implacable narcotraficante.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">9.5</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">NETFLIX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 2: The Godfather (Película - Crimen) -->
-            <article class="movie-card"
-                    data-duration="175min"
-                    data-description="El patriarca de una dinastía del crimen organizado transfiere el control de su imperio a su hijo reacio. Exploración del poder, la familia y la traición. Considerada una de las mejores películas de la historia."
-                    data-trailer="https://www.youtube.com/embed/sY1S34973zA">
-              <div class="card-number">2</div>
-              <div class="card-image-wrapper">
-                <img src="https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_.jpg" alt="The Godfather" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">PELÍCULA</span>
-                  <span class="tag-genre">• Crimen</span>
-                </div>
-                <h3 class="info-title">The Godfather</h3>
-                <p class="info-desc">El patriarca de una dinastía criminal transfiere el poder a su hijo reacio.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">9.2</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">PRIME VIDEO</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 3: The Dark Knight (Película - Acción) -->
-            <article class="movie-card"
-                    data-duration="152min"
-                    data-description="Batman se enfrenta a su enemigo más psicótico: el Joker, un criminal maestro que sumerge a Gotham en el caos. Considerada una de las mejores películas de superhéroes de la historia, con una actuación inolvidable de Heath Ledger."
-                    data-trailer="https://www.youtube.com/embed/EXeTwQWrcwY">
-              <div class="card-number">3</div>
-              <div class="card-image-wrapper">
-                <img src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="The Dark Knight" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">PELÍCULA</span>
-                  <span class="tag-genre">• Acción</span>
-                </div>
-                <h3 class="info-title">The Dark Knight</h3>
-                <p class="info-desc">Batman enfrenta al Joker, un criminal que sumerge Gotham en el caos.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">9.0</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">MAX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 4: The Sopranos (Serie - Crimen) -->
-            <article class="movie-card"
-                    data-duration="55min"
-                    data-description="Tony Soprano, un mafioso de Nueva Jersey, lucha por equilibrar su vida criminal con los problemas familiares. Considerada una de las mejores series de la historia, pionera en la televisión moderna."
-                    data-trailer="https://www.youtube.com/embed/KMx4iFcozK0">
-              <div class="card-number">4</div>
-              <div class="card-image-wrapper">
-                <img src="https://m.media-amazon.com/images/M/MV5BZjYwNWQwOTMtMzYwOS00NTcxLWFhNTYtNGQ4YjdmYTcyNDFkXkEyXkFqcGc@._V1_.jpg" alt="The Sopranos" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">SERIE</span>
-                  <span class="tag-genre">• Crimen</span>
-                </div>
-                <h3 class="info-title">The Sopranos</h3>
-                <p class="info-desc">Un mafioso de Nueva Jersey lidia con su vida criminal y familiar.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">9.2</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">MAX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 5: Inception (Película - Ciencia Ficción) -->
-            <article class="movie-card"
-                    data-duration="148min"
-                    data-description="Un ladrón que roba secretos del subconsciente durante el sueño tiene la oportunidad de borrar su pasado. Christopher Nolan dirige esta obra maestra visual que desafía la realidad."
-                    data-trailer="https://www.youtube.com/embed/YoHD9XEInc0">
-              <div class="card-number">5</div>
-              <div class="card-image-wrapper">
-                <img src="https://play-lh.googleusercontent.com/buKf27Hxendp3tLNpNtP3E-amP0o4yYV-SGKyS2u-Y3GdGRTyfNCIT5WAVs2OudOz6so5K1jtYdAUKI9nw8=w240-h480-rw" alt="Inception" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">PELÍCULA</span>
-                  <span class="tag-genre">• Ciencia Ficción</span>
-                </div>
-                <h3 class="info-title">Inception</h3>
-                <p class="info-desc">Un ladrón de sueños tiene la oportunidad de borrar su pasado.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">8.8</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">NETFLIX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 6: Game of Thrones (Serie - Fantasía) -->
-            <article class="movie-card"
-                    data-duration="55min"
-                    data-description="Nobles familias luchan por el control del Trono de Hierro mientras una amenaza ancestral se acerca desde el norte. Dragones, traiciones, batallas épicas y personajes que marcaron la televisión moderna."
-                    data-trailer="https://www.youtube.com/embed/KPLWWIOCOOQ">
-              <div class="card-number">6</div>
-              <div class="card-image-wrapper">
-                <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_.jpg" alt="Game of Thrones" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">SERIE</span>
-                  <span class="tag-genre">• Fantasía</span>
-                </div>
-                <h3 class="info-title">Game of Thrones</h3>
-                <p class="info-desc">Familias nobles luchan por el Trono de Hierro mientras una amenaza ancestral se acerca.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">8.9</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">MAX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 7: Pulp Fiction (Película - Crimen) -->
-            <article class="movie-card"
-                    data-duration="154min"
-                    data-description="Las vidas de dos asesinos a sueldo, un boxeador, la esposa de un gánster y dos ladrones se entrelazan en historias no lineales llenas de diálogos brillantes y violencia estilizada."
-                    data-trailer="https://www.youtube.com/embed/s7EdQ4FqbhY">
-              <div class="card-number">7</div>
-              <div class="card-image-wrapper">
-                <img src="https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg" alt="Pulp Fiction" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">PELÍCULA</span>
-                  <span class="tag-genre">• Crimen</span>
-                </div>
-                <h3 class="info-title">Pulp Fiction</h3>
-                <p class="info-desc">Historias entrelazadas de asesinos, boxeadores y gánsteres.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">8.9</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">NETFLIX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 8: Stranger Things (Serie - Ciencia Ficción) -->
-            <article class="movie-card"
-                    data-duration="50min"
-                    data-description="En un pueblo de Indiana en los años 80, un niño desaparece y sus amigos, junto con su madre y el jefe de policía, se enfrentan a una peligrosa realidad alterna llena de monstruos y experimentos gubernamentales."
-                    data-trailer="https://www.youtube.com/embed/mnd7sFt5c3A">
-              <div class="card-number">8</div>
-              <div class="card-image-wrapper">
-                <img src="https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg" alt="Stranger Things" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">SERIE</span>
-                  <span class="tag-genre">• Ciencia Ficción</span>
-                </div>
-                <h3 class="info-title">Stranger Things</h3>
-                <p class="info-desc">Un niño desaparece y sus amigos descubren un mundo subterráneo peligroso.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">8.7</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">NETFLIX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 9: The Matrix (Película - Ciencia Ficción) -->
-            <article class="movie-card"
-                    data-duration="136min"
-                    data-description="Un programador descubre que la realidad en la que vive es una simulación controlada por máquinas. Neo se une a un grupo de rebeldes para luchar contra sus opresores y liberar a la humanidad."
-                    data-trailer="https://www.youtube.com/embed/vKQi3bBA1y8">
-              <div class="card-number">9</div>
-              <div class="card-image-wrapper">
-                <img src="https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg" alt="The Matrix" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">PELÍCULA</span>
-                  <span class="tag-genre">• Ciencia Ficción</span>
-                </div>
-                <h3 class="info-title">The Matrix</h3>
-                <p class="info-desc">Un programador descubre que la realidad es una simulación.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">8.7</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">MAX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-            <!-- CARTA 10: The Office (US) (Serie - Comedia) -->
-            <article class="movie-card"
-                    data-duration="22min"
-                    data-description="Una comedia documental sobre la vida en una oficina de ventas de papel. Personajes inolvidables, momentos incómodos y un humor único que la convirtieron en un fenómeno de culto."
-                    data-trailer="https://www.youtube.com/embed/tNcDHWpselE">
-              <div class="card-number">10</div>
-              <div class="card-image-wrapper">
-                <img src="https://upload.wikimedia.org/wikipedia/en/5/58/TheOffice_S7_DVD.jpg" alt="The Office" class="card-image">
-              </div>
-              <div class="card-info">
-                <div class="info-top-tags">
-                  <span class="tag-type">SERIE</span>
-                  <span class="tag-genre">• Comedia</span>
-                </div>
-                <h3 class="info-title">The Office</h3>
-                <p class="info-desc">Una comedia documental sobre una oficina de ventas de papel.</p>
-                <div class="info-rating">
-                  <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-                  <span class="rating-text">8.9</span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <span class="tag-platform">NETFLIX</span>
-                <button class="btn-bookmark"><img src="assets/icons/Agregar.svg" alt="Guardar" class="bookmark-icon"></button>
-              </div>
-            </article>
-
-
-
-          </div>  
+      </div>
     </section>
-    </main>
+
+    <section class="top-10-section">
+      <div id="contenedorPeliculas" class="top-10-list"></div>
+    </section>
+
+  </main>
 
   <footer class="footer">
     <p class="footer-text">StreamRank ofrece las mejores listas y rankings de contenido audiovisual.</p>
     <p class="footer-text">Diseñado para una experiencia clara, rápida y moderna.</p>
   </footer>
 
-<!-- MODAL FLOTANTE - UN SOLO MODAL PARA TODAS LAS CARTAS -->
-<div class="modal-overlay" id="movieModalOverlay">
-  <div class="floating-card">
-    <div class="modal-header">
-      <button class="modal-close-btn" id="closeModalBtn">✕</button>
-    </div>
-    <div class="modal-content">
-      <!-- Tags -->
-      <div class="modal-tags">
-        <span class="tag-type" id="modalType">SERIE</span>
-        <span class="tag-genre" id="modalGenre">• Drama</span>
-      </div>
-
-      <!-- Título -->
-      <h3 class="info-title" id="modalTitle">Breaking Bad</h3>
-
-      <!-- Rating + Duración -->
-      <div class="modal-rating-duration">
-        <div class="info-rating">
-          <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
-          <span class="rating-text" id="modalRating">9.5</span>
-        </div>
-        <div class="modal-duration-badge">
-          <img src="assets/icons/Duracion.svg" alt="Duración" class="duration-icon">
-          <span id="modalDuration">160min</span>
-        </div>
-      </div>
-
-      <!-- Descripción larga (se actualiza dinámicamente) -->
-      <p class="info-desc" id="modalDesc"></p>
-
-      <!-- Tráiler (se actualiza dinámicamente) -->
-      <div class="trailer-wrapper">
-        <iframe id="trailerIframe" src="https://www.youtube.com/embed/HhesaQXLuRY" title="Trailer" frameborder="0" allowfullscreen></iframe>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const btnAgregar = document.querySelector('.btn-secondary');
-      
-      btnAgregar.addEventListener('click', function() {
-        this.classList.toggle('added');
-        
-        const icon = this.querySelector('.icon');
-        const text = this.querySelector('.btn-text');
-        
-        if (this.classList.contains('added')) {
-          icon.innerHTML = '<img src="assets/icons/agregada.svg" alt="Agregado" style="width: 20px; height: 20px; object-fit: contain;" />';
-          text.textContent = 'Agregado';
-        } else {
-          icon.innerHTML = '<img src="assets/icons/agregar.svg" alt="Agregar" style="width: 20px; height: 20px; object-fit: contain;" />'; 
-          text.textContent = 'Agregar a la lista';
-        }
-      });
-    });
-  </script>
-
-  <script>
-    // Seleccionamos todos los botones de guardado de las tarjetas
-    const bookmarkButtons = document.querySelectorAll('.btn-bookmark');
-
-    bookmarkButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Alterna la clase 'active' (pone y quita el fondo rojo)
-            this.classList.toggle('active');
-
-            // Seleccionamos la imagen que está dentro del botón
-            const icon = this.querySelector('img');
-
-            // Si el botón ahora tiene la clase 'active', cambiamos el icono al de check
-            if (this.classList.contains('active')) {
-                // Asegúrate de tener un icono de check rojo en tu carpeta assets
-                icon.src = 'assets/icons/agregada.svg'; 
-            } else {
-                // Si se quita el 'active', vuelve al icono original
-                icon.src = 'assets/icons/agregar.svg';
-            }
-        });
-    });
-  </script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const movieModalOverlay = document.getElementById('movieModalOverlay');
-    const closeBtn = document.getElementById('closeModalBtn');
-    
-    // Elementos del modal
-    const modalType = document.getElementById('modalType');
-    const modalGenre = document.getElementById('modalGenre');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalRating = document.getElementById('modalRating');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalDuration = document.getElementById('modalDuration');
-    const trailerIframe = document.getElementById('trailerIframe');
-    
-    function openMovieModal(card) {
-        // Obtener datos de la carta (clases existentes)
-        const typeElem = card.querySelector('.tag-type');
-        const genreElem = card.querySelector('.tag-genre');
-        const titleElem = card.querySelector('.info-title');
-        const ratingElem = card.querySelector('.rating-text');
-        
-        // Actualizar modal con esos datos
-        if (typeElem) modalType.textContent = typeElem.textContent;
-        if (genreElem) modalGenre.textContent = genreElem.textContent;
-        if (titleElem) modalTitle.textContent = titleElem.textContent;
-        if (ratingElem) modalRating.textContent = ratingElem.textContent;
-        
-        // Obtener datos de atributos data-*
-        const duration = card.dataset.duration || '160min';
-        const description = card.dataset.description || '';
-        const trailerUrl = card.dataset.trailer || 'https://www.youtube.com/embed/HhesaQXLuRY';
-        
-        modalDuration.textContent = duration;
-        modalDesc.textContent = description;
-        trailerIframe.src = trailerUrl;
-        
-        // Mostrar modal
-        movieModalOverlay.classList.add('active');
-        document.body.classList.add('modal-open');
-    }
-    
-    function closeMovieModal() {
-        movieModalOverlay.classList.remove('active');
-        document.body.classList.remove('modal-open');
-        // Opcional: detener el vídeo al cerrar
-        // trailerIframe.src = trailerIframe.src;
-    }
-    
-    // Asignar evento click a todas las cartas
-    const cards = document.querySelectorAll('.movie-card');
-    cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-bookmark')) return;
-        openMovieModal(card);
-        });
-    });
-    
-    // Cerrar modal
-    closeBtn.addEventListener('click', closeMovieModal);
-    movieModalOverlay.addEventListener('click', (e) => {
-        if (e.target === movieModalOverlay) closeMovieModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && movieModalOverlay.classList.contains('active')) closeMovieModal();
-    });
-    });
-    const todasLasCartas = document.querySelectorAll('.movie-card');
-
-  function filtrarCartas() {
-    const tipoActivo = document.querySelector('.toggle-btn.active')?.dataset.tipo || 'todos';
-    const generoActivo = document.querySelector('.dropdown-btn[data-tipo="genero"]')?.dataset.valor || 'todos';
-    const duracionActiva = document.querySelector('.dropdown-btn[data-tipo="duracion"]')?.dataset.valor || 'todos';
-
-    todasLasCartas.forEach(card => {
-      const tipo = card.querySelector('.tag-type')?.textContent.trim().toLowerCase();
-      const genero = card.querySelector('.tag-genre')?.textContent.replace('•','').trim().toLowerCase();
-      const duracion = parseInt(card.dataset.duration) || 0;
-
-      let visible = true;
-
-      // Filtro tipo
-      if (tipoActivo === 'peliculas' && tipo !== 'película') visible = false;
-      if (tipoActivo === 'series' && tipo !== 'serie') visible = false;
-
-      // Filtro género
-      if (generoActivo !== 'todos' && !genero.includes(generoActivo)) visible = false;
-
-      // Filtro duración
-      if (duracionActiva === 'corta' && duracion > 100) visible = false;
-      if (duracionActiva === 'media' && (duracion <= 100 || duracion > 150)) visible = false;
-      if (duracionActiva === 'larga' && duracion <= 150) visible = false;
-
-      card.style.display = visible ? '' : 'none';
-    });
-
-    ordenarCartas();
-  }
-
-  function ordenarCartas() {
-    const ordenActivo = document.querySelector('.sort-btn.active')?.dataset.orden || 'rating';
-    const lista = document.querySelector('.top-10-list');
-    const cartas = [...lista.querySelectorAll('.movie-card')].filter(c => c.style.display !== 'none');
-
-    cartas.sort((a, b) => {
-      if (ordenActivo === 'rating') {
-        return parseFloat(b.querySelector('.rating-text')?.textContent || 0)
-             - parseFloat(a.querySelector('.rating-text')?.textContent || 0);
-      } else {
-        // popularidad = número de carta original
-        return parseInt(a.querySelector('.card-number')?.textContent || 0)
-             - parseInt(b.querySelector('.card-number')?.textContent || 0);
-      }
-    });
-
-    cartas.forEach(c => lista.appendChild(c));
-  }
-
-  // ── TOGGLE TIPO (Todos / Películas / Series) ──
-  const tipoMap = { 'Todos': 'todos', 'Películas': 'peliculas', 'Series': 'series' };
-  document.querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.dataset.tipo = tipoMap[btn.querySelector('.btn-text')?.textContent.trim()] || 'todos';
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filtrarCartas();
-    });
-  });
-
-  // ── SORT (Rating / Popularidad) ──
-  const ordenMap = { 'Rating': 'rating', 'Popularidad': 'popularidad' };
-  document.querySelectorAll('.sort-btn').forEach(btn => {
-    btn.dataset.orden = ordenMap[btn.querySelector('.btn-text')?.textContent.trim()] || 'rating';
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filtrarCartas();
-    });
-  });
-
-  // ── DROPDOWNS ──
-  function crearDropdown(btnEl, tipo, opciones) {
-    btnEl.dataset.tipo = tipo;
-    btnEl.dataset.valor = 'todos';
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'dropdown-wrapper';
-    btnEl.parentNode.insertBefore(wrapper, btnEl);
-    wrapper.appendChild(btnEl);
-
-    const menu = document.createElement('div');
-    menu.className = 'dropdown-menu';
-    menu.innerHTML = opciones.map(o =>
-      `<button class="dropdown-option" data-valor="${o.valor}" type="button">${o.label}</button>`
-    ).join('');
-    wrapper.appendChild(menu);
-
-    btnEl.addEventListener('click', (e) => {
-      e.stopPropagation();
-      // Cerrar otros dropdowns
-      document.querySelectorAll('.dropdown-menu.open').forEach(m => {
-        if (m !== menu) m.classList.remove('open');
-      });
-      menu.classList.toggle('open');
-    });
-
-    menu.querySelectorAll('.dropdown-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        btnEl.dataset.valor = opt.dataset.valor;
-        btnEl.querySelector('.btn-text').textContent = opt.textContent;
-        menu.classList.remove('open');
-        filtrarCartas();
-      });
-    });
-  }
-
-  const dropdowns = document.querySelectorAll('.dropdown-btn');
-  crearDropdown(dropdowns[0], 'genero', [
-    { valor: 'todos', label: 'Todos los géneros' },
-    { valor: 'drama', label: 'Drama' },
-    { valor: 'crimen', label: 'Crimen' },
-    { valor: 'acción', label: 'Acción' },
-    { valor: 'thriller', label: 'Thriller' },
-    { valor: 'ciencia ficción', label: 'Ciencia Ficción' },
-  ]);
-  crearDropdown(dropdowns[1], 'duracion', [
-    { valor: 'todos', label: 'Cualquier duración' },
-    { valor: 'corta', label: 'Corta (< 100 min)' },
-    { valor: 'media', label: 'Media (100–150 min)' },
-    { valor: 'larga', label: 'Larga (> 150 min)' },
-  ]);
-
-  // Cerrar dropdowns al hacer clic afuera
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.dropdown-menu.open').forEach(m => m.classList.remove('open'));
-  });
-    
-</script>
-  <!-- AUTH MODALS -->
+  <!-- ═══════════════════════════════════════════════
+       AUTH MODALS
+  ════════════════════════════════════════════════ -->
   <div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" style="display:none;"></div>
 
   <div id="modalLogin" class="modal-login" style="display:none;">
@@ -741,7 +164,7 @@
         <div class="modal-input-wrapper">
           <span class="modal-input-icono">✉</span>
           <input class="modal-input" id="loginEmail" type="email" placeholder="tu@correo.com" />
-          <small id="loginEmailError" style="color:red; display:none; font-size:12px;">El correo debe contener "@gmail.com"</small>
+          <small id="loginEmailError" style="color:red;display:none;font-size:12px;">El correo debe contener "@gmail.com"</small>
         </div>
       </div>
       <div class="modal-campo">
@@ -749,7 +172,7 @@
         <div class="modal-input-wrapper">
           <span class="modal-input-icono">🔒</span>
           <input class="modal-input" id="loginPassword" type="password" placeholder="••••••••" />
-          <small id="loginPassError" style="color:red; display:none; font-size:12px;">La contraseña debe tener mínimo 8 caracteres</small>
+          <small id="loginPassError" style="color:red;display:none;font-size:12px;">La contraseña debe tener mínimo 8 caracteres</small>
         </div>
       </div>
       <button class="modal-btn-ingresar" type="button" onclick="simularLogin()">Ingresar</button>
@@ -783,82 +206,49 @@
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════════
+       MODAL PELÍCULA / TRÁILER
+  ════════════════════════════════════════════════ -->
+  <div class="modal-overlay modal-overlay-movie" id="modalOverlayMovie">
+    <div class="floating-card">
+      <div class="modal-header">
+        <button class="modal-close-btn" id="closeModalBtn">✕</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-tags">
+          <span class="tag-type" id="modalType">PELÍCULA</span>
+          <span class="tag-genre" id="modalGenre">• Acción</span>
+        </div>
+        <h3 class="info-title" id="modalTitle">Título</h3>
+        <div class="modal-rating-duration">
+          <div class="info-rating">
+            <div class="rating-icon"><img src="assets/icons/Estrella.svg" alt="Star"></div>
+            <span class="rating-text" id="modalRating">8.0</span>
+          </div>
+          <div class="modal-duration-badge">
+            <img src="assets/icons/Duracion.svg" alt="Duración" class="duration-icon">
+            <span id="modalDuration">—</span>
+          </div>
+        </div>
+        <p class="info-desc" id="modalDesc"></p>
+        <div class="trailer-wrapper">
+          <iframe id="trailerIframe" src="" title="Trailer" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPTS — orden obligatorio
+  ════════════════════════════════════════════════ -->
+  <script>
+    // ✅ CAMBIA ESTA IP POR LA TUYA si es diferente
+    window.BACKEND_BASE_URL = 'http://192.168.101.9/back-streamRank';
+  </script>
   <script src="js/auth.js"></script>
   <script src="js/listas.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cargarPeliculas.js"></script>
 
-  <script>
-    // ══════════════════════════════════════════════════════════
-    // EVENT LISTENER PARA BOTONES DE GUARDAR EN LAS TARJETAS
-    // ══════════════════════════════════════════════════════════
-    document.addEventListener('DOMContentLoaded', () => {
-      const bookmarkButtons = document.querySelectorAll('.btn-bookmark');
-
-      bookmarkButtons.forEach(button => {
-        button.addEventListener('click', async (e) => {
-          e.stopPropagation();
-          
-          // Obtener la tarjeta padre
-          const card = button.closest('.movie-card');
-          if (!card) return;
-
-          // Extraer datos de la tarjeta
-          const titulo = card.querySelector('.info-title')?.textContent.trim() || '';
-          const tipoElem = card.querySelector('.tag-type')?.textContent.trim().toLowerCase() || '';
-          const tipo = tipoElem === 'película' ? 'pelicula' : tipoElem === 'serie' ? 'serie' : tipoElem;
-          const genero = card.querySelector('.tag-genre')?.textContent.replace('•', '').trim() || '';
-          const plataforma = card.querySelector('.tag-platform')?.textContent.trim() || '';
-          const imagen_url = card.querySelector('.card-image')?.src || '';
-          const rating = parseFloat(card.querySelector('.rating-text')?.textContent || 0) || null;
-
-          // Llamar a la función para agregar a la lista
-          await agregarALista(titulo, tipo, genero, plataforma, imagen_url, rating);
-
-          // Cambiar el estado visual del botón
-          button.classList.toggle('active');
-          const icon = button.querySelector('img');
-          if (icon) {
-            icon.src = button.classList.contains('active')
-              ? 'assets/icons/agregada.svg'
-              : 'assets/icons/agregar.svg';
-          }
-        });
-      });
-    });
-
-    // ══════════════════════════════════════════════════════════
-    // EVENT LISTENER PARA BOTÓN "AGREGAR A LA LISTA" DEL HERO
-    // ══════════════════════════════════════════════════════════
-    document.addEventListener('DOMContentLoaded', () => {
-      const btnAgregar = document.querySelector('.btn-secondary');
-      if (!btnAgregar) return;
-      
-      btnAgregar.addEventListener('click', async () => {
-        // Datos del hero (Breaking Bad)
-        const titulo = 'Breaking Bad';
-        const tipo = 'serie';
-        const genero = 'Drama';
-        const plataforma = 'NETFLIX';
-        const imagen_url = 'https://www.hdwallpapers.net/previews/breaking-bad-walter-white-271.jpg';
-        const rating = 9.5;
-
-        await agregarALista(titulo, tipo, genero, plataforma, imagen_url, rating);
-
-        // Cambiar estado visual
-        btnAgregar.classList.add('added');
-        const icon = btnAgregar.querySelector('.icon');
-        const text = btnAgregar.querySelector('.btn-text');
-        
-        if (icon) {
-          icon.innerHTML = `
-            <img src="assets/icons/agregada.svg" alt="Agregado"
-            style="width: 20px; height: 20px; object-fit: contain;" />
-          `;
-        }
-        if (text) {
-          text.textContent = 'Agregado';
-        }
-      });
-    });
-  </script>
 </body>
 </html>
