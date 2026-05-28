@@ -55,7 +55,7 @@ function parseCategoryFromUrl() {
 function getCategoryLabel(k)    { return TOP_CATEGORY_LABELS[k]   || k; }
 function getCategoryPlatform(k) { return TOP_CATEGORY_PLATFORM[k] || k.toUpperCase(); }
 function getBackend() {
-  return (window.BACKEND_BASE_URL || 'http://172.17.37.172/back-streamRank').replace(/\/$/, '');
+  return (window.BACKEND_BASE_URL || 'http://172.17.32.5/back-streamRank').replace(/\/$/, '');
 }
 
 // ============================================================

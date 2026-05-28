@@ -8,9 +8,9 @@
 // ==========================
 // CONFIG API
 // ==========================
-const LISTAS_API = "http://172.17.37.172/back-streamRank/api/listas.php";
-const TOPS_API = "http://172.17.37.172/back-streamRank/api/Tops.php";
-const HISTORIAL_API = "http://172.17.37.172/back-streamRank/api/historial.php";
+const LISTAS_API = "http://172.17.32.5/back-streamRank/api/listas.php";
+const TOPS_API = "http://172.17.32.5/back-streamRank/api/Tops.php";
+const HISTORIAL_API = "http://172.17.32.5/back-streamRank/api/historial.php";
 
 // ==========================
 // AGREGAR ÍTEM A LA LISTA
@@ -639,7 +639,7 @@ function initBotonHero() {
 }
 
 // ==========================
-// TOAST
+// TOAST notificacion agregado/eliminado
 // ==========================
 
 function mostrarToast(mensaje, tipo = 'success') {

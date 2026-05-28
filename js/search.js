@@ -6,7 +6,7 @@
 
 const SEARCH_RESULT_LIMIT = 15;
 // BACKEND_BASE viene de window.BACKEND_BASE_URL definido en el HTML
-function getBackendUrl() { return (window.BACKEND_BASE_URL || "http://172.17.37.172/back-streamRank").replace(/\/$/, ""); }
+function getBackendUrl() { return (window.BACKEND_BASE_URL || "http://172.17.32.5/back-streamRank").replace(/\/$/, ""); }
 
 // Todos los JSONs que existen en el backend
 // ── JSONs activos (solo los que tienen scraper ejecutado) ──────
