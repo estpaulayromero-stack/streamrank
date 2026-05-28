@@ -27,7 +27,7 @@ const JSON_SOURCES = [
   { file: 'pixar_top50.json',      categoria: 'Pixar'         },
   { file: 'dreamworks_top50.json', categoria: 'DreamWorks'    },
   { file: 'ghibli_top50.json',     categoria: 'Studio Ghibli' },
-  { file: 'dc_studios_top50.json', categoria: 'DC Studios'    },
+  { file: 'dcestudios_top50.json', categoria: 'DC Studios'    },
 ];
 
 // ── Estado global del índice ─────────────────────────────────
