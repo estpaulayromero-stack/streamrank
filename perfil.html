@@ -1,243 +1,247 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>StreamRank - Perfil</title>
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/registro.css" />
-  <style>
-    .perfil-page {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 32px 20px 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .perfil-panel {
-      background: #0F172B;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .perfil-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .perfil-header h1 {
-      margin: 0;
-      font-size: 32px;
-      color: #ffffff;
-      font-family: var(--font-main);
-      font-weight: 700;
-    }
-    .perfil-avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      display: grid;
-      place-items: center;
-      color: #ffffff;
-      font-size: 28px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .perfil-form {
-      display: grid;
-      gap: 16px;
-    }
-    .perfil-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .perfil-actions .modal-btn-ingresar {
-      min-width: 160px;
-    }
-    .perfil-actions .btn-secondary {
-      min-width: 160px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: transparent;
-      color: #ffffff;
-    }
-    .perfil-message {
-      display: none;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: rgba(16, 185, 129, 0.12);
-      color: #8EE6B8;
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      font-size: 14px;
-    }
-    .perfil-no-sesion {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      padding: 28px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-  </style>
+
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/registro.css"/>
+  <link rel="stylesheet" href="css/perfil.css"/>
+
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand" aria-label="StreamRank">
-        <span class="brand-icon">
-          <img src="assets/icons/Clapperboard.svg" alt="StreamRank icon" />
-        </span>
-        <span class="brand-title"><span>Stream</span><span>Rank</span></span>
-      </div>
-      <div class="header-nav-row">
-        <nav class="main-nav" aria-label="Navegación principal">
-          <a href="index.html" class="nav-link">Inicio</a>
-          <a href="top10.html" class="nav-link">Top 10</a>
-          <a href="mis-listas.html" class="nav-link" id="linkMisListas">
-            <span class="nav-icon">
-              <img src="assets/icons/Menu.svg" alt="Mis Listas icon" />
-            </span>
-            Mis Listas
-          </a>
-        </nav>
 
-        <form class="search-form" id="searchForm">
-          <label class="search-field">
-            <span class="search-icon">
-              <img src="assets/icons/Busqueda.svg" alt="Buscar icon" />
-            </span>
-            <input id="searchInput" type="search" placeholder="Buscar" aria-label="Buscar" autocomplete="off" />
-          </label>
-        </form>
-      </div>
-      <button id="btnIngresar" class="profile-button" type="button">Ingresar</button>
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <div class="brand" aria-label="StreamRank">
+      <span class="brand-icon">
+        <img src="assets/icons/Clapperboard.svg" alt="StreamRank icon"/>
+      </span>
+
+      <span class="brand-title">
+        <span>Stream</span>
+        <span>Rank</span>
+      </span>
     </div>
-  </header>
 
-  <main class="page-content">
-    <section class="perfil-page">
-      <div id="ajustes-titulo" class="perfil-header" style="display:none;">
-        <div>
-          <h1>Ajustes de tu perfil</h1>
-          <p style="color:#CAD5E2; margin: 10px 0 0; font-size:16px;">Actualiza tu nombre, foto y contraseña.</p>
-        </div>
-        <div id="ajustes-inicial" class="perfil-avatar">U</div>
-      </div>
+    <div class="header-nav-row">
 
-      <div id="noSesionView" class="perfil-no-sesion" style="display:none;">
-        <div>
-          <h2 style="color:#ffffff; margin:0;">Inicia sesión para editar tu perfil</h2>
-          <p style="color:#9ca3af; margin:8px 0 0;">Tu información de usuario se guarda en tu cuenta y podrás usarla en todas las páginas.</p>
-        </div>
-        <button class="modal-btn-ingresar" type="button" onclick="abrirModal()">Ingresar</button>
-      </div>
+      <nav class="main-nav" aria-label="Navegación principal">
 
-      <div id="ajustes-cuenta" class="perfil-panel" style="display:none;">
-        <div class="perfil-form">
-          <div class="modal-campo">
-            <label class="modal-label" for="ajustes-email">Correo electrónico</label>
-            <div class="modal-input-wrapper">
-              <span class="modal-input-icono">✉</span>
-              <input class="modal-input" id="ajustes-email" type="email" readonly />
-            </div>
-          </div>
-          <div class="modal-campo">
-            <label class="modal-label" for="ajustes-username">Nombre personalizado</label>
-            <div class="modal-input-wrapper">
-              <span class="modal-input-icono">👤</span>
-              <input class="modal-input" id="ajustes-username" type="text" placeholder="Tu nombre visible" />
-            </div>
-          </div>
-          <div class="modal-campo">
-            <label class="modal-label" for="ajustes-foto-url">URL de foto</label>
-            <div class="modal-input-wrapper">
-              <span class="modal-input-icono">🖼️</span>
-              <input class="modal-input" id="ajustes-foto-url" type="url" placeholder="https://..." />
-            </div>
-          </div>
-          <div class="modal-campo">
-            <label class="modal-label" for="ajustes-password">Nueva contraseña</label>
-            <div class="modal-input-wrapper">
-              <span class="modal-input-icono">🔒</span>
-              <input class="modal-input" id="ajustes-password" type="password" placeholder="Dejar vacío para no cambiar" />
-            </div>
-          </div>
-          <div id="ajustes-aviso" class="perfil-message">Cambios guardados correctamente.</div>
-        </div>
-        <div class="perfil-actions">
-          <button id="btnGuardarAjustes" class="modal-btn-ingresar" type="button">Guardar cambios</button>
-          <button id="btnCerrarSesionAjustes" class="btn-secondary" type="button">Cerrar sesión</button>
-        </div>
-      </div>
-    </section>
-  </main>
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="top10.html" class="nav-link">Top 10</a>
 
-  <!-- AUTH MODALS -->
-  <div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" style="display:none;"></div>
+        <a href="mis-listas.html" class="nav-link" id="linkMisListas">
+          <span class="nav-icon">
+            <img src="assets/icons/Menu.svg" alt="Mis Listas icon"/>
+          </span>
+          Mis Listas
+        </a>
 
-  <div id="modalLogin" class="modal-login" style="display:none;">
-    <button class="modal-cerrar" type="button" onclick="cerrarModal()">✕</button>
-    <div class="modal-contenido">
-      <div class="modal-encabezado">
-        <h2 class="modal-titulo">Bienvenido de nuevo</h2>
-        <p class="modal-subtitulo">Ingresa tus credenciales para acceder a tu cuenta.</p>
-      </div>
-      <div class="modal-campo">
-        <label class="modal-label" for="loginEmail">Correo electrónico</label>
-        <div class="modal-input-wrapper">
-          <span class="modal-input-icono">✉</span>
-          <input class="modal-input" id="loginEmail" type="email" placeholder="tu@correo.com" />
-          <small id="loginEmailError" style="color:red; display:none; font-size:12px;">El correo debe contener "@gmail.com"</small>
-        </div>
-      </div>
-      <div class="modal-campo">
-        <label class="modal-label" for="loginPassword">Contraseña</label>
-        <div class="modal-input-wrapper">
-          <span class="modal-input-icono">🔒</span>
-          <input class="modal-input" id="loginPassword" type="password" placeholder="••••••••" />
-          <small id="loginPassError" style="color:red; display:none; font-size:12px;">La contraseña debe tener mínimo 8 caracteres</small>
-        </div>
-      </div>
-      <button class="modal-btn-ingresar" type="button" onclick="simularLogin()">Ingresar</button>
-      <p class="modal-pie">¿No tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="abrirRegistro()">Regístrate aquí</a></p>
+      </nav>
+
+      <form class="search-form" id="searchForm">
+
+        <label class="search-field">
+
+          <span class="search-icon">
+            <img src="assets/icons/Busqueda.svg" alt="Buscar icon"/>
+          </span>
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Buscar"
+            aria-label="Buscar"
+            autocomplete="off"
+          />
+
+        </label>
+
+      </form>
+
     </div>
+
+    <button id="btnIngresar" class="profile-button" type="button">
+      Ingresar
+    </button>
+
+  </div>
+</header>
+
+<main class="page-content">
+
+<section class="perfil-page">
+
+  <div id="ajustes-titulo" class="perfil-header" hidden>
+
+    <div>
+
+      <h1>Ajustes de tu perfil</h1>
+
+      <p class="perfil-subtitle">
+        Actualiza tu nombre, foto y contraseña.
+      </p>
+
+    </div>
+
+    <div id="ajustes-inicial" class="perfil-avatar">
+      U
+    </div>
+
   </div>
 
-  <div id="modalRegistro" class="modal-login" style="display:none;">
-    <button class="modal-cerrar" type="button" onclick="cerrarRegistro()">✕</button>
-    <div class="modal-contenido">
-      <div class="modal-encabezado">
-        <h2 class="modal-titulo">Crear una cuenta</h2>
-        <p class="modal-subtitulo">Regístrate por primera vez con tu correo electrónico.</p>
-      </div>
-      <div class="modal-campo">
-        <label class="modal-label" for="regEmail">Correo electrónico</label>
-        <div class="modal-input-wrapper">
-          <span class="modal-input-icono">✉</span>
-          <input class="modal-input" id="regEmail" type="email" placeholder="tu@correo.com" />
-        </div>
-      </div>
-      <div class="modal-campo">
-        <label class="modal-label" for="regPassword">Contraseña</label>
-        <div class="modal-input-wrapper">
-          <span class="modal-input-icono">🔒</span>
-          <input class="modal-input" id="regPassword" type="password" placeholder="••••••••" />
-        </div>
-      </div>
-      <button class="modal-btn-ingresar" type="button" onclick="simularRegistro()">Registrarse</button>
-      <p class="modal-pie">¿Ya tienes cuenta? <a href="javascript:void(0)" class="modal-pie-link" onclick="irALogin()">Ingresa aquí</a></p>
+
+  <div id="noSesionView" class="perfil-no-sesion" hidden>
+
+    <div>
+
+      <h2 class="perfil-login-title">
+        Inicia sesión para editar tu perfil
+      </h2>
+
+      <p class="perfil-login-text">
+        Tu información de usuario se guarda en tu cuenta y podrás usarla en todas las páginas.
+      </p>
+
     </div>
+
+    <button class="modal-btn-ingresar" type="button" onclick="abrirModal()">
+      Ingresar
+    </button>
+
   </div>
 
-  <script src="js/auth.js"></script>
-  <script src="js/search.js"></script>
+
+  <div id="ajustes-cuenta" class="perfil-panel" hidden>
+
+    <div class="perfil-form">
+
+      <div class="modal-campo">
+
+        <label class="modal-label" for="ajustes-email">
+          Correo electrónico
+        </label>
+
+        <div class="modal-input-wrapper">
+
+          <span class="modal-input-icono">✉</span>
+
+          <input
+            class="modal-input"
+            id="ajustes-email"
+            type="email"
+            readonly
+          />
+
+        </div>
+
+      </div>
+
+      <div class="modal-campo">
+
+        <label class="modal-label" for="ajustes-username">
+          Nombre personalizado
+        </label>
+
+        <div class="modal-input-wrapper">
+
+          <span class="modal-input-icono">👤</span>
+
+          <input
+            class="modal-input"
+            id="ajustes-username"
+            type="text"
+            placeholder="Tu nombre visible"
+          />
+
+        </div>
+
+      </div>
+
+      <div class="modal-campo">
+
+        <label class="modal-label" for="ajustes-foto-url">
+          URL de foto
+        </label>
+
+        <div class="modal-input-wrapper">
+
+          <span class="modal-input-icono">🖼️</span>
+
+          <input
+            class="modal-input"
+            id="ajustes-foto-url"
+            type="url"
+            placeholder="https://..."
+          />
+
+        </div>
+
+      </div>
+
+      <div class="modal-campo">
+
+        <label class="modal-label" for="ajustes-password">
+          Nueva contraseña
+        </label>
+
+        <div class="modal-input-wrapper">
+
+          <span class="modal-input-icono">🔒</span>
+
+          <input
+            class="modal-input"
+            id="ajustes-password"
+            type="password"
+            placeholder="Dejar vacío para no cambiar"
+          />
+
+        </div>
+
+      </div>
+
+      <div id="ajustes-aviso" class="perfil-message">
+        Cambios guardados correctamente.
+      </div>
+
+    </div>
+
+    <div class="perfil-actions">
+
+      <button
+        id="btnGuardarAjustes"
+        class="modal-btn-ingresar"
+        type="button">
+
+        Guardar cambios
+
+      </button>
+
+      <button
+        id="btnCerrarSesionAjustes"
+        class="btn-secondary"
+        type="button">
+
+        Cerrar sesión
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<div id="modalOverlay" class="modal-overlay" onclick="cerrarModal()" hidden></div>
+
+<script src="js/auth.js"></script>
+<script src="js/search.js"></script>
+
 </body>
 </html>

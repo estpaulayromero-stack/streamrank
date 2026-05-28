@@ -186,9 +186,9 @@ function aplicarFiltros() {
     lista = lista.filter(i => {
       const mins = i.duracion_min || parseInt(i.duracion) || 0;
       if (!mins) return true;
-      if (durActiva === 'corta') return mins < 90;
-      if (durActiva === 'media') return mins >= 90 && mins <= 130;
-      if (durActiva === 'larga') return mins > 130;
+      if (durActiva === 'corta') return mins < 50;
+      if (durActiva === 'media') return mins >= 50 && mins <= 150;
+      if (durActiva === 'larga') return mins > 150;
       return true;
     });
   }
@@ -240,8 +240,8 @@ function initFiltros() {
     ]);
     crearDropdownFiltro(dropdowns[1], 'duracion', [
       { valor: 'todos', label: 'Cualquier duración'   },
-      { valor: 'corta', label: 'Corta (< 100 min)'    },
-      { valor: 'media', label: 'Media (100–150 min)'  },
+      { valor: 'corta', label: 'Corta (< 50 min)'    },
+      { valor: 'media', label: 'Media (50–150 min)'  },
       { valor: 'larga', label: 'Larga (> 150 min)'    },
     ]);
   }

@@ -49,9 +49,9 @@ Otros disponibles
 
 RF7. Filtrar por duración
  	El sistema debe permitir filtrar películas por duración:
-Cortas (< 90 min)
-Medias (90 – 120 min)
-Largas (> 120 min)
+Cortas (< 50 min)
+Medias (50 – 150 min)
+Largas (> 150 min)
 
 RF8. Ordenar rankings
 	 El sistema debe permitir ordenar los resultados por:
@@ -93,22 +93,8 @@ RF14. Búsqueda de películas o series
 RF15. Visualización de resultados de búsqueda
 	 El sistema debe mostrar la información de la película o serie encontrada.
 
-RF16. Crear lista de “Ver después” (Watchlist)
- 	El sistema debe permitir guardar películas o series para ver más adelante.
-
 RF17. Marcar contenido como visto
 	 El sistema debe permitir marcar películas o series como vistas.
-
-RF18. Calificación personal
-	 El usuario debe poder calificar el contenido visto mediante un sistema de estrellas.
-
-RF19. Ordenar contenido por calificación personal
-	 El sistema debe permitir ordenar el contenido visto según la calificación del usuario.
-
-RF20. Seguimiento de series
-	 El sistema debe permitir al usuario registrar:
-temporada actual
-episodio actual
 
 RF21. Crear Top 10 personal
 	 El sistema debe permitir al usuario crear listas personalizadas de películas o series.
@@ -264,10 +250,10 @@ https://www.figma.com/design/d9VySyDjuK3QvUUTd6jkqJ/app_tecnologias?node-id=59-4
 
 
 🗄️ 6. Diseño de Base de Datos
-
-Agregar imagen del modelo.
-Tablas principales
-
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
 🧩 7. Documentación del Sistema
 Estructura de Carpetas
 /css

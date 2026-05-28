@@ -11,6 +11,8 @@ function getBackendUrl() { return (window.BACKEND_BASE_URL || "http://192.168.10
 // Todos los JSONs que existen en el backend
 // ── JSONs activos (solo los que tienen scraper ejecutado) ──────
 // Si agregas un nuevo scraper y corres el .py, añade su entrada aquí.
+// ── Solo JSONs que ya están generados en el servidor ──────────
+// Comenta o descomenta según los scrapers que hayas ejecutado
 const JSON_SOURCES = [
   { file: 'global_top50.json',     categoria: 'Global'        },
   { file: 'netflix_top50.json',    categoria: 'Netflix'       },
@@ -26,16 +28,6 @@ const JSON_SOURCES = [
   { file: 'dreamworks_top50.json', categoria: 'DreamWorks'    },
   { file: 'ghibli_top50.json',     categoria: 'Studio Ghibli' },
   { file: 'dc_studios_top50.json', categoria: 'DC Studios'    },
-  { file: 'apple_tv_top50.json',   categoria: 'Apple TV+'     },
-  { file: 'james_bond_top50.json', categoria: 'James Bond'    },
-  { file: 'godzilla_top50.json',   categoria: 'Godzilla'      },
-  { file: 'star_trek_top50.json',  categoria: 'Star Trek'     },
-  // ── Agrega aquí cuando ejecutes más scrapers ──────────────
-  // { file: 'fast_furious_top50.json', categoria: 'Fast & Furious' },
-  // { file: 'harry_potter_top50.json', categoria: 'Harry Potter'   },
-  // { file: 'jurassic_top50.json',     categoria: 'Jurassic Park'  },
-  // { file: 'dc_universe_top50.json',  categoria: 'DC Universe'    },
-  // { file: 'hunger_games_top50.json', categoria: 'Hunger Games'   },
 ];
 
 // ── Estado global del índice ─────────────────────────────────
@@ -391,218 +383,11 @@ function setupSearchForm(form) {
 //  CSS ADICIONAL para el panel enriquecido
 //  (inyectado una sola vez para no depender de styles.css)
 // ============================================================
-function injectSearchStyles() {
-  if (document.getElementById('search-js-styles')) return;
-  const style = document.createElement('style');
-  style.id = 'search-js-styles';
-  style.textContent = `
-    /* ── Panel desplegable ── */
-    .search-results-panel {
-      position: absolute;
-      top: calc(100% + 6px);
-      left: 0;
-      right: 0;
-      background: #1a1a2e;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      max-height: 420px;
-      overflow-y: auto;
-      z-index: 9000;
-      box-shadow: 0 16px 40px rgba(0,0,0,0.6);
-    }
-    .search-form { position: relative; }
-
-    .search-results-count {
-      padding: 8px 14px 4px;
-      font-size: 11px;
-      color: #888;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .search-result-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      padding: 10px 14px;
-      background: none;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      text-align: left;
-      transition: background 0.15s;
-    }
-    .search-result-link:hover { background: rgba(255,255,255,0.07); }
-
-    .search-result-img {
-      width: 38px;
-      height: 54px;
-      object-fit: cover;
-      border-radius: 4px;
-      flex-shrink: 0;
-      background: #2a2a3e;
-    }
-
-    .search-result-info { flex: 1; min-width: 0; }
-
-    .search-result-title {
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .search-result-title strong { color: #e7000b; font-weight: 700; }
-
-    .search-result-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .search-result-pill {
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.1);
-      color: #ccc;
-    }
-
-    .search-result-source {
-      font-size: 10px;
-      color: #e7000b;
-      margin-left: auto;
-    }
-
-    .search-results-empty {
-      padding: 20px 14px;
-      color: #888;
-      font-size: 13px;
-      text-align: center;
-    }
-
-    /* ── Modal de detalle ── */
-    .search-detail-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-    }
-    .search-detail-overlay.active { display: flex; }
-
-    .search-detail-shell {
-      background: #1a1a2e;
-      border-radius: 16px;
-      width: min(680px, 94vw);
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 28px;
-      position: relative;
-    }
-
-    .search-detail-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
-    }
-
-    .search-detail-eyebrow {
-      font-size: 11px;
-      color: #e7000b;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin: 0 0 4px;
-    }
-
-    .search-detail-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-    }
-
-    .search-detail-close {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: #fff;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-    .search-detail-close:hover { background: rgba(255,255,255,0.2); }
-
-    .search-detail-body {
-      display: flex;
-      gap: 20px;
-    }
-
-    .search-detail-img {
-      width: 120px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      flex-shrink: 0;
-    }
-
-    .search-detail-content { flex: 1; min-width: 0; }
-
-    .search-detail-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .search-detail-pill {
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.1);
-      color: #ddd;
-    }
-
-    .search-detail-description {
-      font-size: 13px;
-      color: #bbb;
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-
-    .search-detail-trailer-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .search-detail-trailer-wrapper iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    @media (max-width: 520px) {
-      .search-detail-body { flex-direction: column; }
-      .search-detail-img  { width: 100%; height: 200px; }
-    }
-  `;
-  document.head.appendChild(style);
-}
 
 // ============================================================
 //  INIT
 // ============================================================
 function initSearchEngine() {
-  injectSearchStyles();
   ensureDetailModal();
   document.querySelectorAll('.search-form').forEach(setupSearchForm);
   // Pre-cargar el índice en segundo plano para que la primera búsqueda sea rápida
