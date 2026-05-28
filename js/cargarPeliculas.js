@@ -6,7 +6,7 @@
 
 // ── NO redeclarar BACKEND_BASE — lo lee de window ───────────
 function getBackend() {
-  return (window.BACKEND_BASE_URL || 'http://192.168.101.9/back-streamRank').replace(/\/$/, '');
+  return (window.BACKEND_BASE_URL || 'http://172.20.10.7/back-streamRank').replace(/\/$/, '');
 }
 
 // Estado global de la página

@@ -55,7 +55,7 @@ function parseCategoryFromUrl() {
 function getCategoryLabel(k)    { return TOP_CATEGORY_LABELS[k]   || k; }
 function getCategoryPlatform(k) { return TOP_CATEGORY_PLATFORM[k] || k.toUpperCase(); }
 function getBackend() {
-  return (window.BACKEND_BASE_URL || 'http://192.168.101.9/back-streamRank').replace(/\/$/, '');
+  return (window.BACKEND_BASE_URL || 'http://172.20.10.7/back-streamRank').replace(/\/$/, '');
 }
 
 // ============================================================
@@ -87,7 +87,7 @@ async function fetchCategoryData(categoryKey) {
 
   const data     = await response.json();
   const rawItems = Array.isArray(data.peliculas) ? data.peliculas : [];
-
+//aca elige solo los primeros 10, y mapea cada item al formato esperado por el resto del código
   const items = rawItems.slice(0, 10).map(item => ({
     titulo:        item.titulo        || item.title       || 'Sin título',
     tipo:          item.tipo          || 'película',
@@ -202,9 +202,9 @@ function aplicarFiltros() {
     lista = lista.filter(i => {
       const mins = i.duracion_min || parseInt(i.duracion) || 0;
       if (!mins) return true;
-      if (durActiva === 'corta') return mins < 90;
-      if (durActiva === 'media') return mins >= 90 && mins <= 130;
-      if (durActiva === 'larga') return mins > 130;
+      if (durActiva === 'corta') return mins < 50;
+      if (durActiva === 'media') return mins >= 50 && mins <= 150;
+      if (durActiva === 'larga') return mins > 150;
       return true;
     });
   }
@@ -289,9 +289,9 @@ function initFiltros() {
     ]);
     crearDropdownFiltro(dropdowns[1], 'duracion', [
       { valor: 'todos', label: 'Cualquier duración'  },
-      { valor: 'corta', label: 'Corta (< 90 min)'    },
-      { valor: 'media', label: 'Media (90–130 min)'  },
-      { valor: 'larga', label: 'Larga (> 130 min)'   },
+      { valor: 'corta', label: 'Corta (< 50 min)'    },
+      { valor: 'media', label: 'Media (50–150 min)'  },
+      { valor: 'larga', label: 'Larga (> 150 min)'   },
     ]);
   }
 
